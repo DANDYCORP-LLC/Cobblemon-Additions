@@ -1,0 +1,24 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "dccobblemon:item/badge"
+  },
+  "overrides": [
+	  { "predicate": {"custom_model_data": 100}, "model": "dccobblemon:item/dandy_badge"},
+	  { "predicate": {"custom_model_data": 101}, "model": "dccobblemon:item/jeff_badge"},
+	  { "predicate": {"custom_model_data": 102}, "model": "dccobblemon:item/lina_badge"},
+	  { "predicate": {"custom_model_data": 103}, "model": "dccobblemon:item/nate_badge"},
+	  { "predicate": {"custom_model_data": 104}, "model": "dccobblemon:item/pumpkin_badge"},
+	  { "predicate": {"custom_model_data": 105}, "model": "dccobblemon:item/shelly_badge"},
+      { "predicate": {"custom_model_data": 106}, "model": "dccobblemon:item/bug_badge"},
+      { "predicate": {"custom_model_data": 107}, "model": "dccobblemon:item/dark_badge"},
+      { "predicate": {"custom_model_data": 108}, "model": "dccobblemon:item/dragon_badge"},
+      { "predicate": {"custom_model_data": 109}, "model": "dccobblemon:item/fire_badge"},
+      { "predicate": {"custom_model_data": 110}, "model": "dccobblemon:item/flying_badge"},
+      { "predicate": {"custom_model_data": 111}, "model": "dccobblemon:item/ground_badge"},
+      { "predicate": {"custom_model_data": 112}, "model": "dccobblemon:item/ice_badge"},
+      { "predicate": {"custom_model_data": 113}, "model": "dccobblemon:item/poison_badge"},
+      { "predicate": {"custom_model_data": 114}, "model": "dccobblemon:item/rock_badge"},
+      { "predicate": {"custom_model_data": 115}, "model": "dccobblemon:item/water_badge"}
+  ]
+}

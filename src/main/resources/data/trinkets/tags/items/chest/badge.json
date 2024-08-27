@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "dccobblemon:badge",
+    "dccobblemon:bug_badge",
+    "dccobblemon:dandy_badge",
+    "dccobblemon:dark_badge",
+    "dccobblemon:dragon_badge",
+    "dccobblemon:fire_badge",
+    "dccobblemon:flying_badge",
+    "dccobblemon:ground_badge",
+    "dccobblemon:ice_badge",
+    "dccobblemon:jeff_badge",
+    "dccobblemon:lina_badge",
+    "dccobblemon:nate_badge",
+    "dccobblemon:poison_badge",
+    "dccobblemon:pumpkin_badge",
+    "dccobblemon:rock_badge",
+    "dccobblemon:shelly_badge",
+    "dccobblemon:water_badge"
+  ]
+}

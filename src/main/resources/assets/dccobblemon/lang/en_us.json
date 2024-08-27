@@ -1,0 +1,25 @@
+{
+  "item.dccobblemon.badge": "Badge",
+  "item.dccobblemon.dandy_badge":"DANDYCORP Badge",
+  "item.dccobblemon.jeff_badge":"Multiplicity Badge",
+  "item.dccobblemon.lina_badge":"Mystical Badge",
+  "item.dccobblemon.nate_badge":"Colossal Badge",
+  "item.dccobblemon.pumpkin_badge":"Theft Badge",
+  "item.dccobblemon.shelly_badge":"Judgement Badge",
+
+  "item.dccobblemon.bug_badge": "Insect Badge",
+  "item.dccobblemon.dark_badge": "Shadow Badge",
+  "item.dccobblemon.dragon_badge": "Draconic Badge",
+  "item.dccobblemon.fire_badge": "Inferno Badge",
+  "item.dccobblemon.flying_badge": "Sky Badge",
+  "item.dccobblemon.ground_badge": "Earth Badge",
+  "item.dccobblemon.ice_badge": "Frost Badge",
+  "item.dccobblemon.poison_badge": "Venom Badge",
+  "item.dccobblemon.rock_badge": "Stone Badge",
+  "item.dccobblemon.water_badge": "Ocean Badge",
+
+  "trinkets.slot.chest.badge": "Badge",
+
+
+  "itemGroup.dccobblemon": "DANDYCORP Cobblemon Additions"
+}
