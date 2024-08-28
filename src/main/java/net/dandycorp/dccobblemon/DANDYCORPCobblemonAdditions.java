@@ -1,10 +1,12 @@
 package net.dandycorp.dccobblemon;
 
 import net.dandycorp.dccobblemon.event.AttackEntityHandler;
+import net.dandycorp.dccobblemon.event.BreakBlockHandler;
 import net.dandycorp.dccobblemon.item.Items;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +33,7 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 		Items.registerAllItems();
 
 		AttackEntityCallback.EVENT.register(new AttackEntityHandler());
+		PlayerBlockBreakEvents.BEFORE.register(new BreakBlockHandler());
 
 	}
 }
