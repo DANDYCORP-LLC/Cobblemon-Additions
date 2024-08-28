@@ -33,7 +33,7 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 		Items.registerAllItems();
 
 		AttackEntityCallback.EVENT.register(new AttackEntityHandler());
-		PlayerBlockBreakEvents.BEFORE.register(new BreakBlockHandler());
+		PlayerBlockBreakEvents.AFTER.register(new BreakBlockHandler());
 
 	}
 }

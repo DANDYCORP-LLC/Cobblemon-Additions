@@ -35,7 +35,7 @@ public class Items {
     public static final Item BUG_BADGE = registerItem("bug_badge",
             new BugBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item DANDY_BADGE = registerItem("dandy_badge",
-            new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new DandyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item DARK_BADGE = registerItem("dark_badge",
             new DarkBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item DRAGON_BADGE = registerItem("dragon_badge",
@@ -45,7 +45,7 @@ public class Items {
     public static final Item FLYING_BADGE = registerItem("flying_badge",
             new FlyingBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item GROUND_BADGE = registerItem("ground_badge",
-            new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new GroundBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item ICE_BADGE = registerItem("ice_badge",
             new IceBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item JEFF_BADGE = registerItem("jeff_badge",
