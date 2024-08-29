@@ -1,0 +1,11 @@
+{
+  "greed": {
+    "subtitle": "subtitles.dccobblemon.greed",
+    "sounds": [
+      "dccobblemon:greed0",
+      "dccobblemon:greed1",
+      "dccobblemon:greed2",
+      "dccobblemon:greed3"
+    ]
+  }
+}

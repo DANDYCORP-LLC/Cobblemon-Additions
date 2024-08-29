@@ -5,12 +5,14 @@ import dev.emi.trinkets.api.TrinketsApi;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.text.Text;
 import net.minecraft.util.Pair;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -20,10 +22,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BreakBlockHandler implements PlayerBlockBreakEvents.After {
+public class BreakBlockHandler implements PlayerBlockBreakEvents.Before {
 
     @Override
-    public void afterBlockBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
+    public boolean beforeBlockBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
 
 
         if (!world.isClient()) {
@@ -46,7 +48,7 @@ public class BreakBlockHandler implements PlayerBlockBreakEvents.After {
                                 ItemStack heldItem = player.getMainHandStack();
 
                                 if (heldItem.isIn(ItemTags.SHOVELS) || heldItem.isIn(ItemTags.PICKAXES)) {
-                                    BlockHitResult hitResult = (BlockHitResult) player.raycast(5.0, 1.0f, false);
+                                    BlockHitResult hitResult = (BlockHitResult) player.raycast(5.0, 0.2f, false);
                                     Direction direction = hitResult.getSide();
 
                                     //player.sendMessage(Text.literal(direction.getName()));
@@ -56,7 +58,10 @@ public class BreakBlockHandler implements PlayerBlockBreakEvents.After {
                                             BlockState breakState = world.getBlockState(breakPos);
 
                                             if (canBreakBlock(world, breakPos, breakState, heldItem) && !(x == 0 && y == 0)) {
-                                                world.breakBlock(breakPos, !player.isCreative(), player);
+                                                world.breakBlock(breakPos, false, player);
+                                                if(!player.isCreative()){
+                                                    Block.dropStacks(breakState,world,breakPos,blockEntity,player,heldItem);
+                                                }
                                                 heldItem.damage(1, player, playerEntity -> playerEntity.sendToolBreakStatus(playerEntity.getActiveHand()));
                                             }
                                         }
@@ -67,6 +72,7 @@ public class BreakBlockHandler implements PlayerBlockBreakEvents.After {
                         });
             });
         }
+        return true;
     }
 
 
@@ -74,13 +80,13 @@ public class BreakBlockHandler implements PlayerBlockBreakEvents.After {
         switch (direction) {
             case UP:
             case DOWN:
-                return pos.add(x, 0, y);
+                return pos.add(x, 0, y); // Add to x and z when breaking in the vertical plane (up/down)
             case NORTH:
             case SOUTH:
-                return pos.add(x, y, 0);
+                return pos.add(x, y, 0); // Add to x and y when breaking in the north/south horizontal plane
             case EAST:
             case WEST:
-                return pos.add(0, y, x);
+                return pos.add(0, y, x); // Add to y and z when breaking in the east/west horizontal plane
             default:
                 return pos;
         }

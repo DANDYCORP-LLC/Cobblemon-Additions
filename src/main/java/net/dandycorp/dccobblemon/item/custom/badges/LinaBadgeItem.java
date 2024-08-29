@@ -1,0 +1,52 @@
+package net.dandycorp.dccobblemon.item.custom.badges;
+
+import dev.emi.trinkets.api.SlotReference;
+import net.dandycorp.dccobblemon.item.custom.BadgeItem;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Fertilizable;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.particle.ParticleFactory;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+
+import java.util.List;
+
+public class LinaBadgeItem extends BadgeItem {
+    public LinaBadgeItem(Settings settings) {
+        super(settings);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        tooltip.add(Text.literal("Nature's blessing").formatted(Formatting.AQUA));
+    }
+
+    @Override
+    public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        if (!entity.getEntityWorld().isClient) {
+            tickCounter++;
+            if (tickCounter >= 300) {
+                tickCounter = 0;
+                for(BlockPos pos : BlockPos.iterateOutwards(entity.getBlockPos(), 7,2,7)){
+                    if (entity.getEntityWorld() instanceof ServerWorld world) {
+                        if (world.getBlockState(pos).getBlock() instanceof Fertilizable fertilizable) {
+                            if (Math.random() > 0.33 && !world.getBlockState(pos).isOf(Blocks.GRASS_BLOCK)) {
+                                fertilizable.grow(world, world.random, pos, world.getBlockState(pos));
+                                world.spawnParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 6, 0.2, 0.6, 0.2,5);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

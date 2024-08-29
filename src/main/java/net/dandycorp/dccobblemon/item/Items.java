@@ -49,9 +49,9 @@ public class Items {
     public static final Item ICE_BADGE = registerItem("ice_badge",
             new IceBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item JEFF_BADGE = registerItem("jeff_badge",
-            new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new JeffBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item LINA_BADGE = registerItem("lina_badge",
-            new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new LinaBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item NATE_BADGE = registerItem("nate_badge",
             new NateBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item POISON_BADGE = registerItem("poison_badge",
@@ -61,7 +61,7 @@ public class Items {
     public static final Item ROCK_BADGE = registerItem("rock_badge",
             new RockBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item SHELLY_BADGE = registerItem("shelly_badge",
-            new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new ShellyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item WATER_BADGE = registerItem("water_badge",
             new WaterBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item BADGE = registerItem("badge",
