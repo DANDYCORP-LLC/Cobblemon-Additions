@@ -65,19 +65,17 @@ public class DamageMixin {
                             .forEach(item -> {
                                 if (item == Items.SHELLY_BADGE) {
                                     if (player.getHealth()/player.getMaxHealth() <= 0.6){
-                                        if(entity.damage(player.getDamageSources().generic(), amount*(1/(player.getHealth()/player.getMaxHealth())))){
+                                        if(entity.damage(player.getDamageSources().generic(), (amount/2)+(1/(player.getHealth()/player.getMaxHealth())))){
                                             player.getWorld().playSound(null,entity.getBlockPos(), SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.PLAYERS,1f, (float) (1.2 + Math.random()));
                                             player.heal(amount);
-                                            player.sendMessage(Text.literal("healed "+amount));
-                                            player.sendMessage(Text.literal("damage "+amount*(1/(player.getHealth()/player.getMaxHealth()))));
                                             ((ServerWorld) player.getWorld()).spawnParticles(new DustColorTransitionParticleEffect(
-                                                        new Vector3f(0.62f, 0.0f, 0.0f),
-                                                        new Vector3f(0.0f, 0.0f, 0.0f),
+                                                            new Vector3f(0.62f, 0.0f, 0.0f),
+                                                            new Vector3f(0.0f, 0.0f, 0.0f),
                                                             3),
                                                     entity.getX(),
                                                     entity.getY(),
                                                     entity.getZ(),
-                                                    (int) Math.round(2*amount), 0.5, 1, 0.5,20);
+                                                    (int) Math.round(2 * amount), 0.5, 1, 0.5, 20);
                                         }
                                     }
                                 }
