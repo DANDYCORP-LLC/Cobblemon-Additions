@@ -9,6 +9,7 @@ import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -68,8 +69,9 @@ public class BlockLootMixin {
                                         }
                                     }
                                 }
-                                else if(state.isIn(BlockTags.LEAVES)){
+                                else if(state.isIn(BlockTags.LEAVES) || state.isOf(Blocks.MELON)){
                                     getDroppedStacks(state, serverWorld, pos, blockEntity, entity, tool).forEach(stack -> dropStack(serverWorld, pos, stack));
+                                    serverWorld.spawnParticles(ParticleTypes.WAX_OFF, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 3, 0.2, 0.6, 0.2,8);
                                     //entity.sendMessage(Text.literal("doubled"));
                                 }
                             }

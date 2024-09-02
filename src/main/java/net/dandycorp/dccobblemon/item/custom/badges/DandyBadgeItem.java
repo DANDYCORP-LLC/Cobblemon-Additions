@@ -1,7 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
 import com.google.common.collect.Multimap;
-import de.dafuqs.additionalentityattributes.AdditionalEntityAttributes;
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.client.item.TooltipContext;

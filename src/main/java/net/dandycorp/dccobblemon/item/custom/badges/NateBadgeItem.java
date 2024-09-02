@@ -20,6 +20,8 @@ import java.util.UUID;
 
 public class NateBadgeItem extends BadgeItem {
 
+    private long tickCounter = 0;
+
     public NateBadgeItem(Settings settings) {
         super(settings);
     }
@@ -31,7 +33,8 @@ public class NateBadgeItem extends BadgeItem {
 
     public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
         var modifiers = super.getModifiers(stack, slot, entity, uuid);
-        modifiers.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(uuid, "dandycorp:colossal_damage", 0.15, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+        modifiers.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(uuid, "dandycorp:colossal_percent_damage", 0.25, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+        modifiers.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(uuid, "dandycorp:colossal_damage", 4, EntityAttributeModifier.Operation.ADDITION));
         modifiers.put(EntityAttributes.GENERIC_MAX_HEALTH, new EntityAttributeModifier(uuid, "dandycorp:colossal_health", 0.2, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
         return modifiers;
     }
@@ -42,10 +45,19 @@ public class NateBadgeItem extends BadgeItem {
         if(!entity.getEntityWorld().isClient) {
             tickCounter++;
 
-            if (!stack.isOf(Items.NATE_BADGE) && tickCounter >= 20) {
-                ScaleTypes.HEIGHT.getScaleData(entity).setScale(1);
-                ScaleTypes.WIDTH.getScaleData(entity).setScale(1);
-                ScaleTypes.STEP_HEIGHT.getScaleData(entity).setScale(1);
+            if (tickCounter >= 20) {
+                if (this.isEquipped(entity,Items.NATE_BADGE)) {
+                    ScaleTypes.HEIGHT.getScaleData(entity).setScale(1.33f);
+                    ScaleTypes.WIDTH.getScaleData(entity).setScale(1.33f);
+                    ScaleTypes.STEP_HEIGHT.getScaleData(entity).setScale(2);
+                } else {
+                    ScaleTypes.HEIGHT.getScaleData(entity).setScale(1f);
+                    ScaleTypes.WIDTH.getScaleData(entity).setScale(1f);
+                    ScaleTypes.STEP_HEIGHT.getScaleData(entity).setScale(1);
+                    if(entity.getHealth()/entity.getMaxHealth()>=0.8f){
+                        entity.setHealth(entity.getHealth()*0.8f);
+                    }
+                }
             }
         }
     }
@@ -65,12 +77,9 @@ public class NateBadgeItem extends BadgeItem {
     @Override
     public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if(!entity.getEntityWorld().isClient) {
-            if (stack.isOf(Items.NATE_BADGE)) {
-                ScaleTypes.HEIGHT.getScaleData(entity).setScale(1.33f);
-                ScaleTypes.WIDTH.getScaleData(entity).setScale(1.33f);
-                ScaleTypes.STEP_HEIGHT.getScaleData(entity).setScale(2);
-                //ScaleTypes.STEP_HEIGHT.getScaleData(entity).setScale(1.5f);
-            }
+            ScaleTypes.HEIGHT.getScaleData(entity).setScale(1.33f);
+            ScaleTypes.WIDTH.getScaleData(entity).setScale(1.33f);
+            ScaleTypes.STEP_HEIGHT.getScaleData(entity).setScale(2);
         }
     }
 }

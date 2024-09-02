@@ -42,22 +42,21 @@ public class IceBadgeItem extends BadgeItem {
 
     @Override
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        if (!entity.getEntityWorld().isClient) {
 
-        if(!entity.getEntityWorld().isClient) {
-            tickCounter++;
-
-            if (stack.isOf(Items.ICE_BADGE) && tickCounter >= 20) {
-                entity.setFrozenTicks(0);
-                entity.removeStatusEffect(StatusEffects.SLOWNESS);
-                tickCounter = 0;
+            if (entity.age % 20 == 0) {
+                if(this.isEquipped(entity,Items.ICE_BADGE)) {
+                    entity.setFrozenTicks(0);
+                    entity.removeStatusEffect(StatusEffects.SLOWNESS);
+                }
             }
         }
     }
 
     @Override
     public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        if(!entity.getEntityWorld().isClient) {
-            if (stack.isOf(Items.ICE_BADGE)) {
+        if (!entity.getEntityWorld().isClient) {
+            if (this.isEquipped(entity,Items.ICE_BADGE)) {
                 entity.setFrozenTicks(0);
             }
         }
@@ -65,12 +64,9 @@ public class IceBadgeItem extends BadgeItem {
 
     @Override
     public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        if(!entity.getEntityWorld().isClient) {
-            if (stack.isOf(Items.ICE_BADGE)) {
-                entity.setFrozenTicks(0);
-                entity.removeStatusEffect(StatusEffects.SLOWNESS);
-            }
+        if (!entity.getEntityWorld().isClient) {
+            entity.setFrozenTicks(0);
+            entity.removeStatusEffect(StatusEffects.SLOWNESS);
         }
     }
-
 }

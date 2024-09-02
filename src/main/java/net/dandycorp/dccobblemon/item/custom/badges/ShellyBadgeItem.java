@@ -23,12 +23,12 @@ public class ShellyBadgeItem extends BadgeItem {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(Text.literal("Balance in all things").formatted(Formatting.RED));
+        tooltip.add(Text.literal("The great equalizer").formatted(Formatting.RED));
     }
 
     public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
         var modifiers = super.getModifiers(stack, slot, entity, uuid);
-        modifiers.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(uuid, "generic.armor", 3, EntityAttributeModifier.Operation.ADDITION));
+        modifiers.put(EntityAttributes.GENERIC_MAX_HEALTH, new EntityAttributeModifier(uuid, "generic.armor", 0.1, EntityAttributeModifier.Operation.MULTIPLY_BASE));
         return modifiers;
     }
 

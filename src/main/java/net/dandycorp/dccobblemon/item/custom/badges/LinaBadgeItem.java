@@ -21,6 +21,9 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class LinaBadgeItem extends BadgeItem {
+
+    private long tickCounter = 0;
+
     public LinaBadgeItem(Settings settings) {
         super(settings);
     }

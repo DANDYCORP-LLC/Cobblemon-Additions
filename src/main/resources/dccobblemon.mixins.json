@@ -5,6 +5,7 @@
   "mixins": [
     "BlockLootMixin",
     "DamageMixin",
+    "EnchantmentMixin",
     "EntityLootMixin",
     "PowderedSnowMixin"
   ],

@@ -41,14 +41,12 @@ public class DarkBadgeItem extends BadgeItem {
 
     @Override
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
-
         if (!entity.getEntityWorld().isClient) {
-            tickCounter++;
-
-            if (stack.isOf(Items.DARK_BADGE) && tickCounter >= 20) {
-                entity.removeStatusEffect(StatusEffects.DARKNESS);
-                entity.removeStatusEffect(StatusEffects.BLINDNESS);
-                tickCounter = 0;
+            if (entity.age % 20 == 0) {
+                if (this.isEquipped(entity,Items.DARK_BADGE)) {
+                    entity.removeStatusEffect(StatusEffects.DARKNESS);
+                    entity.removeStatusEffect(StatusEffects.BLINDNESS);
+                }
             }
         }
     }
@@ -56,10 +54,8 @@ public class DarkBadgeItem extends BadgeItem {
     @Override
     public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (!entity.getEntityWorld().isClient) {
-            if (stack.isOf(Items.DARK_BADGE)) {
-                entity.removeStatusEffect(StatusEffects.DARKNESS);
-                entity.removeStatusEffect(StatusEffects.BLINDNESS);
-            }
+            entity.removeStatusEffect(StatusEffects.DARKNESS);
+            entity.removeStatusEffect(StatusEffects.BLINDNESS);
         }
     }
 }

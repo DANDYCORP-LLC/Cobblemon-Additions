@@ -32,7 +32,8 @@
 		"fabricloader": ">=0.16.2",
 		"minecraft": "~1.20.1",
 		"java": ">=17",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"soul_fire_d": "4.0.3"
 	},
 	"suggests": {
 		"another-mod": "*"

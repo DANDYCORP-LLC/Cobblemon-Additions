@@ -40,14 +40,12 @@ public class PoisonBadgeItem extends BadgeItem {
 
     @Override
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
-
         if (!entity.getEntityWorld().isClient) {
-            tickCounter++;
-
-            if (stack.isOf(Items.POISON_BADGE) && tickCounter >= 20) {
-                entity.removeStatusEffect(StatusEffects.POISON);
-                entity.removeStatusEffect(StatusEffects.WITHER);
-                tickCounter = 0;
+            if(entity.age % 20 == 0) {
+                if (this.isEquipped(entity, Items.POISON_BADGE)) {
+                    entity.removeStatusEffect(StatusEffects.POISON);
+                    entity.removeStatusEffect(StatusEffects.WITHER);
+                }
             }
         }
     }
@@ -55,10 +53,8 @@ public class PoisonBadgeItem extends BadgeItem {
     @Override
     public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (!entity.getEntityWorld().isClient) {
-            if (stack.isOf(Items.POISON_BADGE)) {
                 entity.removeStatusEffect(StatusEffects.POISON);
                 entity.removeStatusEffect(StatusEffects.WITHER);
-            }
         }
     }
 }

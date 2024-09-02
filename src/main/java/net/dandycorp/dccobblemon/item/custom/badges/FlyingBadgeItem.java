@@ -1,8 +1,8 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
 import com.google.common.collect.Multimap;
-import de.dafuqs.additionalentityattributes.AdditionalEntityAttributes;
 import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.Trinket;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.client.item.TooltipContext;
@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.UUID;
 
-public class FlyingBadgeItem extends BadgeItem {
+public class FlyingBadgeItem extends BadgeItem implements Trinket {
 
     public FlyingBadgeItem(Settings settings) {
         super(settings);
@@ -28,43 +28,33 @@ public class FlyingBadgeItem extends BadgeItem {
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         tooltip.add(Text.literal("Grants slow falling").formatted(Formatting.GRAY));
-    }
-
-    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
-        var modifiers = super.getModifiers(stack, slot, entity, uuid);
-        // +10% movement speed
-        modifiers.put(AdditionalEntityAttributes.JUMP_HEIGHT, new EntityAttributeModifier(uuid, "dandycorp:pumpkin_speed", 2, EntityAttributeModifier.Operation.ADDITION));
-        return modifiers;
+        tooltip.add(Text.literal("Grants jump boost").formatted(Formatting.GRAY));
     }
 
     @Override
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        if (!entity.getEntityWorld().isClient) {
 
-        if(entity.getEntityWorld().isClient) {
-            tickCounter++;
-
-            if (stack.isOf(Items.FLYING_BADGE) && tickCounter >= 20) {
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 60, 0, false, false));
-                tickCounter = 0;
+            if (entity.age % 20 == 0) {
+                if(this.isEquipped(entity,Items.FLYING_BADGE)) {
+                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 600, 0, false, false));
+                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 600, 4, false, false));
+                }
             }
         }
     }
 
     @Override
     public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        if(entity.getEntityWorld().isClient) {
-            if (stack.isOf(Items.FLYING_BADGE)) {
-                entity.removeStatusEffect(StatusEffects.SLOW_FALLING);
-            }
-        }
+        entity.removeStatusEffect(StatusEffects.SLOW_FALLING);
+        entity.removeStatusEffect(StatusEffects.JUMP_BOOST);
     }
 
     @Override
     public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        if(entity.getEntityWorld().isClient) {
-            if (stack.isOf(Items.FLYING_BADGE)) {
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 60, 0, false, false));
-            }
+        if (!entity.getEntityWorld().isClient) {
+            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 600, 0, false, false));
+            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 600, 2, false, false));
         }
     }
 }

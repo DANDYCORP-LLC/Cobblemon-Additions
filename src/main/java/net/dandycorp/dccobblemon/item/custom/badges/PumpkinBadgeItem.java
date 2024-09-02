@@ -1,7 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
 import com.google.common.collect.Multimap;
-import de.dafuqs.additionalentityattributes.AdditionalEntityAttributes;
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
@@ -35,38 +34,33 @@ public class PumpkinBadgeItem extends BadgeItem {
         var modifiers = super.getModifiers(stack, slot, entity, uuid);
         // +10% movement speed
         modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(uuid, "dandycorp:pumpkin_speed", 0.2, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
-        modifiers.put(AdditionalEntityAttributes.MOB_DETECTION_RANGE, new EntityAttributeModifier(uuid, "generic.mob_detection_range", -5, EntityAttributeModifier.Operation.ADDITION));
         return modifiers;
     }
 
     @Override
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
-
-        if(entity.getEntityWorld().isClient) {
-            tickCounter++;
-
-            if (stack.isOf(Items.PUMPKIN_BADGE) && tickCounter >= 20) {
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 600, 0, false, false));
-                tickCounter = 0;
+        if (!entity.getEntityWorld().isClient) {
+            if (entity.age % 20 == 0) {
+                if(this.isEquipped(entity,Items.PUMPKIN_BADGE)) {
+                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 600, 0, false, false));
+                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 600, 0, false, false));
+                }
             }
         }
     }
 
     @Override
     public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        if(entity.getEntityWorld().isClient) {
-            if (stack.isOf(Items.PUMPKIN_BADGE)) {
-                entity.removeStatusEffect(StatusEffects.NIGHT_VISION);
-            }
-        }
+        entity.removeStatusEffect(StatusEffects.NIGHT_VISION);
+        entity.removeStatusEffect(StatusEffects.INVISIBILITY);
     }
 
     @Override
     public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        if(entity.getEntityWorld().isClient) {
-            if (stack.isOf(Items.PUMPKIN_BADGE)) {
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 600, 0, false, false));
-            }
+        if (!entity.getEntityWorld().isClient) {
+            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 600, 0, false, false));
+            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 600, 0, false, false));
+
         }
     }
 

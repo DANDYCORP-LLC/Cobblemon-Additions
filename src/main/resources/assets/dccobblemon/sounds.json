@@ -7,5 +7,39 @@
       "dccobblemon:greed2",
       "dccobblemon:greed3"
     ]
+  },
+
+  "judgement": {
+    "subtitle": "subtitles.dccobblemon.judgement",
+    "sounds": [
+      "dccobblemon:judgement0",
+      "dccobblemon:judgement1"
+      ]
+  },
+
+  "compliment": {
+    "subtitle": "subtitles.dccobblemon.compliment",
+    "sounds": [
+      "dccobblemon:compliment0",
+      "dccobblemon:compliment1",
+      "dccobblemon:compliment2",
+      "dccobblemon:compliment3",
+      "dccobblemon:compliment4",
+      "dccobblemon:compliment5",
+      "dccobblemon:compliment6",
+      "dccobblemon:compliment7",
+      "dccobblemon:compliment8",
+      "dccobblemon:compliment9",
+      "dccobblemon:compliment10",
+      "dccobblemon:compliment11",
+      "dccobblemon:compliment12",
+      "dccobblemon:compliment13",
+      "dccobblemon:compliment14",
+      "dccobblemon:compliment15",
+      "dccobblemon:compliment16",
+      "dccobblemon:compliment17",
+      "dccobblemon:compliment18",
+      "dccobblemon:compliment19"
+    ]
   }
 }

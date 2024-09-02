@@ -2,6 +2,7 @@ package net.dandycorp.dccobblemon.item;
 
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
+import net.dandycorp.dccobblemon.item.custom.Ticket;
 import net.dandycorp.dccobblemon.item.custom.badges.*;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -39,7 +40,7 @@ public class Items {
     public static final Item DARK_BADGE = registerItem("dark_badge",
             new DarkBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item DRAGON_BADGE = registerItem("dragon_badge",
-            new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new DragonBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item FIRE_BADGE = registerItem("fire_badge",
             new FireBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item FLYING_BADGE = registerItem("flying_badge",
@@ -66,6 +67,9 @@ public class Items {
             new WaterBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item BADGE = registerItem("badge",
             new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+
+
+    public static final Item TICKET = registerItem("ticket", new Ticket(new Item.Settings().rarity(Rarity.RARE)));
     // ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
 
@@ -95,6 +99,8 @@ public class Items {
             entries.add(ROCK_BADGE);
             entries.add(SHELLY_BADGE);
             entries.add(WATER_BADGE);
+
+            entries.add(TICKET);
         });
     }
 }

@@ -2,6 +2,7 @@ package net.dandycorp.dccobblemon.item.custom.badges;
 
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.Trinket;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.client.item.TooltipContext;
@@ -40,33 +41,30 @@ public class BugBadgeItem extends BadgeItem {
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
 
         if(!entity.getEntityWorld().isClient) {
-            tickCounter++;
-
-            if (!stack.isOf(Items.BUG_BADGE) && tickCounter >= 20) {
-                ScaleTypes.HEIGHT.getScaleData(entity).setScale(1);
-                ScaleTypes.WIDTH.getScaleData(entity).setScale(1);
-
+            if(entity.age % 20 == 0) {
+                if (this.isEquipped(entity, Items.BUG_BADGE)) {
+                    ScaleTypes.HEIGHT.getScaleData(entity).setScale(0.66f);
+                    ScaleTypes.WIDTH.getScaleData(entity).setScale(0.66f);
+                }
+                else {
+                    ScaleTypes.HEIGHT.getScaleData(entity).setScale(1f);
+                    ScaleTypes.WIDTH.getScaleData(entity).setScale(1f);
+                }
             }
         }
     }
 
     @Override
     public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        if(!entity.getEntityWorld().isClient) {
             ScaleTypes.HEIGHT.getScaleData(entity).setScale(1f);
             ScaleTypes.WIDTH.getScaleData(entity).setScale(1f);
-
-        }
     }
 
     @Override
     public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if(!entity.getEntityWorld().isClient) {
-            if (stack.isOf(Items.BUG_BADGE)) {
-                ScaleTypes.HEIGHT.getScaleData(entity).setScale(0.66f);
-                ScaleTypes.WIDTH.getScaleData(entity).setScale(0.66f);
-                //ScaleTypes.STEP_HEIGHT.getScaleData(entity).setScale(1.5f);
-            }
+            ScaleTypes.HEIGHT.getScaleData(entity).setScale(0.66f);
+            ScaleTypes.WIDTH.getScaleData(entity).setScale(0.66f);
         }
     }
 
