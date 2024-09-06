@@ -23,6 +23,7 @@ public class WaterBadgeItem extends BadgeItem {
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         tooltip.add(Text.literal("Grants conduit power").formatted(Formatting.GRAY));
+        tooltip.add(Text.literal("+ Depth strider III").formatted(Formatting.GRAY));
     }
 
     @Override

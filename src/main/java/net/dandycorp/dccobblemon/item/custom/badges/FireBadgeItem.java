@@ -30,7 +30,7 @@ public class FireBadgeItem extends BadgeItem implements Trinket {
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         tooltip.add(Text.literal("Inflicts fire on-hit").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Grants fire resistance").formatted(Formatting.GRAY));
-        tooltip.add(Text.literal("Grants lava-walking").formatted(Formatting.GRAY));
+        tooltip.add(Text.literal("Allows lava walking").formatted(Formatting.GRAY));
     }
 
     @Override

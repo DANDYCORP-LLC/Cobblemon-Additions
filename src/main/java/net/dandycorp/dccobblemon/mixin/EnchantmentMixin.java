@@ -28,9 +28,27 @@ public class EnchantmentMixin {
         }
     }
 
-    @Inject(method = "getFireAspect", at=@At("RETURN"), cancellable = true)
-    private static void getFireAspect(LivingEntity entity, CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(cir.getReturnValueI()+1);
+    @Inject(method = "getDepthStrider", at=@At("RETURN"), cancellable = true)
+    private static void getDepthStrider(LivingEntity entity, CallbackInfoReturnable<Integer> cir) {
+        if (entity instanceof PlayerEntity player) {
+            TrinketsApi.getTrinketComponent(player).ifPresent(trinketComponent -> {
+                if (trinketComponent.isEquipped(Items.WATER_BADGE)) {
+                    cir.setReturnValue(cir.getReturnValueI()+3);
+                }
+            });
+        }
     }
+
+    @Inject(method = "getEfficiency", at=@At("RETURN"), cancellable = true)
+    private static void getEfficiency(LivingEntity entity, CallbackInfoReturnable<Integer> cir) {
+        if (entity instanceof PlayerEntity player) {
+            TrinketsApi.getTrinketComponent(player).ifPresent(trinketComponent -> {
+                if (trinketComponent.isEquipped(Items.GROUND_BADGE)) {
+                    cir.setReturnValue(cir.getReturnValueI()+3);
+                }
+            });
+        }
+    }
+
 
 }

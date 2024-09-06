@@ -1,4 +1,7 @@
 {
+  "defaults": {
+    "model": "dccobblemon:block/walker_magma_0"
+  },
   "variants": {
     "age=0": {
       "model": "dccobblemon:block/walker_magma_0"

@@ -38,6 +38,8 @@ repositories {
 		name = "Fuzs Mod Resources"
 		url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
 	}
+	maven { url 'https://maven.wispforest.io/releases/' }
+
 
 	exclusiveContent {
 		forRepository {
@@ -74,6 +76,10 @@ dependencies {
 	modApi("com.github.Virtuoel:Pehkui:3.7.8", {
 		exclude group: "net.fabricmc.fabric-api"
 	})
+
+	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
+	include "io.wispforest:owo-sentinel:${project.owo_version}"
+
 
 }
 

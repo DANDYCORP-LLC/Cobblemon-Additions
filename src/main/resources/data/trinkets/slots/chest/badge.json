@@ -1,5 +1,5 @@
 {
-  "icon": "trinkets:gui/slots/aglet",
+  "icon": "dccobblemon:gui/slots/badge",
   "order": -1024,
   "validator_predicates": ["trinkets:tag"]
 }

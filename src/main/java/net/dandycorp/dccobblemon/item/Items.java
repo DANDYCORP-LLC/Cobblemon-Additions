@@ -1,14 +1,13 @@
 package net.dandycorp.dccobblemon.item;
 
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
+import net.dandycorp.dccobblemon.block.Blocks;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.dandycorp.dccobblemon.item.custom.Ticket;
 import net.dandycorp.dccobblemon.item.custom.badges.*;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -24,7 +23,7 @@ public class Items {
     // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     public static final RegistryKey<ItemGroup> DANDYCORP_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(DANDYCORPCobblemonAdditions.MOD_ID, "item_group"));
     public static final ItemGroup DANDYCORP_GROUP = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(Items.BADGE))
+            .icon(() -> new ItemStack(Items.TICKET))
             .displayName(Text.translatable("itemGroup.dccobblemon"))
             .build();
     // ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
@@ -70,6 +69,29 @@ public class Items {
 
 
     public static final Item TICKET = registerItem("ticket", new Ticket(new Item.Settings().rarity(Rarity.RARE)));
+
+    public static final Item CHROMIUM_INGOT = registerItem("chromium_ingot", new Ticket(new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item CHROMIUM_NUGGET = registerItem("chromium_nugget", new Ticket(new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item CHROMIUM_DUST = registerItem("chromium_dust", new Ticket(new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item RAW_CHROMIUM = registerItem("raw_chromium", new Ticket(new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item CHROMIUM_HELMET = registerItem("chromium_helmet",
+            new ArmorItem(DANDYCORPArmorMaterials.CHROMIUM, ArmorItem.Type.HELMET, new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item CHROMIUM_CHESTPLATE = registerItem("chromium_chestplate",
+            new ArmorItem(DANDYCORPArmorMaterials.CHROMIUM, ArmorItem.Type.CHESTPLATE, new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item CHROMIUM_LEGGINGS = registerItem("chromium_leggings",
+            new ArmorItem(DANDYCORPArmorMaterials.CHROMIUM, ArmorItem.Type.LEGGINGS, new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item CHROMIUM_BOOTS = registerItem("chromium_boots",
+            new ArmorItem(DANDYCORPArmorMaterials.CHROMIUM, ArmorItem.Type.BOOTS, new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item CHROMIUM_SWORD = registerItem("chromium_sword",
+            new SwordItem(DANDYCORPToolMaterials.CHROMIUM,3,-2.4f,new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item CHROMIUM_PICKAXE = registerItem("chromium_pickaxe",
+            new PickaxeItem(DANDYCORPToolMaterials.CHROMIUM,1,-2.8f,new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item CHROMIUM_SHOVEL = registerItem("chromium_shovel",
+            new ShovelItem(DANDYCORPToolMaterials.CHROMIUM,1,-2.8f,new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item CHROMIUM_AXE = registerItem("chromium_axe",
+            new AxeItem(DANDYCORPToolMaterials.CHROMIUM,5,-3f,new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item CHROMIUM_HOE = registerItem("chromium_hoe",
+            new HoeItem(DANDYCORPToolMaterials.CHROMIUM,-3,0.0f,new Item.Settings().rarity(Rarity.UNCOMMON)));
     // ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
 
@@ -100,7 +122,25 @@ public class Items {
             entries.add(SHELLY_BADGE);
             entries.add(WATER_BADGE);
 
+
             entries.add(TICKET);
+            entries.add(Blocks.VENDOR_BLOCK);
+
+            entries.add(CHROMIUM_INGOT);
+            entries.add(CHROMIUM_NUGGET);
+            entries.add(CHROMIUM_DUST);
+            entries.add(RAW_CHROMIUM);
+            entries.add(Blocks.CHROMIUM_BLOCK);
+            entries.add(Blocks.RAW_CHROMIUM_BLOCK);
+            entries.add(CHROMIUM_HELMET);
+            entries.add(CHROMIUM_CHESTPLATE);
+            entries.add(CHROMIUM_LEGGINGS);
+            entries.add(CHROMIUM_BOOTS);
+            entries.add(CHROMIUM_SWORD);
+            entries.add(CHROMIUM_SHOVEL);
+            entries.add(CHROMIUM_PICKAXE);
+            entries.add(CHROMIUM_AXE);
+            entries.add(CHROMIUM_HOE);
         });
     }
 }

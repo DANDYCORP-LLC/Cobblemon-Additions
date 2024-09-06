@@ -18,6 +18,14 @@
   "item.dccobblemon.rock_badge": "Stone Badge",
   "item.dccobblemon.water_badge": "Ocean Badge",
 
+  "item.dccobblemon.ticket": "DANDYCORP Coupon",
+  "item.dccobblemon.chromium_ingot": "Chromium Ingot",
+  "item.dccobblemon.chromium_nugget": "Chromium Nugget",
+  "item.dccobblemon.chromium_dust": "Chromium Dust",
+  "item.dccobblemon.raw_chromium": "Raw Chromium",
+
+  "block.dccobblemon.walker_magma": "Lava Rock",
+
   "death.attack.dandy_badge": "%1$s was worked to death...",
   "subtitles.dccobblemon.greed": "DANDYCORP Badge activates",
   "subtitles.dccobblemon.judgement": "Judgement Badge activates",
@@ -26,5 +34,7 @@
   "trinkets.slot.chest.badge": "Badge",
 
 
-  "itemGroup.dccobblemon": "DANDYCORP Cobblemon Additions"
+  "itemGroup.dccobblemon": "DANDYCORP Cobblemon Additions",
+  "ui.dccobblemon.vendor": "Vendor",
+  "block.dccobblemon.vendor": "DANDYCORP Vendor"
 }

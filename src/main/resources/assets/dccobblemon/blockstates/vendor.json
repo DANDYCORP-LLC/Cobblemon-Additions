@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,half=lower": { "model": "dccobblemon:block/vendor", "uvlock": false },
+    "facing=north,half=upper": { "model": "dccobblemon:block/vendor_top" },
+    "facing=east,half=lower":  { "model": "dccobblemon:block/vendor", "y": 90, "uvlock": false },
+    "facing=east,half=upper":  { "model": "dccobblemon:block/vendor_top"},
+    "facing=south,half=lower": { "model": "dccobblemon:block/vendor", "y": 180, "uvlock": false },
+    "facing=south,half=upper": { "model": "dccobblemon:block/vendor_top"},
+    "facing=west,half=lower":  { "model": "dccobblemon:block/vendor", "y": 270, "uvlock": false },
+    "facing=west,half=upper":  { "model": "dccobblemon:block/vendor_top"}
+  }
+}

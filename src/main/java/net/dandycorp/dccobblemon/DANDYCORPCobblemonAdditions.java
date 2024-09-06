@@ -1,6 +1,5 @@
 package net.dandycorp.dccobblemon;
 
-import it.crystalnest.soul_fire_d.api.FireManager;
 import net.dandycorp.dccobblemon.block.Blocks;
 import net.dandycorp.dccobblemon.event.AttackEntityHandler;
 import net.dandycorp.dccobblemon.event.BreakBlockHandler;
@@ -52,9 +51,12 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 
 		Items.registerAllItems();
 		Blocks.registerAllBlocks();
+		BlockEntities.initialize();
 
 		AttackEntityCallback.EVENT.register(new AttackEntityHandler());
 		PlayerBlockBreakEvents.BEFORE.register(new BreakBlockHandler());
+
+
 
 		DragonBadgeItem.registerFlight();
 

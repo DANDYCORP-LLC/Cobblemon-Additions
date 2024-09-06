@@ -5,10 +5,18 @@ import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.renderer.BadgeRenderer;
 import net.dandycorp.dccobblemon.renderer.ElytraRegister;
 import net.dandycorp.dccobblemon.renderer.ElytraRenderer;
+import net.dandycorp.dccobblemon.ui.ScreenHandlers;
+import net.dandycorp.dccobblemon.ui.VendorScreen;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.client.option.KeyBinding;
+import org.lwjgl.glfw.GLFW;
 
 public class Client implements ClientModInitializer {
 
+    //private static final KeyBinding BEGIN = new KeyBinding("ui.dccobblemon.vendor", GLFW.GLFW_KEY_G, "key.categories.misc");
 
     @Override
     public void onInitializeClient() {
@@ -32,6 +40,8 @@ public class Client implements ClientModInitializer {
         TrinketRendererRegistry.registerRenderer(Items.WATER_BADGE, new BadgeRenderer());
         ElytraRegister.registerCapeRenderer();
         ElytraRegister.registerRenderer();
+
+
 
     }
 }
