@@ -64,6 +64,12 @@ public class VendorScreenHandler extends ScreenHandler implements OwoScreenHandl
         }
     }
 
+    private void spendTickets(PlayerEntity player, int cost) {
+    }
+
+    private boolean canAfford(PlayerEntity player, int cost) {
+        return false;
+    }
 
 
 }
