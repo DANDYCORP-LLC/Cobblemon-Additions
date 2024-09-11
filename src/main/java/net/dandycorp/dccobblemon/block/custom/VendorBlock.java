@@ -1,9 +1,12 @@
 package net.dandycorp.dccobblemon.block.custom;
 
 import com.google.common.collect.ImmutableMap;
+import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.ui.VendorScreenHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -120,7 +123,12 @@ public class VendorBlock extends BlockWithEntity implements BlockEntityProvider 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
-            player.openHandledScreen(new );
+            //world.playSound(null,pos, DANDYCORPCobblemonAdditions.COMPLIMENT_EVENT, SoundCategory.MASTER);
+            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+
+            if (screenHandlerFactory != null) {
+                player.openHandledScreen(screenHandlerFactory);
+            }
         }
         return ActionResult.SUCCESS;
     }
@@ -196,14 +204,28 @@ public class VendorBlock extends BlockWithEntity implements BlockEntityProvider 
         world.createExplosion(null,pos.getX(),pos.getY(),pos.getZ(),8, World.ExplosionSourceType.BLOCK);
     }
 
-
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
     }
 
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new VendorBlockEntity(pos,state);
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new VendorBlockEntity(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof NamedScreenHandlerFactory) {
+            return (NamedScreenHandlerFactory) blockEntity;
+        }
+        return null;
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, DANDYCORPCobblemonAdditions.VENDOR_BLOCK_ENTITY, VendorBlockEntity::tick);
     }
 }

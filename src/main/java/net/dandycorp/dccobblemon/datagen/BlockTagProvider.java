@@ -20,23 +20,16 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(
                 Blocks.CHROMIUM_BLOCK,
                 Blocks.RAW_CHROMIUM_BLOCK,
-                Blocks.WALKER_MAGMA
+                Blocks.WALKER_MAGMA,
+                Blocks.VENDOR_BLOCK
         );
 
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL).add(
                 Blocks.CHROMIUM_BLOCK,
-                Blocks.RAW_CHROMIUM_BLOCK,
-                Blocks.WALKER_MAGMA
+                Blocks.RAW_CHROMIUM_BLOCK
         );
         getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL).add(
-                Blocks.CHROMIUM_BLOCK,
-                Blocks.RAW_CHROMIUM_BLOCK,
-                Blocks.WALKER_MAGMA
-        );
-        getOrCreateTagBuilder(BlockTags.NEEDS_DIAMOND_TOOL).add(
-                Blocks.CHROMIUM_BLOCK,
-                Blocks.RAW_CHROMIUM_BLOCK,
-                Blocks.WALKER_MAGMA
+                Blocks.VENDOR_BLOCK
         );
     }
 }

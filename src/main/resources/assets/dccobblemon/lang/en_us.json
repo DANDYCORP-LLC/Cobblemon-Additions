@@ -36,5 +36,6 @@
 
   "itemGroup.dccobblemon": "DANDYCORP Cobblemon Additions",
   "ui.dccobblemon.vendor": "Vendor",
-  "block.dccobblemon.vendor": "DANDYCORP Vendor"
+  "block.dccobblemon.vendor": "DANDYCORP Vendor",
+  "ui.dccobblemon.vendor.poor": "You don't have enough tickets!"
 }

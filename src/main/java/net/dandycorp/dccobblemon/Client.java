@@ -1,18 +1,21 @@
 package net.dandycorp.dccobblemon;
 
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
+import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
+import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
+import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.renderer.BadgeRenderer;
 import net.dandycorp.dccobblemon.renderer.ElytraRegister;
-import net.dandycorp.dccobblemon.renderer.ElytraRenderer;
-import net.dandycorp.dccobblemon.ui.ScreenHandlers;
+import net.dandycorp.dccobblemon.ui.VendorBalanceManager;
 import net.dandycorp.dccobblemon.ui.VendorScreen;
+import net.dandycorp.dccobblemon.ui.VendorScreenDecider;
+import net.dandycorp.dccobblemon.ui.VendorScreenHandler;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.client.option.KeyBinding;
-import org.lwjgl.glfw.GLFW;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.text.Text;
 
 public class Client implements ClientModInitializer {
 
@@ -41,6 +44,10 @@ public class Client implements ClientModInitializer {
         ElytraRegister.registerCapeRenderer();
         ElytraRegister.registerRenderer();
 
+        HandledScreens.register(
+                DANDYCORPCobblemonAdditions.VENDOR_SCREEN_HANDLER,
+                (VendorScreenHandler handler, PlayerInventory inventory, Text title) -> new VendorScreen(handler, inventory, title)
+        );
 
 
     }

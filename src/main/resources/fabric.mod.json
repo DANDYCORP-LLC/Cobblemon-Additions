@@ -23,6 +23,9 @@
 		],
 		"client": [
 			"net.dandycorp.dccobblemon.Client"
+		],
+		"rei_client":[
+			"net.dandycorp.dccobblemon.DANDYCORPREIClientPlugin"
 		]
 	},
 	"mixins": [
