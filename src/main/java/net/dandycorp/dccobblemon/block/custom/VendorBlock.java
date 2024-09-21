@@ -1,8 +1,6 @@
 package net.dandycorp.dccobblemon.block.custom;
 
-import com.google.common.collect.ImmutableMap;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
-import net.dandycorp.dccobblemon.ui.VendorScreenHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -13,12 +11,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
@@ -32,9 +29,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
-import java.util.function.Function;
 
 public class VendorBlock extends BlockWithEntity implements BlockEntityProvider {
 
@@ -128,6 +122,7 @@ public class VendorBlock extends BlockWithEntity implements BlockEntityProvider 
 
             if (screenHandlerFactory != null) {
                 player.openHandledScreen(screenHandlerFactory);
+                world.playSound(null,pos,DANDYCORPCobblemonAdditions.VENDOR_OPEN_EVENT, SoundCategory.BLOCKS,1.0f,1.0f);
             }
         }
         return ActionResult.SUCCESS;

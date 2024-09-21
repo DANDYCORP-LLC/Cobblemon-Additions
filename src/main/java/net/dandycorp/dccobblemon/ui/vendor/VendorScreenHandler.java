@@ -1,31 +1,38 @@
-package net.dandycorp.dccobblemon.ui;
+package net.dandycorp.dccobblemon.ui.vendor;
 
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.block.custom.VendorBlockEntity;
 import net.dandycorp.dccobblemon.item.Items;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.minecraft.client.MinecraftClient;
+import net.dandycorp.dccobblemon.util.VendorCategory;
+import net.dandycorp.dccobblemon.util.VendorData;
+import net.dandycorp.dccobblemon.util.VendorDataLoader;
+import net.dandycorp.dccobblemon.util.VendorItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.ServerNetworkIo;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+
+import java.util.*;
+
+//TODO: make purchase and spawn logic accept a list of item stacks rather than just one stack and an amount (tuple pairs?)
 
 public class VendorScreenHandler extends ScreenHandler{
 
     private final BlockPos blockPos;
     private VendorBlockEntity blockEntity;
     private final PlayerInventory playerInventory;
+    private final VendorData data;
+    private final Map<Integer, VendorItem> idItemMap = new HashMap<>();
+    private final List<Integer> specialIds = Arrays.asList(1000,1001,1002);
 
 
     public VendorScreenHandler(int syncId, PlayerInventory playerInventory){
@@ -33,6 +40,8 @@ public class VendorScreenHandler extends ScreenHandler{
         this.playerInventory = playerInventory;
         this.blockPos = playerInventory.player.getBlockPos();
         addPlayerInventorySlots(playerInventory);
+        this.data = VendorDataLoader.loadVendorData();
+        buildButtonIdToVendorItemMap();
     }
 
     // This constructor gets called from the BlockEntity on the server without calling the other constructor first, the server knows the inventory of the container
@@ -43,6 +52,8 @@ public class VendorScreenHandler extends ScreenHandler{
         this.blockPos = pos;
         this.blockEntity = (VendorBlockEntity) playerInventory.player.getWorld().getBlockEntity(pos);
         addPlayerInventorySlots(playerInventory);
+        this.data = VendorDataLoader.loadVendorData();
+        buildButtonIdToVendorItemMap();
     }
 
     @Override
@@ -55,26 +66,35 @@ public class VendorScreenHandler extends ScreenHandler{
         return ItemStack.EMPTY;
     }
 
+    @Override
     public boolean onButtonClick(PlayerEntity player, int id) {
-        try {
-            if (id == 101) { // engineering item 1
-                int cost = 20;
-                if (canAfford(cost)) {
-                    purchase( player, net.minecraft.item.Items.AZALEA.getDefaultStack(), 20, cost);
-                    return true;
-                } else {player.sendMessage(Text.translatable("ui.dccobblemon.vendor.poor"));}
-
-            } else if (id == 102) { // engineering item 2
-                int cost = 5;
-                if (canAfford(cost)) {
-                    purchase(player, net.minecraft.item.Items.APPLE.getDefaultStack(), 10, cost);
-                    return true;
-                } else {player.sendMessage(Text.translatable("ui.dccobblemon.vendor.poor"));}
+        if (specialIds.contains(id)) {
+            switch (id){
+                case 1000: // compliment
+                case 1001: // retirement plan
+                case 1002: //
             }
-            return false;
-        } catch (Exception e) {
-            return false;
         }
+        VendorItem vendorItem = idItemMap.get(id);
+        if (vendorItem != null) {
+            int cost = vendorItem.getCost();
+            if (canAfford(cost)) {
+                ItemStack itemStack = getItemStackFromID(vendorItem.getItemID(), vendorItem.getQuantity());
+                if (itemStack != null) {
+                    player.getWorld().playSound(null,blockPos,DANDYCORPCobblemonAdditions.VENDOR_BUY_EVENT, SoundCategory.MASTER, 1.0f,(float) (0.9f + (0.2*Math.random())));
+                    purchase(player, itemStack, vendorItem.getQuantity(), cost);
+                    return true;
+                } else {
+                    player.sendMessage(Text.literal("Item not found: " + vendorItem.getItemID()));
+                }
+            } else {
+                player.sendMessage(Text.translatable("ui.dccobblemon.vendor.poor"));
+                player.playSound(DANDYCORPCobblemonAdditions.VENDOR_POOR_EVENT, SoundCategory.MASTER,1.0f,(float) (0.9f + (0.2*Math.random())));
+            }
+        } else {
+            player.sendMessage(Text.literal("Invalid button ID: " + id));
+        }
+        return false;
     }
 
     protected void purchase(PlayerEntity player, @Nullable ItemStack stack, int amount, int cost) {
@@ -152,6 +172,29 @@ public class VendorScreenHandler extends ScreenHandler{
         this.addSlot(new Slot(playerInventory, 40, 8, 164));  // Offhand slot
     }
 
+    private void buildButtonIdToVendorItemMap() {
+        if (data != null && data.getCategories() != null) {
+            for (VendorCategory category : data.getCategories()) {
+                if (category.getItems() != null) {
+                    for (VendorItem item : category.getItems()) {
+                        idItemMap.put(item.getButtonID(), item);
+                    }
+                }
+            }
+        }
+    }
+
+    public ItemStack getItemStackFromID(String itemID, int quantity) {
+        Identifier identifier = new Identifier(itemID);
+        if (Registries.ITEM.containsId(identifier)) {
+            Item item = Registries.ITEM.get(identifier);
+            return new ItemStack(item, quantity);
+        } else {
+            System.err.println("Item not found: " + itemID);
+            return null;
+        }
+    }
+
 
     @Override
     public void onClosed(PlayerEntity player) {
@@ -161,4 +204,7 @@ public class VendorScreenHandler extends ScreenHandler{
         this.sendContentUpdates();
     }
 
+    public VendorData getVendorData() {
+        return data;
+    }
 }

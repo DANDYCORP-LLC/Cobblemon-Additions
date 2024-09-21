@@ -4,8 +4,8 @@ import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.screen.ExclusionZones;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
-import net.dandycorp.dccobblemon.ui.VendorScreen;
-import net.dandycorp.dccobblemon.ui.VendorScreenDecider;
+import net.dandycorp.dccobblemon.ui.vendor.VendorScreen;
+import net.dandycorp.dccobblemon.ui.vendor.VendorScreenDecider;
 
 import java.util.List;
 

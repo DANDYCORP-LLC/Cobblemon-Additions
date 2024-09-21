@@ -1,10 +1,6 @@
-package net.dandycorp.dccobblemon.ui;
+package net.dandycorp.dccobblemon.ui.vendor;
 
-import dev.architectury.event.EventResult;
-import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
-import me.shedaniel.rei.api.client.registry.display.visibility.DisplayVisibilityPredicate;
 import me.shedaniel.rei.api.client.registry.screen.OverlayDecider;
-import me.shedaniel.rei.api.common.display.Display;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ActionResult;
 

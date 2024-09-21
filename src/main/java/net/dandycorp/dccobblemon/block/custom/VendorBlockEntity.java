@@ -1,31 +1,24 @@
 package net.dandycorp.dccobblemon.block.custom;
 
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
-import net.dandycorp.dccobblemon.ui.VendorBalanceManager;
-import net.dandycorp.dccobblemon.ui.VendorScreenHandler;
-import net.fabricmc.fabric.api.screenhandler.v1.FabricScreenHandlerFactory;
+import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 public class VendorBlockEntity extends BlockEntity implements NamedScreenHandlerFactory{

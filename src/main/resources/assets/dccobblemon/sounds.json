@@ -41,5 +41,29 @@
       "dccobblemon:compliment18",
       "dccobblemon:compliment19"
     ]
+  },
+
+  "vendor_open": {
+    "sounds": [
+      "dccobblemon:vendor_open"
+    ]
+  },
+
+  "vendor_click": {
+    "sounds": [
+      "dccobblemon:vendor_click"
+    ]
+  },
+
+  "vendor_buy": {
+    "sounds": [
+      "dccobblemon:vendor_buy"
+    ]
+  },
+
+  "vendor_poor": {
+    "sounds": [
+      "dccobblemon:vendor_poor"
+    ]
   }
 }

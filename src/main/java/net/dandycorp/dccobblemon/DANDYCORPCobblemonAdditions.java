@@ -1,19 +1,18 @@
 package net.dandycorp.dccobblemon;
 
-import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
-import me.shedaniel.rei.api.common.plugins.REIPlugin;
-import me.shedaniel.rei.api.common.plugins.REIPluginProvider;
 import net.dandycorp.dccobblemon.block.Blocks;
 import net.dandycorp.dccobblemon.block.custom.VendorBlockEntity;
 import net.dandycorp.dccobblemon.event.AttackEntityHandler;
 import net.dandycorp.dccobblemon.event.BreakBlockHandler;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.item.custom.badges.DragonBadgeItem;
-import net.dandycorp.dccobblemon.ui.VendorScreenHandler;
+import net.dandycorp.dccobblemon.util.VendorDataLoader;
+import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -24,6 +23,10 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import static net.dandycorp.dccobblemon.block.Blocks.VENDOR_BLOCK;
 
 public class DANDYCORPCobblemonAdditions implements ModInitializer {
@@ -33,6 +36,9 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+	public static Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir().resolve("dccobblemon");
+
+
 	public static final Identifier GREED = Identifier.of(MOD_ID, "greed");
 	public static SoundEvent GREED_EVENT = SoundEvent.of(GREED);
 
@@ -41,6 +47,18 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 
 	public static final Identifier COMPLIMENT = Identifier.of(MOD_ID, "compliment");
 	public static SoundEvent COMPLIMENT_EVENT = SoundEvent.of(COMPLIMENT);
+
+	public static final Identifier VENDOR_OPEN = Identifier.of(MOD_ID, "vendor_open");
+	public static SoundEvent VENDOR_OPEN_EVENT = SoundEvent.of(VENDOR_OPEN);
+
+	public static final Identifier VENDOR_CLICK = Identifier.of(MOD_ID, "vendor_click");
+	public static SoundEvent VENDOR_CLICK_EVENT = SoundEvent.of(VENDOR_CLICK);
+
+	public static final Identifier VENDOR_BUY = Identifier.of(MOD_ID, "vendor_buy");
+	public static SoundEvent VENDOR_BUY_EVENT = SoundEvent.of(VENDOR_BUY);
+
+	public static final Identifier VENDOR_POOR = Identifier.of(MOD_ID, "vendor_poor");
+	public static SoundEvent VENDOR_POOR_EVENT = SoundEvent.of(VENDOR_POOR);
 
 	public static final ScreenHandlerType<VendorScreenHandler> VENDOR_SCREEN_HANDLER =
 			new ScreenHandlerType<>(VendorScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
@@ -70,11 +88,26 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 				"   ███    ███\n" +
 				"   ███    ███\n" +
 				"   ███    ███\n" +
-				"        \nDANDYCORP Initialized");
+				"        \nDANDYCORP Initializing...");
+
+		if(!Files.exists(CONFIG_DIR)) {
+			try {
+				Files.createDirectory(CONFIG_DIR);
+				LOGGER.info("config directory DNE, created.");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		VendorDataLoader.loadVendorData();
 
 		Registry.register(Registries.SOUND_EVENT, GREED, GREED_EVENT);
 		Registry.register(Registries.SOUND_EVENT, JUDGEMENT, JUDGEMENT_EVENT);
 		Registry.register(Registries.SOUND_EVENT, COMPLIMENT, COMPLIMENT_EVENT);
+		Registry.register(Registries.SOUND_EVENT, VENDOR_OPEN, VENDOR_OPEN_EVENT);
+		Registry.register(Registries.SOUND_EVENT, VENDOR_CLICK, VENDOR_CLICK_EVENT);
+		Registry.register(Registries.SOUND_EVENT, VENDOR_BUY, VENDOR_BUY_EVENT);
+		Registry.register(Registries.SOUND_EVENT, VENDOR_POOR, VENDOR_POOR_EVENT);
 
 		Items.registerAllItems();
 		Blocks.registerAllBlocks();
@@ -89,6 +122,8 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 
 
 		DragonBadgeItem.registerFlight();
+
+		LOGGER.info("DANDYCORP initialized!");
 
 	}
 }

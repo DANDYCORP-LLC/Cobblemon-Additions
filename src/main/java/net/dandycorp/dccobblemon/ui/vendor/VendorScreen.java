@@ -1,21 +1,18 @@
-package net.dandycorp.dccobblemon.ui;
+package net.dandycorp.dccobblemon.ui.vendor;
 
-import com.sun.jna.platform.win32.VerRsrc;
-import dev.architectury.event.EventResult;
-import dev.architectury.event.events.common.TickEvent;
+import io.wispforest.owo.ui.base.BaseComponent;
 import io.wispforest.owo.ui.base.BaseOwoHandledScreen;
 import io.wispforest.owo.ui.component.ButtonComponent;
 import io.wispforest.owo.ui.component.Components;
 import io.wispforest.owo.ui.component.LabelComponent;
-import io.wispforest.owo.ui.component.TextureComponent;
 import io.wispforest.owo.ui.container.Containers;
 import io.wispforest.owo.ui.container.FlowLayout;
 import io.wispforest.owo.ui.container.GridLayout;
+import io.wispforest.owo.ui.container.StackLayout;
 import io.wispforest.owo.ui.core.*;
-import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
-import me.shedaniel.rei.api.client.registry.display.visibility.DisplayVisibilityPredicate;
-import me.shedaniel.rei.api.common.display.Display;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
+import net.dandycorp.dccobblemon.util.VendorBalanceManager;
+import net.dandycorp.dccobblemon.util.VendorCategory;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.slot.Slot;
@@ -23,7 +20,12 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+import java.util.Objects;
+
 import static java.lang.Math.min;
+
+//TODO: iterate categories for buttons. add texture field / ascii art field? makes infinite buttons possible
 
 public class VendorScreen extends BaseOwoHandledScreen<FlowLayout,VendorScreenHandler> {
 
@@ -64,53 +66,47 @@ public class VendorScreen extends BaseOwoHandledScreen<FlowLayout,VendorScreenHa
     @Override
     protected void build(FlowLayout rootComponent) {
 
-        rootComponent.child(balanceManager.getBalanceDisplay());
+        rootComponent.child(balanceManager.getBalanceDisplay(140));
 
 
         // ---------
 
+        List<VendorCategory> categories = handler.getVendorData().getCategories();
+        GridLayout grid = Containers.grid(Sizing.content(), Sizing.content(), categories.size()/2, 2);
+        int column = 0;
+        int row = 0;
 
-        //engineering
-        GridLayout grid = Containers.grid(Sizing.content(), Sizing.content(), 4, 2);
-        grid.child(Components.button(Text.empty(), button -> {
-            client.setScreen(new VendorEngineeringScreen(handler,playerInventory,title,balanceManager));
-        })
-                .renderer(ButtonComponent.Renderer.texture(new Identifier(DANDYCORPCobblemonAdditions.MOD_ID, "textures/gui/vendor/engineering.png"),0,0,100,186))
-                .margins(Insets.of(1,1,1,1))
-                .sizing(Sizing.fixed(100),Sizing.fixed(62)),
-                0, 0);
+        for(VendorCategory category : categories) {
+            if(!Objects.equals(category.getName(), "specials")) {
+                System.out.println("category: " + category.getName() + " at " + row + "," + column);
+                StackLayout buttonContainer = (StackLayout) Containers.stack(Sizing.fixed(100), Sizing.fixed(62)).surface(Surface.outline(0xFF00FF00));
 
-
-        //agriculture
-        grid.child(Components.button(Text.empty(), button -> {
-            client.interactionManager.clickButton(this.getScreenHandler().syncId, 20);
-        })
-                .renderer(ButtonComponent.Renderer.texture(new Identifier(DANDYCORPCobblemonAdditions.MOD_ID, "textures/gui/vendor/engineering.png"),0,0,100,186))
-                .margins(Insets.of(1,1,1,1))
-                .sizing(Sizing.fixed(100),Sizing.fixed(62)),
-                1, 0);
+                buttonContainer.child(Components.button(Text.empty(), button -> {
+                            playerInventory.player.playSound(DANDYCORPCobblemonAdditions.VENDOR_CLICK_EVENT, 1.0f, (float) (0.8 + (0.4 * Math.random())));
+                            client.setScreen(new VendorPurchaseScreen(handler, playerInventory, title, balanceManager, category.getName()));
+                        })
+                        .renderer(ButtonComponent.Renderer.flat(0xFF000000, 0xFF001100, 0xFF000000))
+                        .margins(Insets.of(1, 1, 1, 1))
+                        .sizing(Sizing.fixed(98), Sizing.fixed(60)));
 
 
-        //pokemon
-        grid.child(Components.button(Text.empty(), button -> {
-            client.interactionManager.clickButton(this.getScreenHandler().syncId, 30);
-        })
-                .renderer(ButtonComponent.Renderer.texture(new Identifier(DANDYCORPCobblemonAdditions.MOD_ID, "textures/gui/vendor/engineering.png"),0,0,100,186))
-                .margins(Insets.of(1,1,1,1))
-                .sizing(Sizing.fixed(100),Sizing.fixed(62)),
-                0, 1);
+                buttonContainer.child(Components.label(Text.of("§l"+category.getName().toUpperCase()))
+                        .color(Color.GREEN)
+                        .shadow(true))
+                .alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 
+                buttonContainer.margins(Insets.of(3, 3, 3, 3));
+                grid.child(buttonContainer, row, column);
 
-        //resources
-        grid.child(Components.button(Text.empty(), button -> {
-            client.interactionManager.clickButton(this.getScreenHandler().syncId, 40);
-        })
-                .renderer(ButtonComponent.Renderer.texture(new Identifier(DANDYCORPCobblemonAdditions.MOD_ID, "textures/gui/vendor/engineering.png"),0,0,100,186))
-                .margins(Insets.of(1,1,1,1))
-                .sizing(Sizing.fixed(100),Sizing.fixed(62)),
-                1, 1);
+                column++;
+                if (column > 1) {
+                    column = 0;
+                    row++;
+                }
+            }
+        }
 
-
+        grid.alignment(HorizontalAlignment.CENTER,VerticalAlignment.CENTER);
         rootComponent.child(grid);
 
         // ---------
@@ -121,8 +117,8 @@ public class VendorScreen extends BaseOwoHandledScreen<FlowLayout,VendorScreenHa
                                 Text.empty(),
                                 button -> {
                                     assert client != null;
-                                    client.interactionManager.clickButton(this.getScreenHandler().syncId, 1);
-                                    balanceManager.updateBalance();
+                                    playerInventory.player.playSound(DANDYCORPCobblemonAdditions.VENDOR_CLICK_EVENT, 1.0f, (float) (0.8+(0.4*Math.random())));
+                                    client.setScreen(new VendorSpecialsScreen(handler, playerInventory, title, balanceManager));
                                 }
                         )
                         .renderer(ButtonComponent.Renderer.texture(new Identifier(DANDYCORPCobblemonAdditions.MOD_ID, "textures/gui/vendor/dc_specials.png"),0,0,220,120))
@@ -132,7 +128,9 @@ public class VendorScreen extends BaseOwoHandledScreen<FlowLayout,VendorScreenHa
                 .surface(Surface.VANILLA_TRANSLUCENT)
                 .horizontalAlignment(HorizontalAlignment.CENTER)
                 .verticalAlignment(VerticalAlignment.CENTER);
-        //this.uiAdapter.toggleInspector();
+
+
+        this.uiAdapter.toggleInspector();
     }
 
     @Override
@@ -147,4 +145,9 @@ public class VendorScreen extends BaseOwoHandledScreen<FlowLayout,VendorScreenHa
         }
     }
 
+    @Override
+    public void close() {
+        playerInventory.player.playSound(DANDYCORPCobblemonAdditions.VENDOR_CLICK_EVENT, 1.0f, (float) (0.2*Math.random()));
+        super.close();
+    }
 }

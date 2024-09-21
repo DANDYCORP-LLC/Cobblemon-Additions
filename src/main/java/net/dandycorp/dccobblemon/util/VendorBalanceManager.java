@@ -1,4 +1,4 @@
-package net.dandycorp.dccobblemon.ui;
+package net.dandycorp.dccobblemon.util;
 
 import io.wispforest.owo.ui.base.BaseComponent;
 import io.wispforest.owo.ui.component.Components;
@@ -8,13 +8,10 @@ import io.wispforest.owo.ui.container.FlowLayout;
 import io.wispforest.owo.ui.core.*;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.item.Items;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 
 public class VendorBalanceManager {
 
@@ -55,11 +52,11 @@ public class VendorBalanceManager {
         return balanceLabel;
     }
 
-    public BaseComponent getBalanceDisplay() {
+    public BaseComponent getBalanceDisplay(int indent) {
         FlowLayout balanceDisplay = Containers.horizontalFlow(Sizing.content(), Sizing.content())
                 .child(Components.texture(new Identifier(DANDYCORPCobblemonAdditions.MOD_ID, "textures/gui/vendor/ticket.png"), 0, 0, 20, 20, 20, 20).margins(Insets.right(2)))
                 .child(balanceLabel);
-        balanceDisplay.margins(Insets.bottom(6)).padding(Insets.right(140)).verticalAlignment(VerticalAlignment.CENTER);
+        balanceDisplay.margins(Insets.bottom(6)).padding(Insets.right(indent)).verticalAlignment(VerticalAlignment.CENTER);
         return balanceDisplay;
     }
 }
