@@ -6,10 +6,10 @@ import net.dandycorp.dccobblemon.event.AttackEntityHandler;
 import net.dandycorp.dccobblemon.event.BreakBlockHandler;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.item.custom.badges.DragonBadgeItem;
-import net.dandycorp.dccobblemon.util.VendorDataLoader;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
+import net.dandycorp.dccobblemon.util.HeadHelper;
+import net.dandycorp.dccobblemon.util.VendorDataLoader;
 import net.fabricmc.api.ModInitializer;
-
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -112,6 +112,8 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 		Items.registerAllItems();
 		Blocks.registerAllBlocks();
 		registerScreenHandlerTypes();
+		HeadHelper.initializeCache();
+
 
 
 

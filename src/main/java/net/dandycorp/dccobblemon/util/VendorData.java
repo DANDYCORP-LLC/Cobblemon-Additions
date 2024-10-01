@@ -16,6 +16,4 @@ public class VendorData {
     public void setCategories(List<VendorCategory> categories) {
         this.categories = categories;
     }
-
-
 }

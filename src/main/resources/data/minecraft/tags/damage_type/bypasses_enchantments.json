@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "dccobblemon:dandy_badge"
+    "dccobblemon:dandy_badge",
+    "dccobblemon:vendor"
   ]
 }

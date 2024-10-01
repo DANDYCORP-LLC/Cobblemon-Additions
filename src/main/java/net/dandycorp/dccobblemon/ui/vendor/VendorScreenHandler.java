@@ -1,41 +1,43 @@
 package net.dandycorp.dccobblemon.ui.vendor;
 
+import com.cobblemon.mod.common.Cobblemon;
+import com.cobblemon.mod.common.pokemon.Pokemon;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
+import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
 import net.dandycorp.dccobblemon.block.custom.VendorBlockEntity;
 import net.dandycorp.dccobblemon.item.Items;
-import net.dandycorp.dccobblemon.util.VendorCategory;
-import net.dandycorp.dccobblemon.util.VendorData;
-import net.dandycorp.dccobblemon.util.VendorDataLoader;
-import net.dandycorp.dccobblemon.util.VendorItem;
+import net.dandycorp.dccobblemon.ui.PokemonComponent;
+import net.dandycorp.dccobblemon.util.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Identifier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-//TODO: make purchase and spawn logic accept a list of item stacks rather than just one stack and an amount (tuple pairs?)
+import static com.cobblemon.mod.common.CobblemonSounds.FOSSIL_MACHINE_FINISHED;
 
-public class VendorScreenHandler extends ScreenHandler{
+public class VendorScreenHandler extends ScreenHandler {
 
     private final BlockPos blockPos;
     private VendorBlockEntity blockEntity;
     private final PlayerInventory playerInventory;
     private final VendorData data;
-    private final Map<Integer, VendorItem> idItemMap = new HashMap<>();
-    private final List<Integer> specialIds = Arrays.asList(1000,1001,1002);
+    private final Map<Integer, VendorEntry> idEntryMap = new HashMap<>();
+    private final List<Integer> specialIds = Arrays.asList(1000, 1001, 1002);
 
-
-    public VendorScreenHandler(int syncId, PlayerInventory playerInventory){
+    public VendorScreenHandler(int syncId, PlayerInventory playerInventory) {
         super(DANDYCORPCobblemonAdditions.VENDOR_SCREEN_HANDLER, syncId);
         this.playerInventory = playerInventory;
         this.blockPos = playerInventory.player.getBlockPos();
@@ -44,8 +46,6 @@ public class VendorScreenHandler extends ScreenHandler{
         buildButtonIdToVendorItemMap();
     }
 
-    // This constructor gets called from the BlockEntity on the server without calling the other constructor first, the server knows the inventory of the container
-    // and can therefore directly provide it as an argument. This inventory will then be synced to the client.
     public VendorScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos pos) {
         super(DANDYCORPCobblemonAdditions.VENDOR_SCREEN_HANDLER, syncId);
         this.playerInventory = playerInventory;
@@ -69,27 +69,45 @@ public class VendorScreenHandler extends ScreenHandler{
     @Override
     public boolean onButtonClick(PlayerEntity player, int id) {
         if (specialIds.contains(id)) {
-            switch (id){
-                case 1000: // compliment
-                case 1001: // retirement plan
-                case 1002: //
-            }
-        }
-        VendorItem vendorItem = idItemMap.get(id);
-        if (vendorItem != null) {
-            int cost = vendorItem.getCost();
-            if (canAfford(cost)) {
-                ItemStack itemStack = getItemStackFromID(vendorItem.getItemID(), vendorItem.getQuantity());
-                if (itemStack != null) {
-                    player.getWorld().playSound(null,blockPos,DANDYCORPCobblemonAdditions.VENDOR_BUY_EVENT, SoundCategory.MASTER, 1.0f,(float) (0.9f + (0.2*Math.random())));
-                    purchase(player, itemStack, vendorItem.getQuantity(), cost);
-                    return true;
-                } else {
-                    player.sendMessage(Text.literal("Item not found: " + vendorItem.getItemID()));
+            int cost = 1;
+            if(canAfford(cost)) {
+                spendTickets(player, cost);
+                switch (id) {
+                    case 1000: // compliment
+                        player.getWorld().playSound(null,blockPos,DANDYCORPCobblemonAdditions.COMPLIMENT_EVENT,SoundCategory.BLOCKS,0.7f,1.1f);
+                        player.closeHandledScreen();
+                        return true;
+                    case 1001: // retirement
+                        player.closeHandledScreen();
+                        if (player instanceof ServerPlayerEntity serverPlayer) {
+                            player.damage(DANDYCORPDamageTypes.of(serverPlayer.getServerWorld(),DANDYCORPDamageTypes.VENDOR), player.getHealth());
+                            System.out.println("dealing " + player.getHealth() + " damage to " + player.getName());
+                            serverPlayer.networkHandler.disconnect(Text.translatable("ui.dccobblemon.vendor.retire_kick"));
+                        }
+                        return true;
+                    case 1002: // donor head
+                        player.getWorld().playSound(null, blockPos, DANDYCORPCobblemonAdditions.VENDOR_BUY_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
+                        ItemStack donorHead = HeadHelper.getPlayerHead(HeadHelper.getRandomDonor());
+                        spawnItems(donorHead);
+                        return true;
                 }
             } else {
                 player.sendMessage(Text.translatable("ui.dccobblemon.vendor.poor"));
-                player.playSound(DANDYCORPCobblemonAdditions.VENDOR_POOR_EVENT, SoundCategory.MASTER,1.0f,(float) (0.9f + (0.2*Math.random())));
+                player.playSound(DANDYCORPCobblemonAdditions.VENDOR_POOR_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
+                return true;
+            }
+        }
+
+        VendorEntry vendorEntry = idEntryMap.get(id);
+        if (vendorEntry != null && !vendorEntry.getItems().isEmpty()) {
+            int cost = vendorEntry.getCost();
+            if (canAfford(cost)) {
+                player.getWorld().playSound(null, blockPos, DANDYCORPCobblemonAdditions.VENDOR_BUY_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
+                purchase(player, vendorEntry.getItems(), cost);
+                return true;
+            } else {
+                player.sendMessage(Text.translatable("ui.dccobblemon.vendor.poor"));
+                player.playSound(DANDYCORPCobblemonAdditions.VENDOR_POOR_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
             }
         } else {
             player.sendMessage(Text.literal("Invalid button ID: " + id));
@@ -97,18 +115,42 @@ public class VendorScreenHandler extends ScreenHandler{
         return false;
     }
 
-    protected void purchase(PlayerEntity player, @Nullable ItemStack stack, int amount, int cost) {
+    private void purchase(PlayerEntity player, List<VendorItem> items, int cost) {
         if (canAfford(cost)) {
             spendTickets(player, cost);
-            if (stack != null) {
-                spawnItems(stack, amount);
+            if (items != null) {
+                for (VendorItem item : items) {
+                    String id = item.getId();
+                    if(id.startsWith("pokemon:")) {
+                        id = id.substring("pokemon:".length());
+                        if(player instanceof ServerPlayerEntity serverPlayer) {
+                            Pokemon pokemon = PokemonComponent.pokemonFromSplitString(id.split("_"));
+                            if(pokemon != null) {
+                                Cobblemon.INSTANCE.getStorage().getParty(serverPlayer).add(pokemon);
+                                serverPlayer.playSound(FOSSIL_MACHINE_FINISHED,SoundCategory.MASTER,1.0f,1.0f);
+                                //player.sendMessage(Text.of(id));
+                            }
+                        }
+                    }
+                    else {
+                        ItemStack stack = getItemStackFromID(item.getId());
+                        if (stack != null) {
+                            int quantity = item.getQuantity();
+                            // Spawn items one at a time
+                            for (int i = 0; i < quantity; i++) {
+                                ItemStack singleItemStack = stack.copy();
+                                singleItemStack.setCount(1);
+                                spawnItems(singleItemStack);
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 
     private void spendTickets(PlayerEntity player, int cost) {
         if (!player.getWorld().isClient()) {
-
             for (Slot slot : this.slots) {
                 ItemStack stack = slot.getStack();
                 if (!stack.isEmpty() && stack.getItem() == Items.TICKET) {
@@ -120,7 +162,6 @@ public class VendorScreenHandler extends ScreenHandler{
                     slot.markDirty();
                     if (cost == 0) break;
                 }
-
             }
         }
         playerInventory.markDirty();
@@ -147,13 +188,9 @@ public class VendorScreenHandler extends ScreenHandler{
         return ticketCount;
     }
 
-    private void spawnItems(ItemStack stack, int amount) {
-        if(blockEntity != null) {
-            for (int i = 0; i < amount; i++) {
-                ItemStack itemStackToDispense = stack.copy();  // Copy the stack to ensure correct item and quantity
-                itemStackToDispense.setCount(1);  // Assuming each item dispensed is just 1 in quantity
-                blockEntity.addToDispenseQueue(itemStackToDispense);
-            }
+    private void spawnItems(ItemStack stack) {
+        if (blockEntity != null) {
+            blockEntity.addToDispenseQueue(stack.copy());
         }
     }
 
@@ -175,26 +212,33 @@ public class VendorScreenHandler extends ScreenHandler{
     private void buildButtonIdToVendorItemMap() {
         if (data != null && data.getCategories() != null) {
             for (VendorCategory category : data.getCategories()) {
-                if (category.getItems() != null) {
-                    for (VendorItem item : category.getItems()) {
-                        idItemMap.put(item.getButtonID(), item);
+                if (category.getEntries() != null) {
+                    for (VendorEntry entry : category.getEntries()) {
+                        idEntryMap.put(entry.getButtonID(), entry);
                     }
                 }
             }
         }
     }
 
-    public ItemStack getItemStackFromID(String itemID, int quantity) {
-        Identifier identifier = new Identifier(itemID);
-        if (Registries.ITEM.containsId(identifier)) {
-            Item item = Registries.ITEM.get(identifier);
-            return new ItemStack(item, quantity);
-        } else {
-            System.err.println("Item not found: " + itemID);
-            return null;
-        }
-    }
+    public ItemStack getItemStackFromID(String itemID) {
+        ItemStack stack = null;
 
+        if (itemID.startsWith("minecraft:player_head#")) {
+            stack = HeadHelper.getStackFromItemID(itemID);
+            System.out.println("getting player head stack");
+        } else {
+            Identifier identifier = new Identifier(itemID);
+            if (Registries.ITEM.containsId(identifier)) {
+                Item item = Registries.ITEM.get(identifier);
+                stack = new ItemStack(item);
+            } else {
+                System.err.println("Item not found: " + itemID);
+                return null;
+            }
+        }
+        return stack;
+    }
 
     @Override
     public void onClosed(PlayerEntity player) {

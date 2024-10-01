@@ -2,136 +2,172 @@
   "categories": [
     {
       "name": "engineering",
-      "items": [
+      "entries": [
         {
           "buttonID": 101,
-          "itemID": "minecraft:redstone",
-          "quantity": 16,
-          "cost": 2,
-          "description": "Harness the power of questionable safety standards with this magical dust that makes everything go... boom, if you're not careful."
-        },
-        {
-          "buttonID": 102,
-          "itemID": "minecraft:piston",
-          "quantity": 1,
-          "cost": 3,
-          "description": "For when you need to extend your reach—but not your rights. Guaranteed to push, pull, and perhaps topple your dreams."
-        },
-        {
-          "buttonID": 103,
-          "itemID": "minecraft:lever",
-          "quantity": 2,
-          "cost": 1,
-          "description": "The simplest of machines, now with added 'pull to activate' convenience. Just don’t ask what it’s really controlling."
-        },
-        {
-          "buttonID": 104,
-          "itemID": "minecraft:stone_button",
-          "quantity": 4,
-          "cost": 1,
-          "description": "Press it, and something happens—usually. Guaranteed by DANDYCORP to work most of the time, except when it doesn’t."
-        },
-        {
-          "buttonID": 105,
-          "itemID": "minecraft:repeater",
-          "quantity": 1,
-          "cost": 2,
-          "description": "For when you need to delay the inevitable. Perfect for stretching out the last seconds of whatever it is you're trying to avoid."
+          "items": [
+            {"id": "minecraft:redstone", "quantity": 96},
+            {"id": "minecraft:sticky_piston", "quantity": 8},
+            {"id": "minecraft:repeater", "quantity": 20},
+            {"id": "minecraft:comparator", "quantity": 20}
+          ],
+          "cost": 5,
+          "title": "Redstone Engineering Kit",
+          "description": "Unleash your inner engineer with this kit. Whether you're building a door or a doomsday device, we've got the components you need to make it overly complicated."
         }
       ]
     },
     {
       "name": "agriculture",
-      "items": [
+      "entries": [
         {
           "buttonID": 201,
-          "itemID": "minecraft:wheat_seeds",
-          "quantity": 10,
+          "items": [
+            {"id": "minecraft:wheat_seeds", "quantity": 10}
+          ],
           "cost": 1,
+          "title": "Wheat Seeds",
           "description": "Sow the seeds of a future harvest—assuming it doesn't get eaten by something first. DANDYCORP assumes no responsibility for crop failure."
         },
         {
           "buttonID": 202,
-          "itemID": "minecraft:carrot",
-          "quantity": 10,
+          "items": [
+            {"id": "minecraft:carrot", "quantity": 10}
+          ],
           "cost": 2,
+          "title": "Carrot",
           "description": "An orange root vegetable that’s as good for your health as it is for distracting your workforce with the promise of a better tomorrow."
         },
         {
           "buttonID": 203,
-          "itemID": "minecraft:oak_sapling",
-          "quantity": 5,
+          "items": [
+            {"id": "minecraft:oak_sapling", "quantity": 5}
+          ],
           "cost": 3,
+          "title": "Oak Sapling",
           "description": "Plant it, and with enough time (and a little corporate magic), you’ll have yourself a nice, tall reminder of the forests we destroyed."
         },
         {
           "buttonID": 204,
-          "itemID": "minecraft:melon_seeds",
-          "quantity": 8,
+          "items": [
+            {"id": "minecraft:melon_seeds", "quantity": 8}
+          ],
           "cost": 2,
+          "title": "Melon Seeds",
           "description": "Sweet, juicy, and perfect for a hot day. Provided that the DANDYCORP-approved weather doesn’t ruin your crops."
         },
         {
           "buttonID": 205,
-          "itemID": "minecraft:pumpkin_seeds",
-          "quantity": 8,
+          "items": [
+            {"id": "minecraft:pumpkin_seeds", "quantity": 8}
+          ],
           "cost": 2,
+          "title": "Pumpkin Seeds",
           "description": "Spooky season or not, these seeds are ready to grow into the most versatile vegetable you’ll ever exploit for profit."
         }
       ]
     },
     {
       "name": "resources",
-      "items": [
+      "entries": [
         {
           "buttonID": 301,
-          "itemID": "minecraft:iron_ingot",
-          "quantity": 16,
+          "items": [
+            {"id": "minecraft:iron_ingot", "quantity": 16}
+          ],
           "cost": 1,
+          "title": "Iron Ingot",
           "description": "Another proud result of DANDYCORP's relentless mining operations. Refined, durable, and completely devoid of guilt!"
         },
         {
           "buttonID": 302,
-          "itemID": "minecraft:gold_ingot",
-          "quantity": 8,
+          "items": [
+            {"id": "minecraft:gold_ingot", "quantity": 8}
+          ],
           "cost": 2,
+          "title": "Gold Ingot",
           "description": "Nothing says 'luxury' like a metal ripped from the earth with zero regard for environmental impact. Go ahead, indulge!"
         },
         {
           "buttonID": 303,
-          "itemID": "minecraft:diamond",
-          "quantity": 4,
+          "items": [
+            {"id": "minecraft:diamond", "quantity": 4}
+          ],
           "cost": 8,
+          "title": "Diamond",
           "description": "The hardest substance known to man, brought to you by the hardest-working (and poorly compensated) miners around."
         },
         {
           "buttonID": 304,
-          "itemID": "minecraft:emerald",
-          "quantity": 4,
+          "items": [
+            {"id": "minecraft:emerald", "quantity": 4}
+          ],
           "cost": 5,
+          "title": "Emerald",
           "description": "DANDYCORP's token of appreciation—just kidding, it’s a symbol of how we trade value for your compliance."
         },
         {
           "buttonID": 305,
-          "itemID": "minecraft:coal",
-          "quantity": 32,
+          "items": [
+            {"id": "minecraft:coal", "quantity": 32}
+          ],
           "cost": 1,
+          "title": "Coal",
           "description": "Fossilized remnants of an era when the planet still had hope. Burn it like there's no tomorrow—because there might not be!"
         }
       ]
     },
     {
       "name": "pokemon",
-      "items": []
+      "entries": [
+        {
+          "buttonID": 401,
+          "items": [
+            {"id": "cobblemon:revive", "quantity": 16}
+          ],
+          "cost": 2,
+          "title": "Revive",
+          "description": "For when your Pokémon just couldn’t keep it together. Revive them and send them right back into battle. No rest for the weary."
+        },
+        {
+          "buttonID": 402,
+          "items": [
+            {"id": "pokemon:shiny_mewtwo", "quantity": 1}
+          ],
+          "cost": 1000,
+          "title": "Mewtwo",
+          "description": "A genetically engineered psychic powerhouse with a chip on its shoulder. Might overthrow your entire operation, but until then, it's a great asset."
+        },
+        {
+          "buttonID": 403,
+          "items": [
+            {"id": "pokemon:male_vileplume", "quantity": 1}
+          ],
+          "cost": 2200,
+          "title": "Arceus",
+          "description": "The original creator, now repackaged as a limited edition asset. Worship it as you worship your quarterly profits."
+        },
+        {
+          "buttonID": 404,
+          "items": [
+            {"id": "pokemon:quietnature_male_4iv_shiny_pikachu", "quantity": 1}
+          ],
+          "cost": 100,
+          "title": "Shiny Pikachu",
+          "description": "The face of your corporate mascot, now in a rare, sparkly variant. Electrify your brand with this elusive charm."
+        }
+      ]
     },
     {
       "name": "specials",
-      "items": [
+      "entries": [
         {
-          "buttonID": 401,
-          "itemID": "dccobblemon:chromium_ingot",
-          "quantity": 16,
+          "buttonID": 501,
+          "items": [
+            {"id": "dccobblemon:chromium_ingot", "quantity": 16}
+          ],
           "cost": 4,
+          "title": "Chromium Ingot",
           "description": "A metal uniquely brought to you by DANDYCORP. We are mostly certain it is not sentient, so it should not feel pain when you exploit it."
         }
       ]

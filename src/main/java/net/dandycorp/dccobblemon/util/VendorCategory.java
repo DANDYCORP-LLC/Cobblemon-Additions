@@ -4,7 +4,7 @@ import java.util.List;
 
 public class VendorCategory {
     private String name;
-    private List<VendorItem> items;
+    private List<VendorEntry> entries;
 
     // Default constructor
     public VendorCategory() {}
@@ -14,15 +14,15 @@ public class VendorCategory {
         return name;
     }
 
+    public List<VendorEntry> getEntries() {
+        return entries;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public List<VendorItem> getItems() {
-        return items;
-    }
-
-    public void setItems(List<VendorItem> items) {
-        this.items = items;
+    public void setEntries(List<VendorEntry> entries) {
+        this.entries = entries;
     }
 }

@@ -1,51 +1,26 @@
 package net.dandycorp.dccobblemon.util;
 
 public class VendorItem {
-    private int buttonID;
-    private String itemID;
+    private String id;
     private int quantity;
-    private int cost;
-    private String description;
 
+    // Default constructor
     public VendorItem() {}
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getButtonID() {
-        return buttonID;
-    }
-
-    public void setButtonID(int buttonID) {
-        this.buttonID = buttonID;
-    }
-
-    public String getItemID() {
-        return itemID;
-    }
-
-    public void setItemID(String itemID) {
-        this.itemID = itemID;
+    // Getters and setters
+    public String getId() {
+        return id;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
     }
 }

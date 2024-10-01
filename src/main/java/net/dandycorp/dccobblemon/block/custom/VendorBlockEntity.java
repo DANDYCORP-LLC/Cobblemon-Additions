@@ -41,9 +41,12 @@ public class VendorBlockEntity extends BlockEntity implements NamedScreenHandler
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, VendorBlockEntity blockEntity) {
-        if (!blockEntity.toDispense.isEmpty() && !world.isClient) {
-            ItemStack itemToDispense = blockEntity.toDispense.poll();
-            dispenseItem(world, pos, itemToDispense);
+        if (!world.isClient) {
+            int itemsToDispensePerTick = 2;
+            for (int i = 0; i < itemsToDispensePerTick && !blockEntity.toDispense.isEmpty(); i++) {
+                ItemStack itemToDispense = blockEntity.toDispense.poll();
+                dispenseItem(world, pos, itemToDispense);
+            }
         }
     }
 

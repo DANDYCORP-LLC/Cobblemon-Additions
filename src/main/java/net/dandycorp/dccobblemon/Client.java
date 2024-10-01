@@ -42,7 +42,5 @@ public class Client implements ClientModInitializer {
                 DANDYCORPCobblemonAdditions.VENDOR_SCREEN_HANDLER,
                 (VendorScreenHandler handler, PlayerInventory inventory, Text title) -> new VendorScreen(handler, inventory, title)
         );
-
-
     }
 }

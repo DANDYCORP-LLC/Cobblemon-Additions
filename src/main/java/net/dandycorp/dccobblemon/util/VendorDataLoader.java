@@ -2,7 +2,6 @@ package net.dandycorp.dccobblemon.util;
 
 import com.google.gson.Gson;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
-import net.dandycorp.dccobblemon.util.VendorData;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,8 +52,16 @@ public class VendorDataLoader {
         try (Reader reader = Files.newBufferedReader(vendorItemsPath)) {
             vendorData = GSON.fromJson(reader, VendorData.class);
             return vendorData;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.err.println("Error parsing JSON at " + vendorItemsPath.toAbsolutePath());
+            // Optionally, read the content and print it
+            try {
+                String content = new String(Files.readAllBytes(vendorItemsPath));
+                System.err.println("JSON Content: " + content);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             return null;
         }
     }

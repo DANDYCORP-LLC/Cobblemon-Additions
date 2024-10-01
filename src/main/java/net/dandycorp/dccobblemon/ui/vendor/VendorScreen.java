@@ -1,10 +1,8 @@
 package net.dandycorp.dccobblemon.ui.vendor;
 
-import io.wispforest.owo.ui.base.BaseComponent;
 import io.wispforest.owo.ui.base.BaseOwoHandledScreen;
 import io.wispforest.owo.ui.component.ButtonComponent;
 import io.wispforest.owo.ui.component.Components;
-import io.wispforest.owo.ui.component.LabelComponent;
 import io.wispforest.owo.ui.container.Containers;
 import io.wispforest.owo.ui.container.FlowLayout;
 import io.wispforest.owo.ui.container.GridLayout;
@@ -22,10 +20,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
-
-import static java.lang.Math.min;
-
-//TODO: iterate categories for buttons. add texture field / ascii art field? makes infinite buttons possible
 
 public class VendorScreen extends BaseOwoHandledScreen<FlowLayout,VendorScreenHandler> {
 
@@ -78,14 +72,13 @@ public class VendorScreen extends BaseOwoHandledScreen<FlowLayout,VendorScreenHa
 
         for(VendorCategory category : categories) {
             if(!Objects.equals(category.getName(), "specials")) {
-                System.out.println("category: " + category.getName() + " at " + row + "," + column);
                 StackLayout buttonContainer = (StackLayout) Containers.stack(Sizing.fixed(100), Sizing.fixed(62)).surface(Surface.outline(0xFF00FF00));
 
                 buttonContainer.child(Components.button(Text.empty(), button -> {
                             playerInventory.player.playSound(DANDYCORPCobblemonAdditions.VENDOR_CLICK_EVENT, 1.0f, (float) (0.8 + (0.4 * Math.random())));
                             client.setScreen(new VendorPurchaseScreen(handler, playerInventory, title, balanceManager, category.getName()));
                         })
-                        .renderer(ButtonComponent.Renderer.flat(0xFF000000, 0xFF001100, 0xFF000000))
+                        .renderer(ButtonComponent.Renderer.flat(0xFF000000, 0xFF002200, 0xFF000000))
                         .margins(Insets.of(1, 1, 1, 1))
                         .sizing(Sizing.fixed(98), Sizing.fixed(60)));
 
@@ -129,8 +122,6 @@ public class VendorScreen extends BaseOwoHandledScreen<FlowLayout,VendorScreenHa
                 .horizontalAlignment(HorizontalAlignment.CENTER)
                 .verticalAlignment(VerticalAlignment.CENTER);
 
-
-        this.uiAdapter.toggleInspector();
     }
 
     @Override

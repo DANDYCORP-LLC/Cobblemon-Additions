@@ -37,5 +37,7 @@
   "itemGroup.dccobblemon": "DANDYCORP Cobblemon Additions",
   "ui.dccobblemon.vendor": "Vendor",
   "block.dccobblemon.vendor": "DANDYCORP Vendor",
-  "ui.dccobblemon.vendor.poor": "You don't have enough tickets!"
+  "ui.dccobblemon.vendor.poor": "You don't have enough tickets!",
+  "ui.dccobblemon.vendor.retire_kick": "DANDYCORP wishes you the best in your permanent leave. Goodbye!",
+  "death.attack.vendor": "%1$s took the only escape route DANDYCORP provides."
 }
