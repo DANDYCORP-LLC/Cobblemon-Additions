@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "dccobblemon:chromium_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "dccobblemon:chromium_ingot"
+  }
+}

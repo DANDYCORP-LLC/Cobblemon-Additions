@@ -1,0 +1,44 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [128, 64],
+	"textures": {
+		"0": "dccobblemon:block/grinder",
+		"particle": "dccobblemon:block/grinder"
+	},
+	"elements": [
+		{
+			"from": [-12, 2, 2],
+			"to": [28, 14, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 13, 5, 16], "texture": "#0"},
+				"east": {"uv": [5, 13, 6.5, 16], "texture": "#0"},
+				"south": {"uv": [0, 13, 5, 16], "rotation": 180, "texture": "#0"},
+				"west": {"uv": [5, 13, 6.5, 16], "texture": "#0"},
+				"up": {"uv": [0, 13, 5, 16], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [0, 13, 5, 16], "rotation": 180, "texture": "#0"}
+			}
+		},
+		{
+			"from": [-12, 2, 2],
+			"to": [28, 14, 14],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 13, 5, 16], "texture": "#0"},
+				"east": {"uv": [5, 13, 6.5, 16], "texture": "#0"},
+				"south": {"uv": [0, 13, 5, 16], "rotation": 180, "texture": "#0"},
+				"west": {"uv": [5, 13, 6.5, 16], "texture": "#0"},
+				"up": {"uv": [0, 13, 5, 16], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [0, 13, 5, 16], "rotation": 180, "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "front_grinder",
+			"origin": [1, 18, 1],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}

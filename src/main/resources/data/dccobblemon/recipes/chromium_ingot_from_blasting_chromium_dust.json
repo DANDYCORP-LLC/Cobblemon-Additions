@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 2.0,
+  "group": "chromium",
+  "ingredient": {
+    "item": "dccobblemon:chromium_dust"
+  },
+  "result": "dccobblemon:chromium_ingot"
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "dccobblemon:chromium_block",
+    "dccobblemon:raw_chromium_block",
+    "dccobblemon:walker_magma",
+    "dccobblemon:vendor"
+  ]
+}

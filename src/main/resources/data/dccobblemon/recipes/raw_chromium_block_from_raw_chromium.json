@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "chromium",
+  "key": {
+    "#": {
+      "item": "dccobblemon:raw_chromium"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "dccobblemon:raw_chromium_block"
+  },
+  "show_notification": true
+}

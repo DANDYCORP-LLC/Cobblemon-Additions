@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "chromium",
+  "ingredient": {
+    "item": "dccobblemon:chromium_sword"
+  },
+  "result": "dccobblemon:chromium_nugget"
+}
