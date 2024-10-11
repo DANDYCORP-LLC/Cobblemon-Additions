@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "dccobblemon:block/grinder/grinder_body",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "dccobblemon:block/grinder/grinder_body"
+    },
+    "facing=south": {
+      "model": "dccobblemon:block/grinder/grinder_body",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "dccobblemon:block/grinder/grinder_body",
+      "y": 270
+    }
+  }
+}

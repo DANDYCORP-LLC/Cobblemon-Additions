@@ -27,6 +27,7 @@
   "block.dccobblemon.walker_magma": "Lava Rock",
 
   "death.attack.dandy_badge": "%1$s was worked to death...",
+  "death.attack.grinder": "%1$s fell into a DANDYCORP Industrial Grinder!",
   "subtitles.dccobblemon.greed": "DANDYCORP Badge activates",
   "subtitles.dccobblemon.judgement": "Judgement Badge activates",
   "subtitles.dccobblemon.compliment": "The machine issues a \"compliment\"",
@@ -39,5 +40,6 @@
   "block.dccobblemon.vendor": "DANDYCORP Vendor",
   "ui.dccobblemon.vendor.poor": "You don't have enough tickets!",
   "ui.dccobblemon.vendor.retire_kick": "DANDYCORP wishes you the best in your permanent leave. Goodbye!",
-  "death.attack.vendor": "%1$s took the only escape route DANDYCORP provides."
+  "death.attack.vendor": "%1$s took the only escape route DANDYCORP provides.",
+  "block.dandycorp.vendor": "DANDYCORP Vendor"
 }

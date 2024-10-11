@@ -2,8 +2,8 @@ package net.dandycorp.dccobblemon.mixin;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
-import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
+import net.dandycorp.dccobblemon.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
@@ -54,7 +54,7 @@ public class BlockLootMixin {
                                     getDroppedStacks(state, serverWorld, pos, blockEntity, entity, tool).forEach(stack -> dropStack(serverWorld, pos, stack));
                                     state.onStacksDropped(serverWorld, pos, tool, true);
                                     serverWorld.spawnParticles(ParticleTypes.WITCH, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 6, 0.5, 0.6, 0.5,10);
-                                    serverWorld.playSound(null,pos, DANDYCORPCobblemonAdditions.GREED_EVENT, SoundCategory.PLAYERS,1f, (float) (-0.5 + Math.random()));
+                                    serverWorld.playSound(null,pos, DANDYCORPSounds.GREED_EVENT, SoundCategory.PLAYERS,1f, (float) (-0.5 + Math.random()));
                                     livingEntity.damage(DANDYCORPDamageTypes.of(serverWorld,DANDYCORPDamageTypes.DANDY_BADGE), 2);
                                     livingEntity.hurtTime = 0;
                                 }

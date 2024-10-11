@@ -8,7 +8,7 @@ import io.wispforest.owo.ui.container.Containers;
 import io.wispforest.owo.ui.container.FlowLayout;
 import io.wispforest.owo.ui.container.ScrollContainer;
 import io.wispforest.owo.ui.core.*;
-import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
+import net.dandycorp.dccobblemon.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.ui.PokemonComponent;
 import net.dandycorp.dccobblemon.util.*;
 import net.minecraft.entity.player.PlayerInventory;
@@ -294,7 +294,7 @@ public class VendorPurchaseScreen extends VendorScreen {
 
     @Override
     public void close() {
-        playerInventory.player.playSound(DANDYCORPCobblemonAdditions.VENDOR_CLICK_EVENT, 1.0f, (float) (0.8+(0.4*Math.random())));
+        playerInventory.player.playSound(DANDYCORPSounds.VENDOR_CLICK_EVENT, 1.0f, (float) (0.8+(0.4*Math.random())));
         this.client.setScreen(new VendorScreen(this.handler, this.playerInventory, this.title));
     }
 

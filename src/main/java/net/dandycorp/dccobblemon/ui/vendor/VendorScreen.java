@@ -9,6 +9,7 @@ import io.wispforest.owo.ui.container.GridLayout;
 import io.wispforest.owo.ui.container.StackLayout;
 import io.wispforest.owo.ui.core.*;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
+import net.dandycorp.dccobblemon.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.util.VendorBalanceManager;
 import net.dandycorp.dccobblemon.util.VendorCategory;
 import net.minecraft.client.gui.DrawContext;
@@ -75,7 +76,7 @@ public class VendorScreen extends BaseOwoHandledScreen<FlowLayout,VendorScreenHa
                 StackLayout buttonContainer = (StackLayout) Containers.stack(Sizing.fixed(100), Sizing.fixed(62)).surface(Surface.outline(0xFF00FF00));
 
                 buttonContainer.child(Components.button(Text.empty(), button -> {
-                            playerInventory.player.playSound(DANDYCORPCobblemonAdditions.VENDOR_CLICK_EVENT, 1.0f, (float) (0.8 + (0.4 * Math.random())));
+                            playerInventory.player.playSound(DANDYCORPSounds.VENDOR_CLICK_EVENT, 1.0f, (float) (0.8 + (0.4 * Math.random())));
                             client.setScreen(new VendorPurchaseScreen(handler, playerInventory, title, balanceManager, category.getName()));
                         })
                         .renderer(ButtonComponent.Renderer.flat(0xFF000000, 0xFF002200, 0xFF000000))
@@ -110,7 +111,7 @@ public class VendorScreen extends BaseOwoHandledScreen<FlowLayout,VendorScreenHa
                                 Text.empty(),
                                 button -> {
                                     assert client != null;
-                                    playerInventory.player.playSound(DANDYCORPCobblemonAdditions.VENDOR_CLICK_EVENT, 1.0f, (float) (0.8+(0.4*Math.random())));
+                                    playerInventory.player.playSound(DANDYCORPSounds.VENDOR_CLICK_EVENT, 1.0f, (float) (0.8+(0.4*Math.random())));
                                     client.setScreen(new VendorSpecialsScreen(handler, playerInventory, title, balanceManager));
                                 }
                         )
@@ -138,7 +139,7 @@ public class VendorScreen extends BaseOwoHandledScreen<FlowLayout,VendorScreenHa
 
     @Override
     public void close() {
-        playerInventory.player.playSound(DANDYCORPCobblemonAdditions.VENDOR_CLICK_EVENT, 1.0f, (float) (0.2*Math.random()));
+        playerInventory.player.playSound(DANDYCORPSounds.VENDOR_CLICK_EVENT, 1.0f, (float) (0.2*Math.random()));
         super.close();
     }
 }

@@ -1,6 +1,7 @@
 package net.dandycorp.dccobblemon;
 
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
+import net.dandycorp.dccobblemon.block.BlockPartialModels;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.renderer.BadgeRenderer;
 import net.dandycorp.dccobblemon.renderer.ElytraRegister;
@@ -37,6 +38,7 @@ public class Client implements ClientModInitializer {
         TrinketRendererRegistry.registerRenderer(Items.WATER_BADGE, new BadgeRenderer());
         ElytraRegister.registerCapeRenderer();
         ElytraRegister.registerRenderer();
+        BlockPartialModels.register();
 
         HandledScreens.register(
                 DANDYCORPCobblemonAdditions.VENDOR_SCREEN_HANDLER,

@@ -1,6 +1,6 @@
 package net.dandycorp.dccobblemon.block.custom;
 
-import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
+import net.dandycorp.dccobblemon.block.BlockEntities;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -8,7 +8,6 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
@@ -24,10 +23,9 @@ import java.util.Queue;
 public class VendorBlockEntity extends BlockEntity implements NamedScreenHandlerFactory{
 
     public Queue<ItemStack> toDispense = new LinkedList<>();
-    private final ArrayPropertyDelegate propertyDelegate = new ArrayPropertyDelegate(1);
 
     public VendorBlockEntity(BlockPos pos, BlockState state) {
-        super(DANDYCORPCobblemonAdditions.VENDOR_BLOCK_ENTITY, pos, state);
+        super(BlockEntities.VENDOR_BLOCK_ENTITY, pos, state);
     }
 
     @Override

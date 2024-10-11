@@ -1,6 +1,7 @@
 package net.dandycorp.dccobblemon.block.custom;
 
-import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
+import net.dandycorp.dccobblemon.DANDYCORPSounds;
+import net.dandycorp.dccobblemon.block.BlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -122,7 +123,7 @@ public class VendorBlock extends BlockWithEntity implements BlockEntityProvider 
 
             if (screenHandlerFactory != null) {
                 player.openHandledScreen(screenHandlerFactory);
-                world.playSound(null,pos,DANDYCORPCobblemonAdditions.VENDOR_OPEN_EVENT, SoundCategory.BLOCKS,1.0f,1.0f);
+                world.playSound(null,pos, DANDYCORPSounds.VENDOR_OPEN_EVENT, SoundCategory.BLOCKS,1.0f,1.0f);
             }
         }
         return ActionResult.SUCCESS;
@@ -221,6 +222,20 @@ public class VendorBlock extends BlockWithEntity implements BlockEntityProvider 
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, DANDYCORPCobblemonAdditions.VENDOR_BLOCK_ENTITY, VendorBlockEntity::tick);
+        return checkType(type, BlockEntities.VENDOR_BLOCK_ENTITY, VendorBlockEntity::tick);
+    }
+
+    @Override
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        if (!state.isOf(newState.getBlock())) { // Check if the block is being replaced with a different block
+            DoubleBlockHalf half = state.get(HALF);
+            BlockPos otherHalfPos = half == DoubleBlockHalf.LOWER ? pos.up() : pos.down(); // Determine the position of the other half
+            BlockState otherHalfState = world.getBlockState(otherHalfPos);
+
+            if (otherHalfState.isOf(this)) { // Check if the other half is the same block
+                world.setBlockState(otherHalfPos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL); // Remove the other half
+            }
+        }
+        super.onStateReplaced(state, world, pos, newState, moved); // Call the superclass method
     }
 }

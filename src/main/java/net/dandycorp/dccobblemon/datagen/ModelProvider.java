@@ -56,6 +56,5 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.registerArmor((ArmorItem) Items.CHROMIUM_CHESTPLATE);
         itemModelGenerator.registerArmor((ArmorItem) Items.CHROMIUM_LEGGINGS);
         itemModelGenerator.registerArmor((ArmorItem) Items.CHROMIUM_BOOTS);
-
     }
 }

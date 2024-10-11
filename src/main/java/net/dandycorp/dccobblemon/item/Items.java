@@ -125,6 +125,7 @@ public class Items {
 
             entries.add(TICKET);
             entries.add(Blocks.VENDOR_BLOCK);
+            //entries.add(Blocks.GRINDER_BLOCK);
 
             entries.add(CHROMIUM_INGOT);
             entries.add(CHROMIUM_NUGGET);

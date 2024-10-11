@@ -2,12 +2,12 @@ plugins {
 	id 'java'
 	id 'fabric-loom' version '1.7-SNAPSHOT'
 	id 'maven-publish'
-	id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+	id 'org.jetbrains.kotlin.jvm' version '1.9.20'
 }
+
 
 version = project.mod_version
 group = project.maven_group
-lwjglVersion = "3.3.1"
 
 base {
 	archivesName = project.archives_base_name
@@ -17,6 +17,18 @@ repositories {
 
 	mavenLocal()
 	mavenCentral()
+	maven {
+		name = "Flywheel"
+		url = "https://maven.tterrag.com/"
+	}
+	maven {
+		name = "Create"
+		url = "https://mvn.devos.one/snapshots/"
+	}
+	maven {
+		name = "Reach Entity Attributes"
+		url = "https://maven.jamieswhiteshirt.com/libs-release"
+	}
 	maven {
 		name = "Geckolib"
 		url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/"
@@ -100,6 +112,9 @@ dependencies {
 	modImplementation "dev.emi:trinkets:3.7.2"
 	modImplementation "it.crystalnest:soul-fire-d-fabric:${project.soul_fire_d_version}"
 
+	// Create
+	modImplementation("com.simibubi.create:create-fabric-${minecraft_version}:${create_version}")
+
 
 	// API dependencies
 	modApi("com.github.Virtuoel:Pehkui:3.7.8") {
@@ -133,6 +148,7 @@ java {
 	sourceCompatibility = JavaVersion.VERSION_17
 	targetCompatibility = JavaVersion.VERSION_17
 }
+
 
 jar {
 	from("LICENSE") {

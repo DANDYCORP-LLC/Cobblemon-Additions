@@ -4,6 +4,7 @@ import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
+import net.dandycorp.dccobblemon.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.block.custom.VendorBlockEntity;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.ui.PokemonComponent;
@@ -74,7 +75,7 @@ public class VendorScreenHandler extends ScreenHandler {
                 spendTickets(player, cost);
                 switch (id) {
                     case 1000: // compliment
-                        player.getWorld().playSound(null,blockPos,DANDYCORPCobblemonAdditions.COMPLIMENT_EVENT,SoundCategory.BLOCKS,0.7f,1.1f);
+                        player.getWorld().playSound(null,blockPos, DANDYCORPSounds.COMPLIMENT_EVENT,SoundCategory.BLOCKS,0.7f,1.1f);
                         player.closeHandledScreen();
                         return true;
                     case 1001: // retirement
@@ -86,14 +87,14 @@ public class VendorScreenHandler extends ScreenHandler {
                         }
                         return true;
                     case 1002: // donor head
-                        player.getWorld().playSound(null, blockPos, DANDYCORPCobblemonAdditions.VENDOR_BUY_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
+                        player.getWorld().playSound(null, blockPos, DANDYCORPSounds.VENDOR_BUY_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
                         ItemStack donorHead = HeadHelper.getPlayerHead(HeadHelper.getRandomDonor());
                         spawnItems(donorHead);
                         return true;
                 }
             } else {
                 player.sendMessage(Text.translatable("ui.dccobblemon.vendor.poor"));
-                player.playSound(DANDYCORPCobblemonAdditions.VENDOR_POOR_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
+                player.playSound(DANDYCORPSounds.VENDOR_POOR_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
                 return true;
             }
         }
@@ -102,12 +103,12 @@ public class VendorScreenHandler extends ScreenHandler {
         if (vendorEntry != null && !vendorEntry.getItems().isEmpty()) {
             int cost = vendorEntry.getCost();
             if (canAfford(cost)) {
-                player.getWorld().playSound(null, blockPos, DANDYCORPCobblemonAdditions.VENDOR_BUY_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
+                player.getWorld().playSound(null, blockPos, DANDYCORPSounds.VENDOR_BUY_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
                 purchase(player, vendorEntry.getItems(), cost);
                 return true;
             } else {
                 player.sendMessage(Text.translatable("ui.dccobblemon.vendor.poor"));
-                player.playSound(DANDYCORPCobblemonAdditions.VENDOR_POOR_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
+                player.playSound(DANDYCORPSounds.VENDOR_POOR_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
             }
         } else {
             player.sendMessage(Text.literal("Invalid button ID: " + id));
@@ -226,7 +227,6 @@ public class VendorScreenHandler extends ScreenHandler {
 
         if (itemID.startsWith("minecraft:player_head#")) {
             stack = HeadHelper.getStackFromItemID(itemID);
-            System.out.println("getting player head stack");
         } else {
             Identifier identifier = new Identifier(itemID);
             if (Registries.ITEM.containsId(identifier)) {

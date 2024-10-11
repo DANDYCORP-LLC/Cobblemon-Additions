@@ -65,5 +65,23 @@
     "sounds": [
       "dccobblemon:vendor_poor"
     ]
+  },
+
+  "grinder_grind": {
+    "sounds": [
+      "dccobblemon:grinder_grind"
+    ]
+  },
+
+  "grinder_powered": {
+    "sounds": [
+      "dccobblemon:grinder_powered"
+    ]
+  },
+
+  "grinder_active": {
+    "sounds": [
+      "dccobblemon:grinder_active"
+    ]
   }
 }

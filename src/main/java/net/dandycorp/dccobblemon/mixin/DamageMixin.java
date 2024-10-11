@@ -3,7 +3,7 @@ package net.dandycorp.dccobblemon.mixin;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
 import it.crystalnest.soul_fire_d.api.FireManager;
-import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
+import net.dandycorp.dccobblemon.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.entity.LivingEntity;
@@ -74,7 +74,7 @@ public class DamageMixin {
                                                     entity.getY()+0.5,
                                                     entity.getZ(),
                                                     (int) Math.round(3 * addition), 0.6, 0.6, 0.6, 100);
-                                        player.getWorld().playSound(null,entity.getBlockPos(), DANDYCORPCobblemonAdditions.JUDGEMENT_EVENT, SoundCategory.PLAYERS,1f, 0.5f+addition);
+                                        player.getWorld().playSound(null,entity.getBlockPos(), DANDYCORPSounds.JUDGEMENT_EVENT, SoundCategory.PLAYERS,1f, 0.5f+addition);
                                         cir.setReturnValue(entity.damage(source,amount+addition));
                                     }
                                 }
