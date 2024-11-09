@@ -69,29 +69,30 @@ public class Items {
 
 
     public static final Item TICKET = registerItem("ticket", new Ticket(new Item.Settings().rarity(Rarity.RARE)));
+    public static final Item VENDOR = registerItem("vendor", new TallBlockItem(Blocks.VENDOR_BLOCK,new Item.Settings().rarity(Rarity.UNCOMMON)));
 
-    public static final Item CHROMIUM_INGOT = registerItem("chromium_ingot", new Ticket(new Item.Settings().rarity(Rarity.UNCOMMON)));
-    public static final Item CHROMIUM_NUGGET = registerItem("chromium_nugget", new Ticket(new Item.Settings().rarity(Rarity.UNCOMMON)));
-    public static final Item CHROMIUM_DUST = registerItem("chromium_dust", new Ticket(new Item.Settings().rarity(Rarity.UNCOMMON)));
-    public static final Item RAW_CHROMIUM = registerItem("raw_chromium", new Ticket(new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item CHROMIUM_INGOT = registerItem("chromium_ingot", new Ticket(new Item.Settings()));
+    public static final Item CHROMIUM_NUGGET = registerItem("chromium_nugget", new Ticket(new Item.Settings()));
+    public static final Item CHROMIUM_DUST = registerItem("chromium_dust", new Ticket(new Item.Settings()));
+    public static final Item RAW_CHROMIUM = registerItem("raw_chromium", new Ticket(new Item.Settings()));
     public static final Item CHROMIUM_HELMET = registerItem("chromium_helmet",
-            new ArmorItem(DANDYCORPArmorMaterials.CHROMIUM, ArmorItem.Type.HELMET, new Item.Settings().rarity(Rarity.UNCOMMON)));
+            new ArmorItem(DANDYCORPArmorMaterials.CHROMIUM, ArmorItem.Type.HELMET, new Item.Settings()));
     public static final Item CHROMIUM_CHESTPLATE = registerItem("chromium_chestplate",
-            new ArmorItem(DANDYCORPArmorMaterials.CHROMIUM, ArmorItem.Type.CHESTPLATE, new Item.Settings().rarity(Rarity.UNCOMMON)));
+            new ArmorItem(DANDYCORPArmorMaterials.CHROMIUM, ArmorItem.Type.CHESTPLATE, new Item.Settings()));
     public static final Item CHROMIUM_LEGGINGS = registerItem("chromium_leggings",
-            new ArmorItem(DANDYCORPArmorMaterials.CHROMIUM, ArmorItem.Type.LEGGINGS, new Item.Settings().rarity(Rarity.UNCOMMON)));
+            new ArmorItem(DANDYCORPArmorMaterials.CHROMIUM, ArmorItem.Type.LEGGINGS, new Item.Settings()));
     public static final Item CHROMIUM_BOOTS = registerItem("chromium_boots",
-            new ArmorItem(DANDYCORPArmorMaterials.CHROMIUM, ArmorItem.Type.BOOTS, new Item.Settings().rarity(Rarity.UNCOMMON)));
+            new ArmorItem(DANDYCORPArmorMaterials.CHROMIUM, ArmorItem.Type.BOOTS, new Item.Settings()));
     public static final Item CHROMIUM_SWORD = registerItem("chromium_sword",
-            new SwordItem(DANDYCORPToolMaterials.CHROMIUM,3,-2.4f,new Item.Settings().rarity(Rarity.UNCOMMON)));
+            new SwordItem(DANDYCORPToolMaterials.CHROMIUM,3,-2.4f,new Item.Settings()));
     public static final Item CHROMIUM_PICKAXE = registerItem("chromium_pickaxe",
-            new PickaxeItem(DANDYCORPToolMaterials.CHROMIUM,1,-2.8f,new Item.Settings().rarity(Rarity.UNCOMMON)));
+            new PickaxeItem(DANDYCORPToolMaterials.CHROMIUM,1,-2.8f,new Item.Settings()));
     public static final Item CHROMIUM_SHOVEL = registerItem("chromium_shovel",
-            new ShovelItem(DANDYCORPToolMaterials.CHROMIUM,1,-2.8f,new Item.Settings().rarity(Rarity.UNCOMMON)));
+            new ShovelItem(DANDYCORPToolMaterials.CHROMIUM,1,-2.8f,new Item.Settings()));
     public static final Item CHROMIUM_AXE = registerItem("chromium_axe",
-            new AxeItem(DANDYCORPToolMaterials.CHROMIUM,5,-3f,new Item.Settings().rarity(Rarity.UNCOMMON)));
+            new AxeItem(DANDYCORPToolMaterials.CHROMIUM,5,-3f,new Item.Settings()));
     public static final Item CHROMIUM_HOE = registerItem("chromium_hoe",
-            new HoeItem(DANDYCORPToolMaterials.CHROMIUM,-3,0.0f,new Item.Settings().rarity(Rarity.UNCOMMON)));
+            new HoeItem(DANDYCORPToolMaterials.CHROMIUM,-3,0.0f,new Item.Settings()));
     // ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
 
@@ -124,7 +125,7 @@ public class Items {
 
 
             entries.add(TICKET);
-            entries.add(Blocks.VENDOR_BLOCK);
+            entries.add(VENDOR);
             //entries.add(Blocks.GRINDER_BLOCK);
 
             entries.add(CHROMIUM_INGOT);

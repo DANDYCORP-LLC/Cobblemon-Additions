@@ -6,6 +6,7 @@ import net.dandycorp.dccobblemon.block.custom.grinder.GrinderBlockEntity;
 import net.dandycorp.dccobblemon.block.custom.grinder.GrinderBlockInstance;
 import net.dandycorp.dccobblemon.block.custom.grinder.GrinderBlockRenderer;
 import net.dandycorp.dccobblemon.block.custom.VendorBlockEntity;
+import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.GrinderRotationalBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -31,6 +32,11 @@ public class BlockEntities {
             .instance(() -> GrinderBlockInstance::new)
             .renderer(() -> GrinderBlockRenderer::new)
             .validBlocks(Blocks.GRINDER_BLOCK)
+            .register();
+
+    public static final BlockEntityEntry<GrinderRotationalBlockEntity> GRINDER_ROTATIONAL_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("grinder_rotational", GrinderRotationalBlockEntity::new)
+            .validBlocks(Blocks.GRINDER_ROTATIONAL_BLOCK)
             .register();
 
     public static void registerAllBlockEntities() {

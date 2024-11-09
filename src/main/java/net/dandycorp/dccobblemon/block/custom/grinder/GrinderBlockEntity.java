@@ -42,8 +42,8 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
     protected final int maxProcessingTime = 300;
     protected int points;
     protected GrinderInventoryHandler capability;
-    protected Box aabb = new Box(pos.getX(), pos.getY() + 1, pos.getZ(),
-            pos.getX() + 1, pos.getY() + 1.5, pos.getZ() + 1);
+    protected Box aabb = new Box(pos.getX()-0.4, pos.getY() + 1, pos.getZ()-0.4,
+            pos.getX() + 1.4, pos.getY() + 1.6, pos.getZ() + 1.4);
 
     @Nullable
     private LoopingSoundInstance poweredSoundInstance;
@@ -178,7 +178,7 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
                         soundEventA,
                         SoundCategory.BLOCKS,
                         position,
-                        0.4f, // Volume
+                        0.2f, // Volume
                         pitch
                 );
 
@@ -225,7 +225,7 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
                         soundEventB,
                         SoundCategory.BLOCKS,
                         position,
-                        0.6f, // Volume
+                        0.3f, // Volume
                         pitch
                 );
                 soundManager.play(grindingSoundInstance);

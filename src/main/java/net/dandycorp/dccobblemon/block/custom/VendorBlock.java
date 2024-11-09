@@ -28,6 +28,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 
@@ -99,6 +100,15 @@ public class VendorBlock extends BlockWithEntity implements BlockEntityProvider 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         Direction facing = ctx.getHorizontalPlayerFacing().getOpposite();
         return this.getDefaultState().with(FACING, facing).with(HALF, DoubleBlockHalf.LOWER);
+    }
+
+    @Override
+    public boolean canPlaceAt(BlockState state, WorldView worldView, BlockPos pos) {
+        BlockState upState = worldView.getBlockState(pos.up());
+        if (upState.isReplaceable()){
+            return true;
+        }
+        else return false;
     }
 
     static {
