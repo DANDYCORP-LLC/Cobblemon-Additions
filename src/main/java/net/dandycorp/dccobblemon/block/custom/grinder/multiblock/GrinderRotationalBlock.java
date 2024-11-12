@@ -4,13 +4,13 @@ import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 import net.dandycorp.dccobblemon.block.BlockEntities;
 import net.dandycorp.dccobblemon.block.Blocks;
-import net.dandycorp.dccobblemon.block.custom.grinder.GrinderBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
@@ -166,5 +166,10 @@ public class GrinderRotationalBlock extends DirectionalKineticBlock implements I
             };
         }
         return shape;
+    }
+
+    @Override
+    public ItemStack getPickStack(BlockView blockView, BlockPos blockPos, BlockState blockState) {
+        return Blocks.GRINDER_BLOCK.asItem().getDefaultStack();
     }
 }

@@ -121,38 +121,6 @@ public class GrinderBlock extends DirectionalKineticBlock implements IBE<Grinder
         return ActionResult.SUCCESS;
     }
 
-    @Override
-    public void onEntityLand(BlockView blockView, Entity entity) {
-        super.onEntityLand(blockView, entity);
-
-        if (entity.getWorld().isClient)
-            return;
-        if (!entity.isAlive())
-            return;
-        if (entity instanceof ItemEntity itemEntity) {
-
-            GrinderBlockEntity grinder = null;
-            for (BlockPos pos : Iterate.hereAndBelow(entity.getBlockPos()))
-                if (grinder == null)
-                    grinder = getBlockEntity(blockView, pos);
-
-            if (grinder != null) {
-                Storage<ItemVariant> handler = grinder.getItemStorage(null);
-                if (handler != null) {
-                    try (Transaction t = TransferUtil.getTransaction()) {
-                        ItemStack inEntity = itemEntity.getStack();
-                        long inserted = handler.insert(ItemVariant.of(inEntity), inEntity.getCount(), t);
-                        if (inserted == inEntity.getCount())
-                            itemEntity.discard();
-                        else
-                            itemEntity.setStack(ItemHandlerHelper.copyStackWithSize(inEntity, (int) (inEntity.getCount() - inserted)));
-                        t.commit();
-                    }
-                }
-            }
-        }
-    }
-
 
     @Override
     public SpeedLevel getMinimumRequiredSpeedLevel() {

@@ -6,6 +6,8 @@ import net.dandycorp.dccobblemon.block.custom.grinder.GrinderBlockEntity;
 import net.dandycorp.dccobblemon.block.custom.grinder.GrinderBlockInstance;
 import net.dandycorp.dccobblemon.block.custom.grinder.GrinderBlockRenderer;
 import net.dandycorp.dccobblemon.block.custom.VendorBlockEntity;
+import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.GrinderInputBlockEntity;
+import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.GrinderOutputBlockEntity;
 import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.GrinderRotationalBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
@@ -37,6 +39,16 @@ public class BlockEntities {
     public static final BlockEntityEntry<GrinderRotationalBlockEntity> GRINDER_ROTATIONAL_BLOCK_ENTITY = REGISTRATE
             .blockEntity("grinder_rotational", GrinderRotationalBlockEntity::new)
             .validBlocks(Blocks.GRINDER_ROTATIONAL_BLOCK)
+            .register();
+
+    public static final BlockEntityEntry<GrinderInputBlockEntity> GRINDER_INPUT_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("grinder_input", GrinderInputBlockEntity::new)
+            .validBlocks(Blocks.GRINDER_INPUT_BLOCK)
+            .register();
+
+    public static final BlockEntityEntry<GrinderOutputBlockEntity> GRINDER_OUTPUT_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("grinder_output", GrinderOutputBlockEntity::new)
+            .validBlocks(Blocks.GRINDER_OUTPUT_BLOCK)
             .register();
 
     public static void registerAllBlockEntities() {

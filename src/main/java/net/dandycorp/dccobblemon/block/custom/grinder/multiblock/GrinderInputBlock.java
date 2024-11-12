@@ -1,27 +1,24 @@
 package net.dandycorp.dccobblemon.block.custom.grinder.multiblock;
 
-import com.google.common.collect.ImmutableMap;
+import com.simibubi.create.foundation.block.IBE;
+import net.dandycorp.dccobblemon.block.BlockEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.DoubleBlockProperties;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.block.enums.BlockHalf;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Function;
-
-public class GrinderInputBlock extends MultiblockPartBlock {
+public class GrinderInputBlock extends MultiblockPartBlock implements IBE<GrinderInputBlockEntity> {
 
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
 
@@ -114,5 +111,20 @@ public class GrinderInputBlock extends MultiblockPartBlock {
             };
         }
         return shape;
+    }
+
+    @Override
+    public Class<GrinderInputBlockEntity> getBlockEntityClass() {
+        return GrinderInputBlockEntity.class;
+    }
+
+    @Override
+    public BlockEntityType<? extends GrinderInputBlockEntity> getBlockEntityType() {
+        return BlockEntities.GRINDER_INPUT_BLOCK_ENTITY.get();
+    }
+
+    @Override
+    public @Nullable BlockEntity createBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new GrinderInputBlockEntity(BlockEntities.GRINDER_INPUT_BLOCK_ENTITY.get(),blockPos, blockState);
     }
 }

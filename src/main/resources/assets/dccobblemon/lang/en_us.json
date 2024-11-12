@@ -25,6 +25,7 @@
   "item.dccobblemon.raw_chromium": "Raw Chromium",
 
   "block.dccobblemon.walker_magma": "Lava Rock",
+  "block.dccobblemon.grinder": "DANDYCORP Industrial Grinder",
 
   "death.attack.dandy_badge": "%1$s was worked to death...",
   "death.attack.grinder": "%1$s fell into a DANDYCORP Industrial Grinder!",
@@ -41,5 +42,6 @@
   "ui.dccobblemon.vendor.poor": "You don't have enough tickets!",
   "ui.dccobblemon.vendor.retire_kick": "DANDYCORP wishes you the best in your permanent leave. Goodbye!",
   "death.attack.vendor": "%1$s took the only escape route DANDYCORP provides.",
-  "block.dandycorp.vendor": "DANDYCORP Vendor"
+  "block.dandycorp.vendor": "DANDYCORP Vendor",
+  "block.dccobblemon.grinder.progress": "Ticket Progress:"
 }

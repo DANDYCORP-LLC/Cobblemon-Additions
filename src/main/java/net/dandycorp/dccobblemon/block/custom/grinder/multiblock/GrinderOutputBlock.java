@@ -1,14 +1,19 @@
 package net.dandycorp.dccobblemon.block.custom.grinder.multiblock;
 
+import com.simibubi.create.foundation.block.IBE;
+import net.dandycorp.dccobblemon.block.BlockEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import org.jetbrains.annotations.Nullable;
 
-public class GrinderOutputBlock extends MultiblockPartBlock {
+public class GrinderOutputBlock extends MultiblockPartBlock implements IBE<GrinderOutputBlockEntity> {
     public GrinderOutputBlock(Settings settings) {
         super(settings);
     }
@@ -48,5 +53,20 @@ public class GrinderOutputBlock extends MultiblockPartBlock {
             default -> shape;
         };
         return shape;
+    }
+
+    @Override
+    public Class<GrinderOutputBlockEntity> getBlockEntityClass() {
+        return GrinderOutputBlockEntity.class;
+    }
+
+    @Override
+    public BlockEntityType<? extends GrinderOutputBlockEntity> getBlockEntityType() {
+        return BlockEntities.GRINDER_OUTPUT_BLOCK_ENTITY.get();
+    }
+
+    @Override
+    public @Nullable BlockEntity createBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new GrinderOutputBlockEntity(BlockEntities.GRINDER_OUTPUT_BLOCK_ENTITY.get(),blockPos, blockState);
     }
 }

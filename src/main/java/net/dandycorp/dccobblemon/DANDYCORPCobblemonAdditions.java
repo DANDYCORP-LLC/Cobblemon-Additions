@@ -9,9 +9,11 @@ import net.dandycorp.dccobblemon.event.BreakBlockHandler;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.item.custom.badges.DragonBadgeItem;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
+import net.dandycorp.dccobblemon.util.GrinderPointGenerator;
 import net.dandycorp.dccobblemon.util.HeadHelper;
 import net.dandycorp.dccobblemon.util.VendorDataLoader;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -35,7 +37,7 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 
 	public static final Random RANDOM = new Random();
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final Logger LOGGER = LoggerFactory.getLogger("DANDYCORP Cobblemon Additions");
 	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
 
 	public static Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir().resolve("dccobblemon");
@@ -86,12 +88,11 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 
 
 
-
-
 		AttackEntityCallback.EVENT.register(new AttackEntityHandler());
 		PlayerBlockBreakEvents.BEFORE.register(new BreakBlockHandler());
-
-
+		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+			GrinderPointGenerator.initializePointValues();
+		});
 
 		DragonBadgeItem.registerFlight();
 

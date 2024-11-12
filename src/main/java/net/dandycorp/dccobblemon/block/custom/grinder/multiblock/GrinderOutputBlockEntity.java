@@ -11,12 +11,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
-
-public class GrinderInputBlockEntity extends MultiblockEntity implements SidedStorageBlockEntity {
-
-
-    public GrinderInputBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
-        super(blockEntityType, blockPos, blockState);
+public class GrinderOutputBlockEntity extends MultiblockEntity implements SidedStorageBlockEntity {
+    public GrinderOutputBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
     @Override
@@ -29,8 +26,7 @@ public class GrinderInputBlockEntity extends MultiblockEntity implements SidedSt
         }
         BlockEntity be = world.getBlockEntity(mainBlockPos);
         if (be instanceof GrinderBlockEntity grinderBE) {
-
-            return grinderBE.getInputStorage();
+            return grinderBE.getOutputStorage();
         }
         return null;
     }

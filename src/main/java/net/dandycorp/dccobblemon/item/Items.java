@@ -143,6 +143,7 @@ public class Items {
             entries.add(CHROMIUM_PICKAXE);
             entries.add(CHROMIUM_AXE);
             entries.add(CHROMIUM_HOE);
+            entries.add(Blocks.GRINDER_BLOCK);
         });
     }
 }
