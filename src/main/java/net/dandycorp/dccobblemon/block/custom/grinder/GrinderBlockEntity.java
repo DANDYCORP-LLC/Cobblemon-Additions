@@ -4,8 +4,11 @@ import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.item.SmartInventory;
+import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
 import net.dandycorp.dccobblemon.DANDYCORPSounds;
+import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.GrinderInputBlockEntity;
+import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.GrinderOutputBlockEntity;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.util.GrinderPointGenerator;
 import net.dandycorp.dccobblemon.util.LoopingSoundInstance;
@@ -14,6 +17,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -34,6 +38,7 @@ import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.*;
@@ -114,31 +119,35 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
         super.read(compound, clientPacket);
     }
 
-    private boolean canProcess(ItemStack stack) {
-        return true; // For now, always return true
-    }
-
-
     @Override
     public void tick() {
         super.tick();
 
         if (getSpeed() == 0 || !isSpeedRequirementFulfilled()) return;
         if (world == null) return;
+        if (processingTime < 0) processingTime = 0;
+        ItemStack stack = input.getStackInSlot(0);
 
         //System.out.println(input.getStackInSlot(0));
-        if (!input.getStackInSlot(0).isEmpty()) {
+        if (!stack.isEmpty()) {
             //System.out.println("not empty. process time = " + processingTime);
-            processingTime += (int) (getSpeed() / 16);
+            processingTime += (int) (Math.abs(getSpeed()) / 16);
             if (processingTime > maxProcessingTime) {
                 processingTime = 0;
-                input.getStackInSlot(0).decrement(1);
-                world.playSound(null,
-                        pos,DANDYCORPSounds.GRINDER_GRIND_EVENT,
-                        SoundCategory.BLOCKS,
-                        0.1f,
-                        MathHelper.clamp((0.4f+(Math.abs(getSpeed())/170)), 0.4f, 1.8f) + RANDOM.nextFloat(0.0f, 0.4f));
-                handlePoints(input.getStackInSlot(0).getItem());
+                handlePoints(stack.getItem());
+                try (Transaction t = TransferUtil.getTransaction()) {
+                    for (StorageView<ItemVariant> view : input.nonEmptyViews()) {
+                        view.extract(view.getResource(), 1, t);
+                        // extract exactly 1 of whatever is in the inventory
+                    }
+                    input.markDirty();
+                    world.playSound(null,
+                            pos, DANDYCORPSounds.GRINDER_GRIND_EVENT,
+                            SoundCategory.BLOCKS,
+                            0.1f,
+                            MathHelper.clamp((0.4f + (Math.abs(getSpeed()) / 170)), 0.4f, 1.8f) + RANDOM.nextFloat(0.0f, 0.4f));
+                    t.commit();
+                }
             }
         } else processingTime = 0;
         applyEntityDamage();
@@ -147,12 +156,34 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
     private void handlePoints(Item input){
         if(world == null) return;
 
+        if (!GrinderPointGenerator.calculatedPointValues.containsKey(input) || GrinderPointGenerator.calculatedPointValues.get(input) == 0) {
+            System.out.println("handlePoints: No point value defined for item " + input.getName().getString());
+            for (int i = 0; i < 5; i++){
+                world.addParticle(ParticleTypes.LARGE_SMOKE,
+                        pos.getX() + RANDOM.nextDouble(0.3, 0.7),
+                        pos.getY() + 1,
+                        pos.getZ() + RANDOM.nextDouble(0.3, 0.7),
+                        RANDOM.nextDouble(-0.1, 0.1),
+                        0.1,
+                        RANDOM.nextDouble(-0.1, 0.1));
+                world.playSound(null,
+                        pos,
+                        SoundEvents.ITEM_BRUSH_BRUSHING_SAND,
+                        SoundCategory.BLOCKS,
+                        0.6f,
+                        RANDOM.nextFloat(0.0f,0.6f));
+            }
+            return;
+        }
+
         float increment = GrinderPointGenerator.calculatedPointValues.get(input);
         points = (float) (Math.floor((points + increment) * 1000) / 1000);
 
-        System.out.println("points: " + points + " increment: " + increment);
+        //System.out.println("points: " + points + " increment: " + increment);
         if(points >= ticketPointValue) {
             points =  (float) (Math.floor((points - ticketPointValue) * 1000) / 1000);
+            getOutputEntity().notifyUpdate();
+            getOutputEntity().markDirty();
             if (output.getStackInSlot(0).isEmpty()) {
                 output.setStackInSlot(0, Items.TICKET.getDefaultStack());
             } else if (output.getStackInSlot(0).isOf(Items.TICKET)) {
@@ -163,6 +194,8 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
 
     @Override
     public boolean addToGoggleTooltip(List<Text> tooltip, boolean isPlayerSneaking) {
+        if (addToTooltip(tooltip,isPlayerSneaking))
+            tooltip.add(Text.literal(""));
         super.addToGoggleTooltip(tooltip, isPlayerSneaking);
         tooltip.add(Text.literal(""));
         tooltip.add(Text.literal(spacing).append(Text.translatable("block.dccobblemon.grinder.progress").formatted(Formatting.GRAY)));
@@ -336,6 +369,13 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
         return output;
     }
 
+    public GrinderOutputBlockEntity getOutputEntity() {
+        if (world.getBlockEntity(pos.offset(getCachedState().get(FACING).getOpposite())) instanceof GrinderOutputBlockEntity out) {
+            return out;
+        }
+        return null;
+    }
+
     @Nullable
     @Override
     public Storage<ItemVariant> getItemStorage(@Nullable Direction direction) {
@@ -351,15 +391,13 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
         @Override
         public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
             long inserted = input.insert(resource, maxAmount, transaction);
-            System.out.println("GrinderInventoryHandler: Attempted to insert " + maxAmount + " of " + resource.getItem().getName().getString() + ", inserted: " + inserted +
-                    "\n current inventory: " + input.getStackInSlot(0) + " empty? " + input.isEmpty());
             return inserted;
         }
 
         @Override
         public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {
-            System.out.println("attempting extraction");
-            return output.extract(resource, maxAmount, transaction);
+            long extracted = output.extract(resource, maxAmount, transaction);
+            return extracted;
         }
     }
 }

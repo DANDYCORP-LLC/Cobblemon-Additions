@@ -4,6 +4,10 @@
     "dccobblemon:chromium_block",
     "dccobblemon:raw_chromium_block",
     "dccobblemon:walker_magma",
-    "dccobblemon:vendor"
+    "dccobblemon:vendor",
+    "dccobblemon:grinder",
+    "dccobblemon:grinder_corner",
+    "dccobblemon:grinder_input",
+    "dccobblemon:grinder_output"
   ]
 }

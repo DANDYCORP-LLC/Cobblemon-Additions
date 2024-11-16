@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.DoubleBlockHalf;
@@ -23,6 +24,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -33,6 +35,7 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 
 public class GrinderBlock extends DirectionalKineticBlock implements IBE<GrinderBlockEntity> {
@@ -275,9 +278,18 @@ public class GrinderBlock extends DirectionalKineticBlock implements IBE<Grinder
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
-        Direction facing = state.get(FACING);
+        deconstruct(world, pos, state, player,true);
+    }
 
-        // Loop through the multiblock structure and remove the parts
+    @Override
+    public ActionResult onSneakWrenched(BlockState state, ItemUsageContext context) {
+        super.onSneakWrenched(state,context);
+        deconstruct(context.getWorld(), context.getBlockPos(), state, context.getPlayer(),false);
+        return ActionResult.SUCCESS;
+    }
+
+    public void deconstruct(World world, BlockPos pos, BlockState state, PlayerEntity player, boolean drop) {
+        Direction facing = state.get(FACING);
         for (int y = 0; y <= 1; y++) {
             for (int x = -1; x <= 1; x++) {
                 for (int z = -1; z <= 1; z++) {
@@ -287,31 +299,12 @@ public class GrinderBlock extends DirectionalKineticBlock implements IBE<Grinder
                     // Remove the block if it's part of the grinder
                     Block block = world.getBlockState(partPos).getBlock();
                     if (block instanceof GrinderRotationalBlock || block instanceof MultiblockPartBlock) {
-                        world.breakBlock(partPos, false);
+                        world.setBlockState(partPos, Blocks.AIR.getDefaultState());
                     } else if (block instanceof GrinderBlock) {
-                        world.breakBlock(partPos, true);
+                        world.breakBlock(partPos, drop && player != null && !player.isCreative());
                     }
                 }
             }
         }
-    }
-
-    // odds of the player sneak wrenching the main block rather than the @IMultiblockPart blocks are slim but not zero.
-    @Override
-    public ActionResult onSneakWrenched(BlockState state, ItemUsageContext context) {
-        World world = context.getWorld();
-        BlockPos pos = context.getBlockPos();
-        PlayerEntity player = context.getPlayer();
-        if (world instanceof ServerWorld) {
-            if (player != null && !player.isCreative())
-                Block.getDroppedStacks(state, (ServerWorld) world, pos, world.getBlockEntity(pos), player, context.getStack())
-                        .forEach(itemStack -> {
-                            player.getInventory().offerOrDrop(itemStack);
-                        });
-            state.onStacksDropped((ServerWorld) world, pos, ItemStack.EMPTY, true);
-            this.onBreak(world,pos,state,player);
-            playRemoveSound(world, pos);
-        }
-        return ActionResult.SUCCESS;
     }
 }

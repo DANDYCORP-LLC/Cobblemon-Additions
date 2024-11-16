@@ -1,7 +1,9 @@
 package net.dandycorp.dccobblemon.block.custom.grinder.multiblock;
 
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import net.dandycorp.dccobblemon.block.Blocks;
 import net.dandycorp.dccobblemon.block.custom.grinder.GrinderBlock;
+import net.dandycorp.dccobblemon.item.Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,14 +17,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public interface IMultiblockPart extends IWrenchable {
     Direction getMainBlockDirection(BlockState state);
 
     default BlockPos findMainBlock(World world, BlockPos pos, BlockState state) {
-        //System.out.println("finding main block...");
         int maxDepth = 5; // Maximum number of steps to search
         for (int i = 0; i < maxDepth; i++) {
-            //System.out.println("attempt "+ i);
             Direction direction = getMainBlockDirection(state);
             pos = pos.offset(direction);
             state = world.getBlockState(pos);
@@ -30,7 +32,6 @@ public interface IMultiblockPart extends IWrenchable {
             if(!(block instanceof MultiblockPartBlock || block instanceof GrinderRotationalBlock))
             {
                 if (block instanceof GrinderBlock) {
-                    //System.out.println("block found!");
                     return pos; // Found the main block
                 } else {
                     return null; // found a non-multiblock block (something is wrong)
@@ -43,23 +44,22 @@ public interface IMultiblockPart extends IWrenchable {
     @Override
     default ActionResult onSneakWrenched(BlockState state, ItemUsageContext context) {
         World world = context.getWorld();
-        BlockPos mainPos = findMainBlock(world,context.getBlockPos(),state);
+        BlockPos mainPos = findMainBlock(world, context.getBlockPos(), state);
         PlayerEntity player = context.getPlayer();
 
-
-        if(mainPos == null)
+        if (mainPos == null)
             return ActionResult.FAIL;
 
-
         if (world instanceof ServerWorld) {
-            if (player != null && !player.isCreative())
-                Block.getDroppedStacks(state, (ServerWorld) world, mainPos, world.getBlockEntity(mainPos), player, context.getStack())
-                        .forEach(itemStack -> {
-                            player.getInventory().offerOrDrop(itemStack);
-                        });
-            state.onStacksDropped((ServerWorld) world, mainPos, ItemStack.EMPTY, true);
-            world.getBlockState(mainPos).getBlock().onBreak(world,mainPos,state,player);
-            playRemoveSound(world, mainPos);
+            BlockState mainState = world.getBlockState(mainPos);
+            Block mainBlock = mainState.getBlock();
+            if (mainBlock instanceof GrinderBlock grinder) {
+                if (player != null && !player.isCreative()) {
+                    player.getInventory().offerOrDrop(Blocks.GRINDER_BLOCK.asStack());
+                }
+                grinder.deconstruct(world, mainPos, mainState, player,false);
+                state.onStacksDropped((ServerWorld) world, mainPos, ItemStack.EMPTY, true);
+            }
         }
         return ActionResult.SUCCESS;
     }

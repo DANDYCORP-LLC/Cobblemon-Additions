@@ -1,6 +1,8 @@
 package net.dandycorp.dccobblemon.block.custom.grinder.multiblock;
 
+import com.simibubi.create.content.kinetics.belt.behaviour.DirectBeltInputBehaviour;
 import com.simibubi.create.foundation.block.IBE;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.dandycorp.dccobblemon.block.BlockEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -17,6 +19,8 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class GrinderInputBlock extends MultiblockPartBlock implements IBE<GrinderInputBlockEntity> {
 

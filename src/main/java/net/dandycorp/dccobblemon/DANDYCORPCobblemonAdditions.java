@@ -90,9 +90,7 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 
 		AttackEntityCallback.EVENT.register(new AttackEntityHandler());
 		PlayerBlockBreakEvents.BEFORE.register(new BreakBlockHandler());
-		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-			GrinderPointGenerator.initializePointValues();
-		});
+		ServerLifecycleEvents.SERVER_STARTED.register(GrinderPointGenerator::initializePointValues);
 
 		DragonBadgeItem.registerFlight();
 

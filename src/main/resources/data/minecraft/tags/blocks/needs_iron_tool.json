@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "dccobblemon:vendor"
+    "dccobblemon:vendor",
+    "dccobblemon:grinder",
+    "dccobblemon:grinder_corner",
+    "dccobblemon:grinder_input",
+    "dccobblemon:grinder_output"
   ]
 }
