@@ -20,7 +20,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import org.joml.Quaternionf;
-import static com.simibubi.create.content.kinetics.base.DirectionalKineticBlock.FACING;
+import static com.simibubi.create.content.kinetics.base.HorizontalKineticBlock.HORIZONTAL_FACING;
 
 public class GrinderBlockInstance extends KineticBlockEntityInstance<GrinderBlockEntity> {
 
@@ -32,7 +32,7 @@ public class GrinderBlockInstance extends KineticBlockEntityInstance<GrinderBloc
     public GrinderBlockInstance(MaterialManager materialManager, GrinderBlockEntity blockEntity) {
         super(materialManager, blockEntity);
 
-        direction = blockEntity.getCachedState().get(FACING);
+        direction = blockEntity.getCachedState().get(HORIZONTAL_FACING);
 
         frontGrinderInstance = materialManager.defaultCutout()
                 .material(AllMaterialSpecs.ROTATING)

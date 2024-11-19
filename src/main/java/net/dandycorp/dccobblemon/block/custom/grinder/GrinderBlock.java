@@ -1,6 +1,7 @@
 package net.dandycorp.dccobblemon.block.custom.grinder;
 
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
+import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.utility.Iterate;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
@@ -38,7 +39,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 
-public class GrinderBlock extends DirectionalKineticBlock implements IBE<GrinderBlockEntity> {
+public class GrinderBlock extends HorizontalKineticBlock implements IBE<GrinderBlockEntity> {
 
     private static final Vec3i START_POS = new Vec3i(-1, 0, -1);
     private static final GrinderPartTypes[][][] MULTIBLOCK = {
@@ -60,22 +61,22 @@ public class GrinderBlock extends DirectionalKineticBlock implements IBE<Grinder
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
-        Direction preferred = getPreferredFacing(context);
+        Direction preferred = getPreferredHorizontalFacing(context);
         if (preferred == null || (context.getPlayer() != null && context.getPlayer()
                 .isSneaking())) {
             Direction facingDirection = context.getHorizontalPlayerFacing();
-            return getDefaultState().with(FACING, context.getPlayer() != null && context.getPlayer()
+            return getDefaultState().with(HORIZONTAL_FACING, context.getPlayer() != null && context.getPlayer()
                     .isSneaking() ? facingDirection : facingDirection.getOpposite());
         }
 
         //TODO: fix this to not just be a rotation of source code but properly prioritize nearby shafts left/right
         preferred = preferred.rotateClockwise(Direction.Axis.Y);
-        return getDefaultState().with(FACING, preferred.getOpposite());
+        return getDefaultState().with(HORIZONTAL_FACING, preferred.getOpposite());
     }
 
     @Override
     public Direction.Axis getRotationAxis(BlockState state) {
-        Direction facing = state.get(FACING);
+        Direction facing = state.get(HORIZONTAL_FACING);
         if (facing == Direction.NORTH || facing == Direction.SOUTH) {
             return Direction.Axis.X;
         } else {
@@ -85,7 +86,7 @@ public class GrinderBlock extends DirectionalKineticBlock implements IBE<Grinder
 
     @Override
     public boolean hasShaftTowards(WorldView world, BlockPos pos, BlockState state, Direction face) {
-        Direction facing = state.get(FACING);
+        Direction facing = state.get(HORIZONTAL_FACING);
         return ((facing == Direction.NORTH || facing == Direction.SOUTH) && (face == Direction.WEST || face == Direction.EAST))
         || ((facing == Direction.EAST || facing == Direction.WEST) && (face == Direction.NORTH || face == Direction.SOUTH));
     }
@@ -158,7 +159,7 @@ public class GrinderBlock extends DirectionalKineticBlock implements IBE<Grinder
                     int relY = y + START_POS.getY();
                     int relZ = z + START_POS.getZ();
 
-                    BlockPos offset = rotateOffset(state.get(FACING), relX, relY, relZ);
+                    BlockPos offset = rotateOffset(state.get(HORIZONTAL_FACING), relX, relY, relZ);
                     BlockPos partPos = pos.add(offset);
                     if (!worldView.getBlockState(partPos).isReplaceable())
                         return false;
@@ -188,7 +189,7 @@ public class GrinderBlock extends DirectionalKineticBlock implements IBE<Grinder
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        Direction facing = state.get(FACING);
+        Direction facing = state.get(HORIZONTAL_FACING);
 
         for (int y = 0; y < MULTIBLOCK.length; y++) {
             for (int x = 0; x < MULTIBLOCK[y].length; x++) {
@@ -289,7 +290,7 @@ public class GrinderBlock extends DirectionalKineticBlock implements IBE<Grinder
     }
 
     public void deconstruct(World world, BlockPos pos, BlockState state, PlayerEntity player, boolean drop) {
-        Direction facing = state.get(FACING);
+        Direction facing = state.get(HORIZONTAL_FACING);
         for (int y = 0; y <= 1; y++) {
             for (int x = -1; x <= 1; x++) {
                 for (int z = -1; z <= 1; z++) {

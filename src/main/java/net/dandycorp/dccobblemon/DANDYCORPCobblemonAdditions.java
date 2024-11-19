@@ -1,6 +1,8 @@
 package net.dandycorp.dccobblemon;
 
+import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.ponder.PonderRegistrationHelper;
 import net.dandycorp.dccobblemon.block.BlockEntities;
 import net.dandycorp.dccobblemon.block.BlockPartialModels;
 import net.dandycorp.dccobblemon.block.Blocks;

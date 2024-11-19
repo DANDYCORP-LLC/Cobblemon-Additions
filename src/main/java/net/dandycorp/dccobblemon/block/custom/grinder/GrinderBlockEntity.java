@@ -7,6 +7,7 @@ import com.simibubi.create.foundation.item.SmartInventory;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
 import net.dandycorp.dccobblemon.DANDYCORPSounds;
+import net.dandycorp.dccobblemon.block.Blocks;
 import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.GrinderInputBlockEntity;
 import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.GrinderOutputBlockEntity;
 import net.dandycorp.dccobblemon.item.Items;
@@ -26,14 +27,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.SoundManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtFloat;
+import net.minecraft.nbt.*;
+import net.minecraft.nbt.scanner.NbtScanner;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
@@ -42,12 +42,14 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.*;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 
 import java.util.List;
+import java.util.Map;
 
-import static com.simibubi.create.content.kinetics.base.DirectionalKineticBlock.FACING;
+import static com.simibubi.create.content.kinetics.base.HorizontalKineticBlock.HORIZONTAL_FACING;
 import static net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions.RANDOM;
 import static net.dandycorp.dccobblemon.block.custom.grinder.multiblock.MultiblockPartBlock.CORE_FACING;
 
@@ -69,7 +71,7 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
 
     public GrinderBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
-        hurtBox = switch(state.get(FACING)) {
+        hurtBox = switch(state.get(HORIZONTAL_FACING)) {
             case EAST,WEST -> new Box(pos.getX()-0.4, pos.getY() + 1, pos.getZ()-1,
                 pos.getX() + 1.4, pos.getY() + 1.6, pos.getZ() + 2);
             default -> new Box(pos.getX()-1, pos.getY() + 1, pos.getZ()-0.4,
@@ -134,7 +136,7 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
             processingTime += (int) (Math.abs(getSpeed()) / 16);
             if (processingTime > maxProcessingTime) {
                 processingTime = 0;
-                handlePoints(stack.getItem());
+                handlePoints(stack);
                 try (Transaction t = TransferUtil.getTransaction()) {
                     for (StorageView<ItemVariant> view : input.nonEmptyViews()) {
                         view.extract(view.getResource(), 1, t);
@@ -153,13 +155,28 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
         applyEntityDamage();
     }
 
-    private void handlePoints(Item input){
+    private void handlePoints(ItemStack input){
         if(world == null) return;
+        Item item = input.getItem();
 
-        if (!GrinderPointGenerator.calculatedPointValues.containsKey(input) || GrinderPointGenerator.calculatedPointValues.get(input) == 0) {
-            System.out.println("handlePoints: No point value defined for item " + input.getName().getString());
+        if (item.equals(Blocks.VENDOR_BLOCK.asItem())) {
+            if (getCachedState().getBlock() instanceof GrinderBlock gb){
+                gb.deconstruct(world,pos,getCachedState(),null,false);
+                if (world == null) return;
+                LightningEntity lightning = EntityType.LIGHTNING_BOLT.create(world);
+                if (lightning != null) {
+                    Vec3d lightningPos = Vec3d.ofBottomCenter(pos);
+                    lightning.refreshPositionAfterTeleport(lightningPos);
+                    world.spawnEntity(lightning);
+                }
+                world.createExplosion(null,pos.getX(),pos.getY(),pos.getZ(),22, World.ExplosionSourceType.BLOCK);
+            }
+        }
+
+        if (!GrinderPointGenerator.calculatedPointValues.containsKey(item) || GrinderPointGenerator.calculatedPointValues.get(item) == 0) {
+            System.out.println("handlePoints: No point value defined for item " + item.getName().getString());
             for (int i = 0; i < 5; i++){
-                world.addParticle(ParticleTypes.LARGE_SMOKE,
+                world.addImportantParticle(ParticleTypes.LARGE_SMOKE,
                         pos.getX() + RANDOM.nextDouble(0.3, 0.7),
                         pos.getY() + 1,
                         pos.getZ() + RANDOM.nextDouble(0.3, 0.7),
@@ -176,16 +193,43 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
             return;
         }
 
-        float increment = GrinderPointGenerator.calculatedPointValues.get(input);
-        points = (float) (Math.floor((points + increment) * 1000) / 1000);
+        float increment = GrinderPointGenerator.calculatedPointValues.get(item);
+        if (input.hasEnchantments()) {
+            Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(input);
+            for (Integer lvl : enchantments.values()) {
+                for (int i = 0; i < lvl; i++){
+                    increment *= 1.05f;
+                    world.addImportantParticle(ParticleTypes.ENCHANT,
+                            pos.getX() + RANDOM.nextDouble(-0.8, 1.8),
+                            pos.getY() + 6,
+                            pos.getZ() + RANDOM.nextDouble(-0.8, 1.8),
+                            RANDOM.nextDouble(-0.2, 0.2),
+                            -4,
+                            RANDOM.nextDouble(-0.2, 0.2));
+                }
+            }
+            world.playSound(null,
+                    pos,
+                    SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE.comp_349(),
+                    SoundCategory.BLOCKS,
+                    0.4f,
+                    RANDOM.nextFloat(1.4f,2.0f));
+            //System.out.println("enchantments detected, points incremented by " + increment + " instead of " + GrinderPointGenerator.calculatedPointValues.get(item));
+        }
 
-        //System.out.println("points: " + points + " increment: " + increment);
+        points = (float) (Math.floor((points + increment) * 1000) / 1000);
         if(points >= ticketPointValue) {
-            points =  (float) (Math.floor((points - ticketPointValue) * 1000) / 1000);
+            int toPrint = 0;
+            while (points >= ticketPointValue) {
+                toPrint++;
+                points =  (float) (Math.floor((points - ticketPointValue) * 1000) / 1000);
+            }
             getOutputEntity().notifyUpdate();
             getOutputEntity().markDirty();
             if (output.getStackInSlot(0).isEmpty()) {
-                output.setStackInSlot(0, Items.TICKET.getDefaultStack());
+                ItemStack ticket = Items.TICKET.getDefaultStack();
+                ticket.setCount(toPrint);
+                output.setStackInSlot(0, ticket);
             } else if (output.getStackInSlot(0).isOf(Items.TICKET)) {
                 output.getStackInSlot(0).increment(1);
             }
@@ -286,22 +330,10 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
 
         // item present in input inventory
         if (!input.getStackInSlot(0).isEmpty() && isSpeedRequirementFulfilled()) {
-            world.addParticle(ParticleTypes.ELECTRIC_SPARK,
-                    pos.getX() + RANDOM.nextDouble(0.3, 0.7),
-                    pos.getY() + 1,
-                    pos.getZ() + RANDOM.nextDouble(0.3, 0.7),
-                    RANDOM.nextDouble(-0.5, 0.5),
-                    (Math.abs(getSpeed())/48f),
-                    RANDOM.nextDouble(-0.5, 0.5));
-
-            ItemStackParticleEffect particle = new ItemStackParticleEffect(ParticleTypes.ITEM, input.getStackInSlot(0));
-            world.addParticle(particle,
-                    pos.getX() + RANDOM.nextDouble(0.2, 0.8),
-                    pos.getY() + 1,
-                    pos.getZ() + RANDOM.nextDouble(0.2, 0.8),
-                    RANDOM.nextDouble(-0.1, 0.1),
-                    MathHelper.clamp((Math.abs(getSpeed())/300f),0.3,0.5),
-                    RANDOM.nextDouble(-0.1, 0.1));
+            switch (this.getCachedState().get(HORIZONTAL_FACING)){
+                case EAST, WEST -> createParticles(input.getStackInSlot(0),0.3f,-0.5f,0.7f,1.5f);
+                default -> createParticles(input.getStackInSlot(0),-0.5f,0.3f,1.5f,0.7f);
+            }
 
             if (grindingSoundInstance == null) {
                 SoundEvent soundEventB = DANDYCORPSounds.GRINDER_ACTIVE_EVENT;
@@ -329,6 +361,26 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
                 grindingSoundInstance = null;
             }
         }
+    }
+
+    private void createParticles(ItemStack item, float x, float z, float dx, float dz) {
+        ItemStackParticleEffect particle = new ItemStackParticleEffect(ParticleTypes.ITEM, item);
+        if (world == null) return;
+        world.addParticle(ParticleTypes.ELECTRIC_SPARK,
+                pos.getX() + RANDOM.nextDouble(x, dx),
+                pos.getY() + 1,
+                pos.getZ() + RANDOM.nextDouble(z, dz),
+                RANDOM.nextDouble(-0.7, 0.7),
+                MathHelper.clamp((Math.abs(getSpeed())/48f),0.3,5.0),
+                RANDOM.nextDouble(-0.7, 0.7));
+        for(int i = 0; i < 2; i++)
+            world.addParticle(particle,
+                    pos.getX() + RANDOM.nextDouble(x, dx),
+                    pos.getY() + 1,
+                    pos.getZ() + RANDOM.nextDouble(z, dz),
+                    RANDOM.nextDouble(-0.1, 0.1),
+                    MathHelper.clamp((Math.abs(getSpeed())/300f),0.3,0.5),
+                    RANDOM.nextDouble(-0.1, 0.1));
     }
 
     @Override
@@ -370,7 +422,7 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
     }
 
     public GrinderOutputBlockEntity getOutputEntity() {
-        if (world.getBlockEntity(pos.offset(getCachedState().get(FACING).getOpposite())) instanceof GrinderOutputBlockEntity out) {
+        if (world.getBlockEntity(pos.offset(getCachedState().get(HORIZONTAL_FACING).getOpposite())) instanceof GrinderOutputBlockEntity out) {
             return out;
         }
         return null;

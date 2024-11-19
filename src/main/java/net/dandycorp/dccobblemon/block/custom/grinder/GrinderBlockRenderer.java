@@ -141,7 +141,7 @@ public class GrinderBlockRenderer extends KineticBlockEntityRenderer<GrinderBloc
 
     @Override
     protected SuperByteBuffer getRotatedModel(GrinderBlockEntity be, BlockState state) {
-        Direction direction = state.get(GrinderBlock.FACING);
+        Direction direction = state.get(GrinderBlock.HORIZONTAL_FACING);
 
         SuperByteBuffer shaft = CachedBufferer.partialFacing(BlockPartialModels.GRINDER_SHAFT, state, direction);
 

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "v": {
+      "item": "minecraft:hopper"
+    },
+    "t": {
+      "item": "minecraft:anvil"
+    },
+    "o": {
+      "item": "create:item_vault"
+    },
+    "-": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "x": {
+      "item": "dccobblemon:grinder_blades"
+    }
+  },
+  "pattern": [
+    "x x",
+    "vov",
+    "t-t"
+  ],
+  "result": {
+    "item": "dccobblemon:grinder"
+  },
+  "show_notification": true
+}

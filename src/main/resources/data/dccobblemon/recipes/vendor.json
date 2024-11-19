@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "u": {
+      "item": "create:electron_tube"
+    },
+    "t": {
+      "item": "create:display_link"
+    },
+    "-": {
+      "item": "create:sturdy_sheet"
+    }
+  },
+  "pattern": [
+    "iui",
+    "iti",
+    "---"
+  ],
+  "result": {
+    "item": "dccobblemon:vendor"
+  },
+  "show_notification": true
+}

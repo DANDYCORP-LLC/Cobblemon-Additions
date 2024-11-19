@@ -19,10 +19,17 @@
   "item.dccobblemon.water_badge": "Ocean Badge",
 
   "item.dccobblemon.ticket": "DANDYCORP Coupon",
+  "item.dccobblemon.grinder_blades": "Grinder Blades",
+
   "item.dccobblemon.chromium_ingot": "Chromium Ingot",
   "item.dccobblemon.chromium_nugget": "Chromium Nugget",
   "item.dccobblemon.chromium_dust": "Chromium Dust",
   "item.dccobblemon.raw_chromium": "Raw Chromium",
+  "item.dccobblemon.chromium_helmet": "Chromium Crown",
+
+  "item.dccobblemon.chromium_chestplate": "Chromium Chestplate",
+  "items.dccobblemon.chromium_leggings": "Chromium Leggings",
+  "items.dccobblemon.chromium_boots": "Chromium Boots",
 
   "block.dccobblemon.walker_magma": "Lava Rock",
   "block.dccobblemon.grinder": "DANDYCORP Industrial Grinder",
@@ -43,5 +50,7 @@
   "ui.dccobblemon.vendor.retire_kick": "DANDYCORP wishes you the best in your permanent leave. Goodbye!",
   "death.attack.vendor": "%1$s took the only escape route DANDYCORP provides.",
   "block.dandycorp.vendor": "DANDYCORP Vendor",
-  "block.dccobblemon.grinder.progress": "Ticket Progress:"
+  "block.dccobblemon.grinder.progress": "Ticket Progress:",
+
+  "dccobblemon.ponder.grinder_grind.header": "The DANDYCORP Industrial Grinder"
 }

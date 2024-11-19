@@ -67,9 +67,9 @@ public class Items {
     public static final Item BADGE = registerItem("badge",
             new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
 
-
     public static final Item TICKET = registerItem("ticket", new Ticket(new Item.Settings().rarity(Rarity.RARE)));
-    public static final Item VENDOR = registerItem("vendor", new TallBlockItem(Blocks.VENDOR_BLOCK,new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item VENDOR = registerItem("vendor", new TallBlockItem(Blocks.VENDOR_BLOCK,new Item.Settings().rarity(Rarity.RARE)));
+    public static final Item GRINDER_BLADES = registerItem("grinder_blades", new Item(new Item.Settings().fireproof().rarity(Rarity.UNCOMMON)));
 
     public static final Item CHROMIUM_INGOT = registerItem("chromium_ingot", new Ticket(new Item.Settings()));
     public static final Item CHROMIUM_NUGGET = registerItem("chromium_nugget", new Ticket(new Item.Settings()));
@@ -123,10 +123,10 @@ public class Items {
             entries.add(SHELLY_BADGE);
             entries.add(WATER_BADGE);
 
-
             entries.add(TICKET);
             entries.add(VENDOR);
-            //entries.add(Blocks.GRINDER_BLOCK);
+            entries.add(GRINDER_BLADES);
+            entries.add(Blocks.GRINDER_BLOCK);
 
             entries.add(CHROMIUM_INGOT);
             entries.add(CHROMIUM_NUGGET);
@@ -143,7 +143,6 @@ public class Items {
             entries.add(CHROMIUM_PICKAXE);
             entries.add(CHROMIUM_AXE);
             entries.add(CHROMIUM_HOE);
-            entries.add(Blocks.GRINDER_BLOCK);
         });
     }
 }

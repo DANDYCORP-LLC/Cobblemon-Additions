@@ -7,7 +7,8 @@
     "DamageMixin",
     "EnchantmentMixin",
     "EntityLootMixin",
-    "PowderedSnowMixin"
+    "PowderedSnowMixin",
+    "accessor.SmithingTransformRecipeAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -106,7 +106,7 @@ public class GrinderRotationalBlock extends DirectionalKineticBlock implements I
             BlockPos mainBlockPos = findMainBlock(world, pos, state);
             if (mainBlockPos != null) {
                 BlockState mainState = world.getBlockState(mainBlockPos);
-                mainState.getBlock().onBreak(world, mainBlockPos, state, player);
+                mainState.getBlock().onBreak(world, mainBlockPos, mainState, player);
             }
         }
     }

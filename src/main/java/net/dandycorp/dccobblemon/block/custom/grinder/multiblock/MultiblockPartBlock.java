@@ -73,7 +73,7 @@ public class MultiblockPartBlock extends TransparentBlock implements IMultiblock
             BlockPos mainBlockPos = findMainBlock(world, pos, state);
             if (mainBlockPos != null) {
                 BlockState mainState = world.getBlockState(mainBlockPos);
-                mainState.getBlock().onBreak(world, mainBlockPos, state, player);
+                mainState.getBlock().onBreak(world, mainBlockPos, mainState, player);
             }
         }
     }

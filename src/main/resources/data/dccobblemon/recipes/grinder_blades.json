@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "create:sturdy_sheet"
+    },
+    "x": {
+      "item": "create:propeller"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#x#",
+    " # "
+  ],
+  "result": {
+    "item": "dccobblemon:grinder_blades"
+  },
+  "show_notification": true
+}

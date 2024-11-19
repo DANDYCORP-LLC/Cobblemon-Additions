@@ -20,6 +20,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -39,6 +40,7 @@ public class Blocks {
 
     public static final BlockEntry<GrinderBlock> GRINDER_BLOCK = REGISTRATE
             .block("grinder", GrinderBlock::new)
+            .initialProperties(SharedProperties::copperMetal)
             .properties(p -> p
                     .mapColor(MapColor.LIGHT_GRAY)
                     .allowsSpawning(net.minecraft.block.Blocks::never)
@@ -46,13 +48,14 @@ public class Blocks {
                     .requiresTool()
                     .resistance(3600000f)
                     .nonOpaque()
-                    .pistonBehavior(PistonBehavior.BLOCK))
+                    .pistonBehavior(PistonBehavior.BLOCK)
+                    .sounds(BlockSoundGroup.COPPER))
             .tag(BlockTags.NEEDS_IRON_TOOL)
             .tag(AllTags.AllBlockTags.NON_MOVABLE.tag)
             .transform(pickaxeOnly())
             .transform(BlockStressDefaults.setImpact(16.0))
             .item()
-                .properties(p -> p.rarity(Rarity.UNCOMMON))
+                .properties(p -> p.rarity(Rarity.RARE))
                 .transform(b -> b.model((c, p) -> {
                             p.withExistingParent("grinder",
                                     p.modLoc("block/grinder/full_grinder"));
@@ -73,7 +76,8 @@ public class Blocks {
                     .allowsSpawning(net.minecraft.block.Blocks::never)
                     .solidBlock(net.minecraft.block.Blocks::never)
                     .suffocates(net.minecraft.block.Blocks::never)
-                    .blockVision(net.minecraft.block.Blocks::never))
+                    .blockVision(net.minecraft.block.Blocks::never)
+                    .sounds(BlockSoundGroup.COPPER))
             .tag(BlockTags.NEEDS_IRON_TOOL)
             .tag(AllTags.AllBlockTags.NON_MOVABLE.tag)
             .transform(pickaxeOnly())
@@ -92,7 +96,8 @@ public class Blocks {
                     .allowsSpawning(net.minecraft.block.Blocks::never)
                     .solidBlock(net.minecraft.block.Blocks::never)
                     .suffocates(net.minecraft.block.Blocks::never)
-                    .blockVision(net.minecraft.block.Blocks::never))
+                    .blockVision(net.minecraft.block.Blocks::never)
+                    .sounds(BlockSoundGroup.COPPER))
             .tag(BlockTags.NEEDS_IRON_TOOL)
             .tag(AllTags.AllBlockTags.NON_MOVABLE.tag)
             .transform(pickaxeOnly())
@@ -111,7 +116,8 @@ public class Blocks {
                     .allowsSpawning(net.minecraft.block.Blocks::never)
                     .solidBlock(net.minecraft.block.Blocks::never)
                     .suffocates(net.minecraft.block.Blocks::never)
-                    .blockVision(net.minecraft.block.Blocks::never))
+                    .blockVision(net.minecraft.block.Blocks::never)
+                    .sounds(BlockSoundGroup.COPPER))
             .transform(BlockStressDefaults.setImpact(0.0))
             .tag(BlockTags.NEEDS_IRON_TOOL)
             .tag(AllTags.AllBlockTags.NON_MOVABLE.tag)
@@ -131,7 +137,8 @@ public class Blocks {
                     .allowsSpawning(net.minecraft.block.Blocks::never)
                     .solidBlock(net.minecraft.block.Blocks::never)
                     .suffocates(net.minecraft.block.Blocks::never)
-                    .blockVision(net.minecraft.block.Blocks::never))
+                    .blockVision(net.minecraft.block.Blocks::never)
+                    .sounds(BlockSoundGroup.COPPER))
             .transform(BlockStressDefaults.setImpact(0.0))
             .tag(BlockTags.NEEDS_IRON_TOOL)
             .tag(AllTags.AllBlockTags.NON_MOVABLE.tag)
