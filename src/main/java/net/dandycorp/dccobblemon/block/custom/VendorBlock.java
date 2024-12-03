@@ -2,6 +2,7 @@ package net.dandycorp.dccobblemon.block.custom;
 
 import net.dandycorp.dccobblemon.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.block.BlockEntities;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -220,12 +221,11 @@ public class VendorBlock extends BlockWithEntity implements BlockEntityProvider 
         return new VendorBlockEntity(pos, state);
     }
 
-    @Nullable
     @Override
-    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+    public @Nullable ExtendedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof NamedScreenHandlerFactory) {
-            return (NamedScreenHandlerFactory) blockEntity;
+        if (blockEntity instanceof ExtendedScreenHandlerFactory) {
+            return (ExtendedScreenHandlerFactory) blockEntity;
         }
         return null;
     }

@@ -30,7 +30,7 @@ public class VendorSpecialsScreen extends VendorPurchaseScreen {
         // Left Button
         ParentComponent leftButton = Containers.stack(Sizing.content(1),Sizing.content(1)).child(
                 Components.button(Text.empty(), button -> {
-                            client.interactionManager.clickButton(handler.syncId,1000);
+                            client.interactionManager.clickButton(handler.syncId,-120);
                 })
                 .renderer(ButtonComponent.Renderer.flat(0xFF000000, 0xFF002200, 0xFF008800))
                     .sizing(Sizing.fixed(140), Sizing.fixed(40))
@@ -50,7 +50,7 @@ public class VendorSpecialsScreen extends VendorPurchaseScreen {
         // Right Button
         ParentComponent rightButton = Containers.stack(Sizing.content(1),Sizing.content(1)).child(
                 Components.button(Text.empty(), button -> {
-                    client.interactionManager.clickButton(handler.syncId,1001);
+                    client.interactionManager.clickButton(handler.syncId,-121);
                 })
                     .renderer(ButtonComponent.Renderer.flat(0xFF000000, 0xFF002200, 0xFF008800))
                     .sizing(Sizing.fixed(140), Sizing.fixed(40))
@@ -76,13 +76,12 @@ public class VendorSpecialsScreen extends VendorPurchaseScreen {
         donorHeadEntry.setCost(1);
         donorHeadEntry.setTitle("Board Member Bust");
         donorHeadEntry.setDescription("Who needs action figures or trading cards when you can collect figurines of corporate shareholders? Display DANDYCORP's finest with pride, and try not to question why you need so many or what they’ve done to deserve this honor.");
-
         VendorItem item = new VendorItem();
         item.setId("minecraft:player_head#aef167f4-1786-4ff5-ab7f-6baf16dbb56b");
         item.setQuantity(1);
 
         donorHeadEntry.setItems(List.of(item));
-        donorHeadEntry.setButtonID(1002);
+        donorHeadEntry.setButtonID(-122);
 
         boolean donorEntryExists = categoryEntries.stream()
                 .anyMatch(entry -> entry.getButtonID() == donorHeadEntry.getButtonID());

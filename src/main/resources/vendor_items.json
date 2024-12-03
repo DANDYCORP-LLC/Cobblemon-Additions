@@ -4,7 +4,7 @@
       "name": "engineering",
       "entries": [
         {
-          "buttonID": 101,
+          "buttonID": 11,
           "items": [
             {"id": "minecraft:redstone", "quantity": 96},
             {"id": "minecraft:sticky_piston", "quantity": 8},
@@ -21,7 +21,7 @@
       "name": "agriculture",
       "entries": [
         {
-          "buttonID": 201,
+          "buttonID": 21,
           "items": [
             {"id": "minecraft:wheat_seeds", "quantity": 10}
           ],
@@ -30,7 +30,7 @@
           "description": "Sow the seeds of a future harvest—assuming it doesn't get eaten by something first. DANDYCORP assumes no responsibility for crop failure."
         },
         {
-          "buttonID": 202,
+          "buttonID": 22,
           "items": [
             {"id": "minecraft:carrot", "quantity": 10}
           ],
@@ -39,7 +39,7 @@
           "description": "An orange root vegetable that’s as good for your health as it is for distracting your workforce with the promise of a better tomorrow."
         },
         {
-          "buttonID": 203,
+          "buttonID": 23,
           "items": [
             {"id": "minecraft:oak_sapling", "quantity": 5}
           ],
@@ -48,7 +48,7 @@
           "description": "Plant it, and with enough time (and a little corporate magic), you’ll have yourself a nice, tall reminder of the forests we destroyed."
         },
         {
-          "buttonID": 204,
+          "buttonID": 24,
           "items": [
             {"id": "minecraft:melon_seeds", "quantity": 8}
           ],
@@ -57,7 +57,7 @@
           "description": "Sweet, juicy, and perfect for a hot day. Provided that the DANDYCORP-approved weather doesn’t ruin your crops."
         },
         {
-          "buttonID": 205,
+          "buttonID": 25,
           "items": [
             {"id": "minecraft:pumpkin_seeds", "quantity": 8}
           ],
@@ -71,7 +71,7 @@
       "name": "resources",
       "entries": [
         {
-          "buttonID": 301,
+          "buttonID": 31,
           "items": [
             {"id": "minecraft:iron_ingot", "quantity": 16}
           ],
@@ -80,7 +80,7 @@
           "description": "Another proud result of DANDYCORP's relentless mining operations. Refined, durable, and completely devoid of guilt!"
         },
         {
-          "buttonID": 302,
+          "buttonID": 32,
           "items": [
             {"id": "minecraft:gold_ingot", "quantity": 8}
           ],
@@ -89,7 +89,7 @@
           "description": "Nothing says 'luxury' like a metal ripped from the earth with zero regard for environmental impact. Go ahead, indulge!"
         },
         {
-          "buttonID": 303,
+          "buttonID": 33,
           "items": [
             {"id": "minecraft:diamond", "quantity": 4}
           ],
@@ -98,7 +98,7 @@
           "description": "The hardest substance known to man, brought to you by the hardest-working (and poorly compensated) miners around."
         },
         {
-          "buttonID": 304,
+          "buttonID": 34,
           "items": [
             {"id": "minecraft:emerald", "quantity": 4}
           ],
@@ -107,7 +107,7 @@
           "description": "DANDYCORP's token of appreciation—just kidding, it’s a symbol of how we trade value for your compliance."
         },
         {
-          "buttonID": 305,
+          "buttonID": 35,
           "items": [
             {"id": "minecraft:coal", "quantity": 32}
           ],
@@ -121,7 +121,7 @@
       "name": "pokemon",
       "entries": [
         {
-          "buttonID": 401,
+          "buttonID": 41,
           "items": [
             {"id": "cobblemon:revive", "quantity": 16}
           ],
@@ -130,7 +130,7 @@
           "description": "For when your Pokémon just couldn’t keep it together. Revive them and send them right back into battle. No rest for the weary."
         },
         {
-          "buttonID": 402,
+          "buttonID": 42,
           "items": [
             {"id": "pokemon:shiny_mewtwo", "quantity": 1}
           ],
@@ -139,7 +139,7 @@
           "description": "A genetically engineered psychic powerhouse with a chip on its shoulder. Might overthrow your entire operation, but until then, it's a great asset."
         },
         {
-          "buttonID": 403,
+          "buttonID": 43,
           "items": [
             {"id": "pokemon:male_vileplume", "quantity": 1}
           ],
@@ -148,7 +148,7 @@
           "description": "The original creator, now repackaged as a limited edition asset. Worship it as you worship your quarterly profits."
         },
         {
-          "buttonID": 404,
+          "buttonID": 44,
           "items": [
             {"id": "pokemon:quietnature_male_4iv_shiny_pikachu", "quantity": 1}
           ],
@@ -162,7 +162,7 @@
       "name": "specials",
       "entries": [
         {
-          "buttonID": 501,
+          "buttonID": 51,
           "items": [
             {"id": "dccobblemon:chromium_ingot", "quantity": 16}
           ],

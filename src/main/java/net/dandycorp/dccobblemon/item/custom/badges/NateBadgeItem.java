@@ -28,6 +28,7 @@ public class NateBadgeItem extends BadgeItem {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal("Size does matter...").formatted(Formatting.GREEN));
     }
 

@@ -26,6 +26,7 @@ public class BugBadgeItem extends BadgeItem {
     }
 
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal("Size reduced by 33%").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Thorns effect when hit").formatted(Formatting.GRAY));
     }

@@ -55,7 +55,7 @@ public class Blocks {
             .transform(pickaxeOnly())
             .transform(BlockStressDefaults.setImpact(16.0))
             .item()
-                .properties(p -> p.rarity(Rarity.RARE))
+                .properties(p -> p.rarity(Rarity.UNCOMMON))
                 .transform(b -> b.model((c, p) -> {
                             p.withExistingParent("grinder",
                                     p.modLoc("block/grinder/full_grinder"));

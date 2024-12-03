@@ -27,6 +27,7 @@ public class FlyingBadgeItem extends BadgeItem implements Trinket {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal("Grants slow falling").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Grants jump boost").formatted(Formatting.GRAY));
     }

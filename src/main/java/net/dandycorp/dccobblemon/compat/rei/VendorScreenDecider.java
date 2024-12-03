@@ -1,6 +1,7 @@
-package net.dandycorp.dccobblemon.ui.vendor;
+package net.dandycorp.dccobblemon.compat.rei;
 
 import me.shedaniel.rei.api.client.registry.screen.OverlayDecider;
+import net.dandycorp.dccobblemon.ui.vendor.VendorScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ActionResult;
 

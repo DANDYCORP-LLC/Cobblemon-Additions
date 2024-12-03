@@ -1,7 +1,9 @@
 package net.dandycorp.dccobblemon.util;
 
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
+import net.dandycorp.dccobblemon.compat.ChippedCompat;
 import net.dandycorp.dccobblemon.mixin.accessor.SmithingTransformRecipeAccessor;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,8 +18,6 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,6 +27,7 @@ public class GrinderPointGenerator {
     public static Map<Item, Float> calculatedPointValues = new HashMap<>();
     private static Map<Item, Float> computedValues = new HashMap<>();
     public static Map<Item, List<Identifier>> recipes = new HashMap<>();
+    private static List<Item> items = new ArrayList<>();
     private static RecipeManager recipeManager;
     private static DynamicRegistryManager.Immutable registryManager;
 
@@ -46,9 +47,15 @@ public class GrinderPointGenerator {
             Item output = recipe.getOutput(registryManager).getItem();
             recipes.computeIfAbsent(output, k -> new ArrayList<>()).add(recipe.getId());
         }
+        if (FabricLoader.getInstance().isModLoaded("chipped")) {
+            ChippedCompat.initialize();
+        }
 
         calculatedPointValues.putAll(basePointValues);
-        for (Item item : Registries.ITEM){
+        items.addAll(Registries.ITEM.stream().toList());
+
+
+        for (Item item : items){
             calculateValue(item);
         }
 
@@ -57,6 +64,7 @@ public class GrinderPointGenerator {
                 uniqueValues,
                 calculatedPointValues.size(),
                 ((float) uniqueValues/(float) calculatedPointValues.size())*100f);
+
     }
 
     private static void populateBaseValuesFromJson() {
@@ -157,6 +165,16 @@ public class GrinderPointGenerator {
             setComputedValue(item, baseValue);
             inProgress.remove(item);
             return baseValue;
+        }
+
+        if (FabricLoader.getInstance().isModLoaded("chipped") && Registries.ITEM.getId(item).getNamespace().startsWith("chipped")) {
+            Item baseItem = ChippedCompat.getChippedBaseItem(item);
+            if (baseItem != null) {
+                float baseValue = dfs(baseItem, inProgress);
+                setComputedValue(item, baseValue * 1.1f);
+                inProgress.remove(item);
+                return baseValue * 1.1f;
+            }
         }
 
         List<Identifier> itemRecipes = recipes.getOrDefault(item, Collections.emptyList());
@@ -267,9 +285,7 @@ public class GrinderPointGenerator {
     }
 
     private static float round(float value) {
-        BigDecimal bd = new BigDecimal(Float.toString(value));
-        bd = bd.setScale(3, RoundingMode.CEILING);
-        return bd.floatValue();
+        return (float) ((int) (1000 * value)) / 1000f;
     }
 
     public static List<Item> getItemsWithPoints() {
@@ -290,5 +306,9 @@ public class GrinderPointGenerator {
 
     public static long getItemCount(){
         return calculatedPointValues.size();
+    }
+
+    public static boolean isInitialized() {
+        return !calculatedPointValues.isEmpty();
     }
 }

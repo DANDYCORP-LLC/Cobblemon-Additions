@@ -17,6 +17,7 @@ public class GroundBadgeItem extends BadgeItem {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal("Shovels and pickaxes now mine in 3x3").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("+ Efficiency III").formatted(Formatting.GRAY));
     }

@@ -25,7 +25,7 @@
 			"net.dandycorp.dccobblemon.Client"
 		],
 		"rei_client":[
-			"net.dandycorp.dccobblemon.compat.DANDYCORPREIClientPlugin"
+			"net.dandycorp.dccobblemon.compat.rei.DANDYCORPREIClientPlugin"
 		]
 	},
 	"mixins": [
@@ -38,7 +38,9 @@
 		"fabric-api": "*",
 		"soul_fire_d": ">=4.0.4",
 		"pehkui": ">=3.7.8",
-		"trinkets": ">=3.7.2"
+		"trinkets": ">=3.7.2",
+		"create": ">=0.5.0",
+		"cobblemon": ">=1.5.2+1.20.1"
 	},
 	"suggests": {
 		"another-mod": "*"

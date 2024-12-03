@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
@@ -36,24 +37,26 @@ public class VendorScreenHandler extends ScreenHandler {
     private final PlayerInventory playerInventory;
     private final VendorData data;
     private final Map<Integer, VendorEntry> idEntryMap = new HashMap<>();
-    private final List<Integer> specialIds = Arrays.asList(1000, 1001, 1002);
+    private final List<Integer> specialIds = Arrays.asList(-120, -121, -122);
 
-    public VendorScreenHandler(int syncId, PlayerInventory playerInventory) {
+    // Client-side constructor
+    public VendorScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
         super(DANDYCORPCobblemonAdditions.VENDOR_SCREEN_HANDLER, syncId);
         this.playerInventory = playerInventory;
-        this.blockPos = playerInventory.player.getBlockPos();
+        this.blockPos = buf.readBlockPos();
+        this.data = VendorData.fromPacket(buf);
         addPlayerInventorySlots(playerInventory);
-        this.data = VendorDataLoader.loadVendorData();
         buildButtonIdToVendorItemMap();
     }
 
-    public VendorScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos pos) {
+    // Server-side constructor
+    public VendorScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos pos, VendorBlockEntity blockEntity) {
         super(DANDYCORPCobblemonAdditions.VENDOR_SCREEN_HANDLER, syncId);
         this.playerInventory = playerInventory;
         this.blockPos = pos;
-        this.blockEntity = (VendorBlockEntity) playerInventory.player.getWorld().getBlockEntity(pos);
+        this.blockEntity = blockEntity;
+        this.data = VendorDataLoader.loadVendorData(); // Load data on the server
         addPlayerInventorySlots(playerInventory);
-        this.data = VendorDataLoader.loadVendorData();
         buildButtonIdToVendorItemMap();
     }
 
@@ -74,11 +77,11 @@ public class VendorScreenHandler extends ScreenHandler {
             if(canAfford(cost)) {
                 spendTickets(player, cost);
                 switch (id) {
-                    case 1000: // compliment
+                    case -120: // compliment
                         player.getWorld().playSound(null,blockPos, DANDYCORPSounds.COMPLIMENT_EVENT,SoundCategory.BLOCKS,0.7f,1.1f);
                         player.closeHandledScreen();
                         return true;
-                    case 1001: // retirement
+                    case -121: // retirement
                         player.closeHandledScreen();
                         if (player instanceof ServerPlayerEntity serverPlayer) {
                             player.damage(DANDYCORPDamageTypes.of(serverPlayer.getServerWorld(),DANDYCORPDamageTypes.VENDOR), player.getHealth());
@@ -86,7 +89,7 @@ public class VendorScreenHandler extends ScreenHandler {
                             serverPlayer.networkHandler.disconnect(Text.translatable("ui.dccobblemon.vendor.retire_kick"));
                         }
                         return true;
-                    case 1002: // donor head
+                    case -122: // donor head
                         player.getWorld().playSound(null, blockPos, DANDYCORPSounds.VENDOR_BUY_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
                         ItemStack donorHead = HeadHelper.getPlayerHead(HeadHelper.getRandomDonor());
                         spawnItems(donorHead);
@@ -121,6 +124,7 @@ public class VendorScreenHandler extends ScreenHandler {
             spendTickets(player, cost);
             if (items != null) {
                 for (VendorItem item : items) {
+                    //player.sendMessage(Text.literal("purchasing " + item.getId() + " x" + item.getQuantity()));
                     String id = item.getId();
                     if(id.startsWith("pokemon:")) {
                         id = id.substring("pokemon:".length());
@@ -129,7 +133,6 @@ public class VendorScreenHandler extends ScreenHandler {
                             if(pokemon != null) {
                                 Cobblemon.INSTANCE.getStorage().getParty(serverPlayer).add(pokemon);
                                 serverPlayer.playSound(FOSSIL_MACHINE_FINISHED,SoundCategory.MASTER,1.0f,1.0f);
-                                //player.sendMessage(Text.of(id));
                             }
                         }
                     }

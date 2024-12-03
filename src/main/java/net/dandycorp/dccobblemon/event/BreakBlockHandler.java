@@ -41,17 +41,13 @@ public class BreakBlockHandler implements PlayerBlockBreakEvents.Before {
                         .map(ItemStack::getItem) // Get the Item from the ItemStack
                         .filter(item -> item instanceof BadgeItem) // Filter for BadgeItems
                         .forEach(item -> {
-
-
-                            if (item == Items.GROUND_BADGE) {
+                            if (item == Items.GROUND_BADGE && !player.isSneaking()) {
 
                                 ItemStack heldItem = player.getMainHandStack();
 
                                 if (heldItem.isIn(ItemTags.SHOVELS) || heldItem.isIn(ItemTags.PICKAXES)) {
                                     BlockHitResult hitResult = (BlockHitResult) player.raycast(5.0, 0.2f, false);
                                     Direction direction = hitResult.getSide();
-
-                                    //player.sendMessage(Text.literal(direction.getName()));
                                     for (int x = -1; x <= 1; x++) {
                                         for (int y = -1; y <= 1; y++) {
                                             BlockPos breakPos = calculateBreakPos(pos, direction, x, y);
@@ -68,7 +64,6 @@ public class BreakBlockHandler implements PlayerBlockBreakEvents.Before {
                                     }
                                 }
                             }
-
                         });
             });
         }

@@ -33,6 +33,7 @@ public class DarkBadgeItem extends BadgeItem {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal("Inflicts darkness on-hit").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Inflicts blindness on-hit").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Grants darkness immunity").formatted(Formatting.GRAY));

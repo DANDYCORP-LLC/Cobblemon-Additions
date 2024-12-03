@@ -16,7 +16,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 
-import static com.simibubi.create.content.kinetics.base.DirectionalKineticBlock.FACING;
+import static com.simibubi.create.content.kinetics.base.HorizontalKineticBlock.HORIZONTAL_FACING;
 
 public class GrinderBlockRenderer extends KineticBlockEntityRenderer<GrinderBlockEntity> {
 
@@ -39,7 +39,7 @@ public class GrinderBlockRenderer extends KineticBlockEntityRenderer<GrinderBloc
     protected void renderGrinderWheels(GrinderBlockEntity be, MatrixStack ms, VertexConsumerProvider buffer,
                                        int light, int overlay) {
         BlockState blockState = be.getCachedState();
-        Direction direction = blockState.get(FACING);
+        Direction direction = blockState.get(HORIZONTAL_FACING);
 
         // Determine the rotation axis for the grinders based on block facing
         Direction.Axis grinderAxis;
@@ -141,7 +141,7 @@ public class GrinderBlockRenderer extends KineticBlockEntityRenderer<GrinderBloc
 
     @Override
     protected SuperByteBuffer getRotatedModel(GrinderBlockEntity be, BlockState state) {
-        Direction direction = state.get(GrinderBlock.HORIZONTAL_FACING);
+        Direction direction = state.get(HORIZONTAL_FACING);
 
         SuperByteBuffer shaft = CachedBufferer.partialFacing(BlockPartialModels.GRINDER_SHAFT, state, direction);
 

@@ -26,16 +26,22 @@
   "item.dccobblemon.chromium_dust": "Chromium Dust",
   "item.dccobblemon.raw_chromium": "Raw Chromium",
   "item.dccobblemon.chromium_helmet": "Chromium Crown",
-
   "item.dccobblemon.chromium_chestplate": "Chromium Chestplate",
   "items.dccobblemon.chromium_leggings": "Chromium Leggings",
+  "items.dccobblemon.chromium_pickaxe": "Chromium Pickaxe",
+  "items.dccobblemon.chromium_axe": "Chromium Axe",
+  "items.dccobblemon.chromium_hoe": "Chromium Hoe",
+  "items.dccobblemon.chromium_shovel": "Chromium Shovel",
+  "items.dccobblemon.chromium_sword": "Chromium Sword",
   "items.dccobblemon.chromium_boots": "Chromium Boots",
+  "block.dccobblemon.chromium_block": "Chromium Block",
+  "block.dccobblemon.raw_chromium_block": "Raw Chromium Block",
 
   "block.dccobblemon.walker_magma": "Lava Rock",
-  "block.dccobblemon.grinder": "DANDYCORP Industrial Grinder",
+  "block.dccobblemon.grinder": "DANDYCORP Industrial Grinder™",
 
   "death.attack.dandy_badge": "%1$s was worked to death...",
-  "death.attack.grinder": "%1$s fell into a DANDYCORP Industrial Grinder!",
+  "death.attack.grinder": "%1$s fell into a DANDYCORP Industrial Grinder™!",
   "subtitles.dccobblemon.greed": "DANDYCORP Badge activates",
   "subtitles.dccobblemon.judgement": "Judgement Badge activates",
   "subtitles.dccobblemon.compliment": "The machine issues a \"compliment\"",
@@ -45,12 +51,28 @@
 
   "itemGroup.dccobblemon": "DANDYCORP Cobblemon Additions",
   "ui.dccobblemon.vendor": "Vendor",
-  "block.dccobblemon.vendor": "DANDYCORP Vendor",
+  "block.dccobblemon.vendor": "DANDYCORP Vendor™",
   "ui.dccobblemon.vendor.poor": "You don't have enough tickets!",
   "ui.dccobblemon.vendor.retire_kick": "DANDYCORP wishes you the best in your permanent leave. Goodbye!",
   "death.attack.vendor": "%1$s took the only escape route DANDYCORP provides.",
-  "block.dandycorp.vendor": "DANDYCORP Vendor",
+  "block.dandycorp.vendor": "DANDYCORP Vendor™",
   "block.dccobblemon.grinder.progress": "Ticket Progress:",
 
-  "dccobblemon.ponder.grinder_grind.header": "The DANDYCORP Industrial Grinder"
+  "dccobblemon.ponder.grinder_grind.header": "The DANDYCORP Industrial Grinder™",
+  "dccobblemon.ponder.grinder_grind.text_1": "The DANDYCORP Industrial Grinder™ turns junk into tickets.",
+  "dccobblemon.ponder.grinder_grind.text_2": "The grinder requires at least 32RPM to operate.",
+  "dccobblemon.ponder.grinder_grind.text_3": "Items can be input via the top of the grinder...",
+  "dccobblemon.ponder.grinder_grind.text_4": "...or belted directly through the front",
+  "dccobblemon.ponder.grinder_grind.text_5": "Tickets can be automatically exported through the back",
+  "dccobblemon.ponder.grinder_grind.text_6": "* DANDYCORP is not liable for any injuries or casualties caused by improper use of The DANDYCORP Industrial Grinder™!",
+
+  "dccobblemon.ponder.grinder_points.header": "Grinder Point System",
+  "dccobblemon.ponder.grinder_points.text_1": "The faster the grinder spins, the faster its items are processed.",
+  "dccobblemon.ponder.grinder_points.text_2": "Each item added to the grinder has a unique point value.",
+  "dccobblemon.ponder.grinder_points.text_3": "This value can be found by inspecting an item in your inventory [U]",
+  "dccobblemon.ponder.grinder_points.text_4": "Not all items have a ticket value, though.",
+  "dccobblemon.ponder.grinder_points.text_5": "An item that is enchanted has its value increased by 5% per enchant level.",
+  "dccobblemon.ponder.grinder_points.text_6": "Once the grinder reaches 2000 points, a ticket will be produced.",
+  "dccobblemon.ponder.grinder_points.text_7": "Goggles will show you how close your grinder is to producing a ticket.",
+  "dccobblemon.ponder.grinder_points.text_8": "Tickets can be spent at your local DANDYCORP Vendor™!"
 }

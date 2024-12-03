@@ -68,8 +68,8 @@ public class Items {
             new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item TICKET = registerItem("ticket", new Ticket(new Item.Settings().rarity(Rarity.RARE)));
-    public static final Item VENDOR = registerItem("vendor", new TallBlockItem(Blocks.VENDOR_BLOCK,new Item.Settings().rarity(Rarity.RARE)));
-    public static final Item GRINDER_BLADES = registerItem("grinder_blades", new Item(new Item.Settings().fireproof().rarity(Rarity.UNCOMMON)));
+    public static final Item VENDOR = registerItem("vendor", new TallBlockItem(Blocks.VENDOR_BLOCK,new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item GRINDER_BLADES = registerItem("grinder_blades", new Item(new Item.Settings().fireproof()));
 
     public static final Item CHROMIUM_INGOT = registerItem("chromium_ingot", new Ticket(new Item.Settings()));
     public static final Item CHROMIUM_NUGGET = registerItem("chromium_nugget", new Ticket(new Item.Settings()));

@@ -38,6 +38,7 @@ public class DragonBadgeItem extends BadgeItem implements FabricElytraItem {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal("Functions as an elytra").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Applies soul fire flames on-hit").formatted(Formatting.GRAY));
     }

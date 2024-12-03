@@ -1,4 +1,4 @@
-package net.dandycorp.dccobblemon.compat;
+package net.dandycorp.dccobblemon.compat.rei;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -6,18 +6,12 @@ import me.shedaniel.rei.api.client.gui.Renderer;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
-import me.shedaniel.rei.api.client.util.ClientEntryStacks;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
-import me.shedaniel.rei.api.common.entry.EntryStack;
-import me.shedaniel.rei.api.common.entry.type.EntryDefinition;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.dandycorp.dccobblemon.block.Blocks;
-import net.dandycorp.dccobblemon.item.Items;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
 import net.minecraft.util.Formatting;
 
 import java.util.LinkedList;
@@ -25,9 +19,9 @@ import java.util.List;
 
 import static net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions.MOD_ID;
 
-public class GrinderCategory implements DisplayCategory<BasicDisplay> {
+public class GrinderREICategory implements DisplayCategory<BasicDisplay> {
 
-    public static final CategoryIdentifier<GrinderDisplay> GRINDING =
+    public static final CategoryIdentifier<GrinderREIDisplay> GRINDING =
             CategoryIdentifier.of(MOD_ID, "grinding");
 
     @Override
@@ -49,7 +43,7 @@ public class GrinderCategory implements DisplayCategory<BasicDisplay> {
                 .entries(display.getOutputEntries().get(0))
                 .markOutput());
         widgets.add(Widgets.createArrow(new Point(bounds.getCenterX()-12, startPoint.y+19)));
-        if(display instanceof GrinderDisplay gd) {
+        if(display instanceof GrinderREIDisplay gd) {
             widgets.add(Widgets.createLabel(new Point(bounds.getCenterX(), startPoint.y + 7),
                             Text.literal(String.format("Points: " + Formatting.BLACK + "%.3f", gd.getPointValue())))
                             .color(Formatting.DARK_GRAY.getColorValue())

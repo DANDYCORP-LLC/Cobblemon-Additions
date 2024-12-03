@@ -6,6 +6,7 @@ import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.block.*;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -28,6 +29,7 @@ public class FireBadgeItem extends BadgeItem implements Trinket {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal("Inflicts fire on-hit").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Grants fire resistance").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Allows lava walking").formatted(Formatting.GRAY));
@@ -77,5 +79,4 @@ public class FireBadgeItem extends BadgeItem implements Trinket {
         entity.setFireTicks(0);
         entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 600, 0, false, false));
     }
-
 }

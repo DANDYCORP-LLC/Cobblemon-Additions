@@ -2,6 +2,7 @@ package net.dandycorp.dccobblemon.item.custom.badges;
 
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.client.item.TooltipContext;
@@ -30,6 +31,7 @@ public class LinaBadgeItem extends BadgeItem {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal("Nature's blessing").formatted(Formatting.AQUA));
     }
 
@@ -41,9 +43,10 @@ public class LinaBadgeItem extends BadgeItem {
                 tickCounter = 0;
                 for(BlockPos pos : BlockPos.iterateOutwards(entity.getBlockPos(), 7,2,7)){
                     if (entity.getEntityWorld() instanceof ServerWorld world) {
-                        if (world.getBlockState(pos).getBlock() instanceof Fertilizable fertilizable) {
-                            if (Math.random() > 0.33 && !world.getBlockState(pos).isOf(Blocks.GRASS_BLOCK)) {
-                                fertilizable.grow(world, world.random, pos, world.getBlockState(pos));
+                        BlockState state = world.getBlockState(pos);
+                        if (state.getBlock() instanceof Fertilizable fertilizable) {
+                            if (Math.random() > 0.33 && !state.isOf(Blocks.GRASS_BLOCK) && fertilizable.isFertilizable(world,pos,state,true)) {
+                                fertilizable.grow(world, world.random, pos, state);
                                 world.spawnParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 6, 0.2, 0.6, 0.2,5);
                             }
                         }

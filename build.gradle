@@ -66,6 +66,9 @@ repositories {
 	maven {
 		url "https://maven.shedaniel.me"
 	}
+	maven{
+		url "https://maven.teamresourceful.com/repository/maven-public/"
+	}
 
 	exclusiveContent {
 		forRepository {
@@ -123,6 +126,7 @@ dependencies {
 
 	// Compile-time and runtime dependencies
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:12.1.758"
+	modCompileOnly group: "earth.terrarium.chipped", name: "chipped-fabric-1.20.1", version: "3.0.7"
 	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:12.1.758"
 
 	// Owo UI

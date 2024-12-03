@@ -33,6 +33,7 @@ public class PoisonBadgeItem extends BadgeItem {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal("Inflicts poison on-hit").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Grants poison immunity").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Grants wither immunity").formatted(Formatting.GRAY));

@@ -33,6 +33,7 @@ public class IceBadgeItem extends BadgeItem {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal("Inflicts frost on-hit").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Inflicts slowness on-hit").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Grants immunity to frost").formatted(Formatting.GRAY));
