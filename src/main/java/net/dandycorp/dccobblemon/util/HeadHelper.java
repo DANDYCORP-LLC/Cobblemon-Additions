@@ -5,6 +5,11 @@ import com.google.gson.reflect.TypeToken;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.mob.MagmaCubeEntity;
+import net.minecraft.entity.mob.SkeletonEntity;
+import net.minecraft.entity.mob.WitherSkeletonEntity;
+import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -17,6 +22,7 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
+import java.util.function.Supplier;
 
 public class HeadHelper {
 
@@ -65,10 +71,11 @@ public class HeadHelper {
             UUID.fromString("3b6aa68d-8460-4cd8-bee6-a3671686f48f"), // emil
             UUID.fromString("1a590d91-cbc6-4130-ba38-6f3568d4c4e2"), // blade
             UUID.fromString("a628538b-b6ae-471b-bed3-5e8fab451c9f"), // alexander
-            UUID.fromString("d3ef526c-7d01-466e-af7d-6734b9f6b6df") // natalie
+            UUID.fromString("d3ef526c-7d01-466e-af7d-6734b9f6b6df"), // natalie
+            UUID.fromString("9f83d568-562c-4b8e-92aa-a6f188e2c175"), // lilith
+            UUID.fromString("3f675964-9866-46ff-9372-3656c3b71f41") // akaleaf
     );
 
-    // Call this method during mod initialization
     public static void initializeCache() {
         loadCacheFromFile(); // Load cache from file
 
@@ -84,7 +91,6 @@ public class HeadHelper {
         saveCacheToFile(); // Save cache to file
     }
 
-    // Fetch full GameProfile including skin data
     public static GameProfile fetchGameProfile(UUID uuid) {
         try {
             String uuidStr = uuid.toString().replace("-", "");
@@ -287,7 +293,7 @@ public class HeadHelper {
 
     public static ItemStack createCustomHead(String textureValue, String displayName) {
         ItemStack head = new ItemStack(net.minecraft.item.Items.PLAYER_HEAD);
-        GameProfile profile = new GameProfile(UUID.randomUUID(), displayName); // Random UUID since it's a custom head
+        GameProfile profile = new GameProfile(UUID.randomUUID(), displayName);
         profile.getProperties().put("textures", new Property("textures", textureValue));
 
         NbtCompound nbt = new NbtCompound();
@@ -295,8 +301,6 @@ public class HeadHelper {
         head.getOrCreateNbt().put("SkullOwner", nbt);
 
         head.setCustomName(Text.literal(displayName));
-
-        // Debugging: Confirm SkullOwner is set
         if (head.hasNbt() && head.getNbt().contains("SkullOwner")) {
             System.out.println("Custom head created with SkullOwner: " + head.getNbt().getCompound("SkullOwner"));
         } else {

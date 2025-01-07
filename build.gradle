@@ -69,6 +69,14 @@ repositories {
 	maven{
 		url "https://maven.teamresourceful.com/repository/maven-public/"
 	}
+	maven {
+		name = 'GeckoLib'
+		url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+		content {
+			includeGroupByRegex("software\\.bernie.*")
+			includeGroup("com.eliotlash.mclib")
+		}
+	}
 
 	exclusiveContent {
 		forRepository {
@@ -85,7 +93,8 @@ repositories {
 	exclusiveContent {
 		forRepository {
 			maven {
-				url "https://maven.modrinth.com"
+				name = "Modrinth"
+				url = "https://api.modrinth.com/maven"
 			}
 		}
 		filter {
@@ -111,6 +120,9 @@ dependencies {
 	// Cobblemon
 	modImplementation "com.cobblemon:fabric:${project.cobblemon_version}"
 
+	// alloy forgery
+	modImplementation("maven.modrinth:alloy-forgery:${project.alloyforgery_version}")
+
 	// Other mods and libraries
 	modImplementation "dev.emi:trinkets:3.7.2"
 	modImplementation "it.crystalnest:soul-fire-d-fabric:${project.soul_fire_d_version}"
@@ -132,6 +144,10 @@ dependencies {
 	// Owo UI
 	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
 	include "io.wispforest:owo-sentinel:${project.owo_version}"
+
+	// gecko lib
+	modImplementation("software.bernie.geckolib:geckolib-fabric-${minecraft_version}:${geckolib_version}")
+	implementation("com.eliotlash.mclib:mclib:20")
 }
 
 processResources {

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dccobblemon:chromium_ingot"
+    },
+    "x": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    "#x#"
+  ],
+  "result": {
+    "item": "dccobblemon:keystone"
+  },
+  "show_notification": true
+}

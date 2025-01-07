@@ -1,7 +1,7 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "dccobblemon:item/ticket_stuff/chromium_pickaxe"
+    "layer0": "dccobblemon:item/metals/chromium_pickaxe"
   },
   "display": {
     "thirdperson_righthand": {

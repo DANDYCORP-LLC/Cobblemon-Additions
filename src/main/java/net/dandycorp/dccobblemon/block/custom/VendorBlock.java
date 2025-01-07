@@ -155,22 +155,15 @@ public class VendorBlock extends BlockWithEntity implements BlockEntityProvider 
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        // Get the half property of the block being broken (upper or lower half)
         DoubleBlockHalf half = state.get(HALF);
-
-        // Determine the position of the other half of the block
         BlockPos otherHalfPos = half == DoubleBlockHalf.LOWER ? pos.up() : pos.down();
-
-        // Get the BlockState of the other half
         BlockState otherHalfState = world.getBlockState(otherHalfPos);
-
-        // Check if the other half is the same block type and has the HALF property before modifying it
         if (otherHalfState.isOf(this) && otherHalfState.contains(HALF)) {
-            // Only set the other half to air without checking its properties further
             world.setBlockState(otherHalfPos, Blocks.AIR.getDefaultState(), 35);
         }
-
-        // Break the current block
+        if (!world.isClient && !player.isCreative()) {
+            dropStacks(state, world, pos, world.getBlockEntity(pos), player, player.getMainHandStack());
+        }
         super.onBreak(world, pos, state, player);
     }
 

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "dccobblemon:block/paragonium_block_top",
+    "side": "dccobblemon:block/paragonium_block"
+  }
+}

@@ -8,10 +8,10 @@ import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
 import net.dandycorp.dccobblemon.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.block.Blocks;
 import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.GrinderOutputBlockEntity;
-import net.dandycorp.dccobblemon.util.GrinderDataCache;
+import net.dandycorp.dccobblemon.util.grinder.GrinderDataCache;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.sound.GrinderSoundScapes;
-import net.dandycorp.dccobblemon.util.GrinderPointGenerator;
+import net.dandycorp.dccobblemon.util.grinder.GrinderPointGenerator;
 import net.dandycorp.dccobblemon.util.TextUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -220,6 +220,10 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
                     SoundCategory.BLOCKS,
                     0.4f,
                     RANDOM.nextFloat(1.4f,2.0f));
+        }
+
+        if (input.isDamageable()){
+            increment *= 1 - ((float) input.getDamage() / input.getMaxDamage());
         }
 
         points = (float) (Math.floor((points + increment) * 1000) / 1000);

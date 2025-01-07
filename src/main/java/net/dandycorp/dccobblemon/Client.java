@@ -5,19 +5,22 @@ import dev.emi.trinkets.api.client.TrinketRendererRegistry;
 import net.dandycorp.dccobblemon.block.BlockPartialModels;
 import net.dandycorp.dccobblemon.block.Blocks;
 import net.dandycorp.dccobblemon.compat.rei.DANDYCORPREIClientPlugin;
-import net.dandycorp.dccobblemon.util.GrinderDataCache;
-import net.dandycorp.dccobblemon.util.VendorDataCache;
 import net.dandycorp.dccobblemon.compat.ponder.GrinderScenes;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.renderer.BadgeRenderer;
 import net.dandycorp.dccobblemon.renderer.ElytraRegister;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreen;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
-import net.dandycorp.dccobblemon.util.VendorData;
+import net.dandycorp.dccobblemon.util.grinder.GrinderDataCache;
+import net.dandycorp.dccobblemon.util.vendor.VendorData;
+import net.dandycorp.dccobblemon.util.vendor.VendorDataCache;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.BowItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
@@ -90,5 +93,41 @@ public class Client implements ClientModInitializer {
                 DANDYCORPREIClientPlugin.registerGrinderDisplays();
             });
         });
+
+        ModelPredicateProviderRegistry.register(
+                Items.PARAGONIUM_BOW,
+                new Identifier("pull"),
+                (stack, world, entity, seed) -> {
+                    if (entity == null) {
+                        return 0.0F;
+                    }
+                    if (entity.getActiveItem() != stack) {
+                        return 0.0F;
+                    }
+                    // same logic that BowItem uses
+                    int useTicks = stack.getMaxUseTime() - entity.getItemUseTimeLeft();
+                    return BowItem.getPullProgress(useTicks);
+                }
+        );
+        ModelPredicateProviderRegistry.register(
+                Items.PARAGONIUM_BOW,
+                new Identifier("pulling"),
+                (stack, world, entity, seed) -> {
+                    if (entity != null && entity.isUsingItem() && entity.getActiveItem() == stack) {
+                        return 1.0F;
+                    }
+                    return 0.0F;
+                }
+        );
+        ModelPredicateProviderRegistry.register(
+                Items.PARAGONIUM_SHIELD,
+                new Identifier("blocking"),
+                (stack, world, entity, seed) -> {
+                    if (entity != null && entity.isUsingItem() && entity.getActiveItem() == stack) {
+                        return 1.0F;
+                    }
+                    return 0.0F;
+                }
+        );
     }
 }

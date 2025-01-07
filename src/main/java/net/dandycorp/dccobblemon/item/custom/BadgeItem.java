@@ -24,7 +24,7 @@ public class BadgeItem extends TrinketItem {
         super(settings);
     }
 
-    public boolean isEquipped(LivingEntity entity, Item badge){
+    public static boolean isEquipped(LivingEntity entity, Item badge){
         return TrinketsApi.getTrinketComponent(entity)
                 .map(trinketComponent ->
                         trinketComponent.getAllEquipped().stream()

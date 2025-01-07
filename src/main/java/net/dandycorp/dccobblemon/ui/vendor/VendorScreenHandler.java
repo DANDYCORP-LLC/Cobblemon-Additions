@@ -8,7 +8,8 @@ import net.dandycorp.dccobblemon.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.block.custom.VendorBlockEntity;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.ui.PokemonComponent;
-import net.dandycorp.dccobblemon.util.*;
+import net.dandycorp.dccobblemon.util.HeadHelper;
+import net.dandycorp.dccobblemon.util.vendor.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.cobblemon.mod.common.CobblemonSounds.FOSSIL_MACHINE_FINISHED;
+import static net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions.RANDOM;
 
 public class VendorScreenHandler extends ScreenHandler {
 
@@ -129,10 +131,16 @@ public class VendorScreenHandler extends ScreenHandler {
                     if(id.startsWith("pokemon:")) {
                         id = id.substring("pokemon:".length());
                         if(player instanceof ServerPlayerEntity serverPlayer) {
-                            Pokemon pokemon = PokemonComponent.pokemonFromSplitString(id.split("_"));
-                            if(pokemon != null) {
-                                Cobblemon.INSTANCE.getStorage().getParty(serverPlayer).add(pokemon);
-                                serverPlayer.playSound(FOSSIL_MACHINE_FINISHED,SoundCategory.MASTER,1.0f,1.0f);
+                            for(int i = 0; i < item.getQuantity(); i++){
+                                Pokemon pokemon = PokemonComponent.pokemonFromSplitString(id.split("_"));
+                                if (pokemon != null) {
+                                    if (!pokemon.getShiny()) {
+                                        float odds = 1 / Cobblemon.INSTANCE.getConfig().getShinyRate();
+                                        pokemon.setShiny(RANDOM.nextFloat() <= odds);
+                                    }
+                                    Cobblemon.INSTANCE.getStorage().getParty(serverPlayer).add(pokemon);
+                                    serverPlayer.playSound(FOSSIL_MACHINE_FINISHED, SoundCategory.MASTER, 1.0f, 1.0f);
+                                }
                             }
                         }
                     }
@@ -174,7 +182,7 @@ public class VendorScreenHandler extends ScreenHandler {
     }
 
     public boolean canAfford(int cost) {
-        return getBalance(playerInventory) >= cost;
+        return player().isCreative() || getBalance(playerInventory) >= cost;
     }
 
     public int getBalance(PlayerInventory playerInventory) {

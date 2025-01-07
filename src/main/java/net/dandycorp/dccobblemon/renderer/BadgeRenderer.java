@@ -24,20 +24,13 @@ public class BadgeRenderer implements TrinketRenderer {
     public void render(ItemStack stack, SlotReference slotReference, EntityModel<? extends LivingEntity> contextModel, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, LivingEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
 
         if (contextModel instanceof PlayerEntityModel<?> playerModel) {
-            PlayerEntityModel<AbstractClientPlayerEntity> playerEntityModel = (PlayerEntityModel<AbstractClientPlayerEntity>) contextModel;
-
-            // Translate to chest position
-            TrinketRenderer.translateToChest(matrices, playerEntityModel, (AbstractClientPlayerEntity) entity);
-            matrices.translate(-0.15F, -0.2F, 0.0F);
+            TrinketRenderer.translateToChest(matrices, (PlayerEntityModel<AbstractClientPlayerEntity>) playerModel, (AbstractClientPlayerEntity) entity);
+            matrices.translate(-0.15F, -0.2F, -0.2F);
             matrices.scale(0.2F,0.2F,0.2F);
             matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0F));
 
-            //LOGGER.info(texture.getPath());
-
             ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
             BakedModel model = itemRenderer.getModels().getModel(stack);
-
-            // Render the badge item using the item renderer
             itemRenderer.renderItem(stack, ModelTransformationMode.FIXED, false, matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV, model);
         }
     }

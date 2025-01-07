@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:bread"
+    },
+    {
+      "item": "cobblemon:medicinal_leek"
+    },
+    {
+      "item": "minecraft:beetroot"
+    },
+    {
+      "item": "cobblemon:revival_herb"
+    },
+    {
+      "item": "minecraft:brown_mushroom"
+    },
+    {
+      "tag": "cobblemon:cooked_meat",
+      "count": 2
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "dccobblemon:shiny_sandwich_1"
+  },
+  "show_notification": true
+}

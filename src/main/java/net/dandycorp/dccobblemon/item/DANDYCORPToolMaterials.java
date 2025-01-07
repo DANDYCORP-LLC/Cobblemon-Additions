@@ -11,7 +11,11 @@ public enum DANDYCORPToolMaterials implements ToolMaterial {
 
     CHROMIUM(4, 1520, 15f, 5F, 22, () -> {
         return Ingredient.ofItems(new ItemConvertible[]{Items.CHROMIUM_INGOT});}
-        );
+    ),
+
+    PARAGONIUM(6, 0, 28f, 11F, 10, () -> {
+        return Ingredient.ofItems(new ItemConvertible[]{Items.PARAGONIUM_INGOT});}
+    );
 
     private final int miningLevel;
     private final int itemDurability;

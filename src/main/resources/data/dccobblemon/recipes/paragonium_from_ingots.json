@@ -1,0 +1,41 @@
+{
+  "type": "alloy_forgery:forging",
+  "inputs": [
+    {
+      "item": "mythicmetals:metallurgium_ingot"
+    },
+    {
+      "item": "mythicmetals:stormyx_ingot"
+    },
+    {
+      "tag": "cobblemon:evolution_stones"
+    },
+    {
+      "item": "mythicmetals:celestium_ingot"
+    },
+    {
+      "item": "create:polished_rose_quartz"
+    },
+    {
+      "item": "mythicmetals:durasteel_ingot"
+    },
+    {
+      "item": "minecraft:netherite_ingot"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "item": "dccobblemon:chromium_ingot"
+    },
+    {
+      "item": "mythicmetals:silver_ingot"
+    }
+  ],
+  "output": {
+    "id": "dccobblemon:paragonium_ingot",
+    "count": 1
+  },
+  "min_forge_tier": 3,
+  "fuel_per_tick": 100
+}

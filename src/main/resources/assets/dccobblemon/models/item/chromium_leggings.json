@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "dccobblemon:item/ticket_stuff/chromium_leggings"
+    "layer0": "dccobblemon:item/metals/chromium_leggings"
   }
 }

@@ -121,13 +121,22 @@
       "name": "pokemon",
       "entries": [
         {
+          "buttonID": 40,
+          "items": [
+            {"id": "dccobblemon:blue_orb", "quantity": 1}
+          ],
+          "cost": 80,
+          "title": "Blue Orb",
+          "description": "Is it a legendary artifact or just a replica from aisle three of the DANDYCORP gift shop? No way to know for sure, but it’s shiny and it’s yours at a discounted price."
+        },
+        {
           "buttonID": 41,
           "items": [
-            {"id": "cobblemon:revive", "quantity": 16}
+            {"id": "dccobblemon:red_orb", "quantity": 1}
           ],
-          "cost": 2,
-          "title": "Revive",
-          "description": "For when your Pokémon just couldn’t keep it together. Revive them and send them right back into battle. No rest for the weary."
+          "cost": 80,
+          "title": "Red Orb",
+          "description": "Could it awaken the land’s primal power? Maybe. Could it just be a decorative crystal? Also maybe. Either way, it’s a statement piece!"
         },
         {
           "buttonID": 42,
@@ -141,11 +150,11 @@
         {
           "buttonID": 43,
           "items": [
-            {"id": "pokemon:male_vileplume", "quantity": 1}
+            {"id": "pokemon:shiny_random", "quantity": 1}
           ],
-          "cost": 2200,
-          "title": "Arceus",
-          "description": "The original creator, now repackaged as a limited edition asset. Worship it as you worship your quarterly profits."
+          "cost": 100,
+          "title": "Random Shiny Pokemon",
+          "description": "Try your luck! DANDYCORP warehouses are overflowing with these things, so we'll pick a random one off the shelf and let you suffer the consequences."
         },
         {
           "buttonID": 44,

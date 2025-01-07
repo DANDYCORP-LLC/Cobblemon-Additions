@@ -8,6 +8,4 @@ public class Ticket extends Item {
         super(settings);
     }
 
-
-
 }

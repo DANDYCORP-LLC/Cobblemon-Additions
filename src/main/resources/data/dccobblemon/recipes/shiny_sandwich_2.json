@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "s": {
+      "item": "dccobblemon:shiny_sandwich_1"
+    },
+    "g": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "ggg",
+    "gsg",
+    "ggg"
+  ],
+  "result": {
+    "item": "dccobblemon:shiny_sandwich_2"
+  },
+  "show_notification": true
+}

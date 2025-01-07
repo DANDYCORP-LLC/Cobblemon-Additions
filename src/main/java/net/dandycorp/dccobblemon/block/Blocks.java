@@ -22,6 +22,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
@@ -31,10 +32,11 @@ import static net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions.REGISTRATE;
 
 public class Blocks {
 
-    public static final Block WALKER_MAGMA = registerBlock("walker_magma",new WalkerMagmaBlock(FabricBlockSettings.copy(net.minecraft.block.Blocks.MAGMA_BLOCK).ticksRandomly().dropsNothing().solidBlock(net.minecraft.block.Blocks::never)),true);
+    public static final Block WALKER_MAGMA = registerBlock("walker_magma",new WalkerMagmaBlock(FabricBlockSettings.copy(net.minecraft.block.Blocks.MAGMA_BLOCK).ticksRandomly().dropsNothing().solidBlock(net.minecraft.block.Blocks::never)),false);
     public static final Block CHROMIUM_BLOCK = registerBlock("chromium_block",new ChromiumBlock(FabricBlockSettings.copy(net.minecraft.block.Blocks.IRON_BLOCK)),true);
+    public static final Block PARAGONIUM_BLOCK = registerBlock("paragonium_block",new Block(FabricBlockSettings.copy(net.minecraft.block.Blocks.OBSIDIAN).sounds(BlockSoundGroup.AMETHYST_BLOCK).mapColor(DyeColor.PURPLE)), false);
     public static final Block RAW_CHROMIUM_BLOCK = registerBlock("raw_chromium_block",new ChromiumBlock(FabricBlockSettings.copy(net.minecraft.block.Blocks.RAW_IRON_BLOCK)),true);
-    public static final Block VENDOR_BLOCK = registerBlock("vendor",new VendorBlock(FabricBlockSettings.copy(net.minecraft.block.Blocks.IRON_DOOR).pistonBehavior(PistonBehavior.DESTROY).luminance((state) -> {
+    public static final Block VENDOR_BLOCK = registerBlock("vendor",new VendorBlock(FabricBlockSettings.copy(net.minecraft.block.Blocks.IRON_DOOR).pistonBehavior(PistonBehavior.BLOCK).luminance((state) -> {
         return state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? 8 : 0;
     }).nonOpaque()),false);
 
@@ -58,7 +60,7 @@ public class Blocks {
                 .properties(p -> p.rarity(Rarity.UNCOMMON))
                 .transform(b -> b.model((c, p) -> {
                             p.withExistingParent("grinder",
-                                    p.modLoc("block/grinder/full_grinder"));
+                            p.modLoc("block/grinder/full_grinder"));
                         }))
                 .build()
             .register();

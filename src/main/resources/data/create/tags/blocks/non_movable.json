@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "dccobblemon:grinder",
+      "required": false
+    },
+    {
+      "id": "dccobblemon:grinder_input",
+      "required": false
+    },
+    {
+      "id": "dccobblemon:grinder_output",
+      "required": false
+    },
+    {
+      "id": "dccobblemon:grinder_corner",
+      "required": false
+    },
+    {
+      "id": "dccobblemon:grinder_rotational",
+      "required": false
+    },
+    {
+      "id": "dccobblemon:vendor",
+      "required": false
+    },
+    {
+      "id": "minecraft:spawner",
+      "required": false
+    }
+  ]
+}

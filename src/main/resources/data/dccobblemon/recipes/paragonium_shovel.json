@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "dccobblemon:paragonium_ingot"
+    },
+    "x": {
+      "item": "dccobblemon:chromium_shovel"
+    },
+    "|": {
+      "item": "minecraft:blaze_rod"
+    }
+  },
+  "pattern": [
+    "#",
+    "x",
+    "|"
+  ],
+  "result": {
+    "item": "dccobblemon:paragonium_shovel"
+  },
+  "show_notification": true
+}

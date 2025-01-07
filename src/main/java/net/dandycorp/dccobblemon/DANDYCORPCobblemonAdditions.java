@@ -1,17 +1,31 @@
 package net.dandycorp.dccobblemon;
 
+import com.cobblemon.mod.common.Cobblemon;
+import com.cobblemon.mod.common.api.Priority;
+import com.cobblemon.mod.common.api.events.CobblemonEvents;
+import com.cobblemon.mod.common.api.events.battles.BattleStartedPreEvent;
+import com.cobblemon.mod.common.api.events.entity.SpawnEvent;
+import com.cobblemon.mod.common.api.events.pokemon.HeldItemEvent;
+import com.cobblemon.mod.common.api.spawning.context.SpawningContext;
+import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.TrinketComponent;
+import dev.emi.trinkets.api.TrinketsApi;
+import kotlin.Unit;
 import net.dandycorp.dccobblemon.block.BlockEntities;
 import net.dandycorp.dccobblemon.block.Blocks;
+import net.dandycorp.dccobblemon.effect.SparklingPowerEffect;
 import net.dandycorp.dccobblemon.event.AttackEntityHandler;
 import net.dandycorp.dccobblemon.event.BreakBlockHandler;
 import net.dandycorp.dccobblemon.item.Items;
 import net.dandycorp.dccobblemon.item.custom.badges.DragonBadgeItem;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
-import net.dandycorp.dccobblemon.util.GrinderPointGenerator;
+import net.dandycorp.dccobblemon.util.*;
+import net.dandycorp.dccobblemon.util.grinder.GrinderPointGenerator;
 import net.dandycorp.dccobblemon.util.HeadHelper;
-import net.dandycorp.dccobblemon.util.VendorData;
-import net.dandycorp.dccobblemon.util.VendorDataLoader;
+import net.dandycorp.dccobblemon.util.vendor.VendorData;
+import net.dandycorp.dccobblemon.util.vendor.VendorDataLoader;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
@@ -21,23 +35,24 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class DANDYCORPCobblemonAdditions implements ModInitializer {
 
@@ -54,16 +69,14 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 
 	public static Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir().resolve("dccobblemon");
 
-
 	public static final ScreenHandlerType<VendorScreenHandler> VENDOR_SCREEN_HANDLER =
 			Registry.register(Registries.SCREEN_HANDLER, new Identifier(MOD_ID, "vendor"),
 					new ExtendedScreenHandlerType<>(VendorScreenHandler::new));
 
+	public static final StatusEffect SPARKLING_POWER = new SparklingPowerEffect();
+
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
 
 		LOGGER.info("\n\n   ███    ███\n" +
 				"   ███    ███\n" +
@@ -86,17 +99,22 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 		Items.registerAllItems();
 		Blocks.registerAllBlocks();
 		BlockEntities.registerAllBlockEntities();
+		LootTableModifier.modifyLootTables();
 		HeadHelper.initializeCache();
 		DANDYCORPSounds.registerSounds();
 		REGISTRATE.register();
 
-
+		Registry.register(Registries.STATUS_EFFECT, new Identifier(MOD_ID, "sparkling_power"), SPARKLING_POWER);
 
 		AttackEntityCallback.EVENT.register(new AttackEntityHandler());
 		PlayerBlockBreakEvents.BEFORE.register(new BreakBlockHandler());
 		ServerLifecycleEvents.SERVER_STARTED.register(GrinderPointGenerator::initializePointValues);
+		CobblemonEvents.BATTLE_STARTED_PRE.subscribe(Priority.NORMAL,this::onBattleStart);
+		CobblemonEvents.HELD_ITEM_POST.subscribe(Priority.LOW,this::onHeldItemChanged);
+		CobblemonEvents.POKEMON_ENTITY_SPAWN.subscribe(Priority.HIGHEST,this::onPokemonEntitySpawn);
 
 		DragonBadgeItem.registerFlight();
+
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			ServerPlayerEntity player = handler.player;
@@ -125,7 +143,54 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 			ServerPlayNetworking.send(player, GRINDER_DATA_SYNC, buf);
 		});
 
-		LOGGER.info("DANDYCORP initialized!");
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+			FoodTracker.initialize();
+		});
 
+		LOGGER.info("DANDYCORP initialized!");
+	}
+
+	private Unit onBattleStart(BattleStartedPreEvent event){
+		event.getBattle().getPlayers().forEach(player -> {
+			Set<Identifier> keyItems = Cobblemon.playerData.get(player).getKeyItems();
+			if (MegaUtils.hasKeystone(player)) {
+				keyItems.add(new Identifier("cobblemon", "key_stone"));
+			} else {
+				keyItems.remove(new Identifier("cobblemon", "key_stone"));
+			}
+		});
+		return Unit.INSTANCE;
+	}
+
+	private Unit onHeldItemChanged(HeldItemEvent.Post post){
+		if(MegaUtils.hasKeystone(post.getPokemon().getOwnerPlayer())){
+			MegaUtils.evolveOrDevolve(post.getPokemon().getOwnerPlayer());
+		}
+		return Unit.INSTANCE;
+	}
+
+	private Unit onPokemonEntitySpawn(SpawnEvent<PokemonEntity> event) {
+		PokemonEntity pokemonEntity = event.getEntity();
+		SpawningContext ctx = event.getCtx();
+		if (pokemonEntity != null && ctx.getCause().getEntity() instanceof PlayerEntity player){
+			int rolls = 1;
+			float rate = Cobblemon.config.getShinyRate();
+			float chance = RANDOM.nextFloat(rate);
+
+			Optional<TrinketComponent> component = TrinketsApi.getTrinketComponent(player);
+			if (component.isPresent()) {
+				for (Pair<SlotReference, ItemStack> p : component.get().getAllEquipped().stream().filter(pair -> pair.getRight().isOf(Items.SHINY_CHARM)).toList()) {
+					rolls += 2;
+					chance = (float) Math.floor(chance); // barely an extra chance, but it's something.
+				}
+			}
+			if (player.hasStatusEffect(SPARKLING_POWER)){
+				rolls += Objects.requireNonNull(player.getStatusEffect(SPARKLING_POWER)).getAmplifier() + 1;
+			}
+			if (chance <= rolls) {
+				pokemonEntity.getPokemon().setShiny(true);
+			}
+		}
+		return Unit.INSTANCE;
 	}
 }

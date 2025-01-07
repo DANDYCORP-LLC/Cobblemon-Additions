@@ -5,9 +5,9 @@ import io.wispforest.owo.ui.component.Components;
 import io.wispforest.owo.ui.container.Containers;
 import io.wispforest.owo.ui.container.FlowLayout;
 import io.wispforest.owo.ui.core.*;
-import net.dandycorp.dccobblemon.util.VendorBalanceManager;
-import net.dandycorp.dccobblemon.util.VendorEntry;
-import net.dandycorp.dccobblemon.util.VendorItem;
+import net.dandycorp.dccobblemon.util.vendor.VendorBalanceManager;
+import net.dandycorp.dccobblemon.util.vendor.VendorEntry;
+import net.dandycorp.dccobblemon.util.vendor.VendorItem;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 

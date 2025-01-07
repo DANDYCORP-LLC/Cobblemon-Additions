@@ -1,7 +1,7 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "dccobblemon:item/ticket_stuff/chromium_shovel"
+    "layer0": "dccobblemon:item/metals/chromium_shovel"
   },
   "display": {
     "thirdperson_righthand": {

@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.ui;
 
+import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.gui.GuiUtilsKt;
 import com.cobblemon.mod.common.api.pokemon.Natures;
 import com.cobblemon.mod.common.api.pokemon.PokemonSpecies;
@@ -7,6 +8,7 @@ import com.cobblemon.mod.common.api.pokemon.stats.Stat;
 import com.cobblemon.mod.common.api.pokemon.stats.Stats;
 import com.cobblemon.mod.common.client.render.models.blockbench.PoseableEntityState;
 import com.cobblemon.mod.common.client.render.models.blockbench.pokemon.PokemonFloatingState;
+import com.cobblemon.mod.common.config.CobblemonConfig;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.pokemon.Gender;
 import com.cobblemon.mod.common.pokemon.Nature;
@@ -15,7 +17,9 @@ import com.cobblemon.mod.common.pokemon.Species;
 import io.wispforest.owo.ui.base.BaseComponent;
 import io.wispforest.owo.ui.core.OwoUIDrawContext;
 import io.wispforest.owo.ui.core.Sizing;
+import net.dandycorp.dccobblemon.item.Items;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +27,7 @@ import java.util.Map;
 import java.util.Random;
 
 import static com.cobblemon.mod.common.CobblemonItems.CHERISH_BALL;
+import static net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions.RANDOM;
 
 public class PokemonComponent extends BaseComponent {
     private static final float BASE_MODEL_SIZE = 21.0f;
@@ -58,6 +63,19 @@ public class PokemonComponent extends BaseComponent {
         context.enableScissor(this.x, this.y, this.x + this.width, this.y + this.height);
         stack.push();
 
+        String[] tokens = pokemonName.split("_");
+        String lastToken = tokens[tokens.length - 1];
+
+        if (lastToken.equalsIgnoreCase("random")) {
+            ItemStack randomStack = Items.BADGE.getDefaultStack();
+            stack.scale(this.width/16f,this.height/16f,1);
+            context.drawItem(randomStack,0,0);
+            stack.pop();
+            context.disableScissor();
+            stack.pop();
+            return;
+        }
+
         float scaleX = (float) this.width / BASE_MODEL_SIZE;
         float scaleY = (float) this.height / BASE_MODEL_SIZE;
         float scale = Math.min(scaleX, scaleY);
@@ -69,11 +87,7 @@ public class PokemonComponent extends BaseComponent {
         stack.scale(scale, scale, 1);
         stack.translate(0.0, -BASE_MODEL_SIZE, 0.0);
 
-
-        String[] tokens = pokemonName.split("_");
-
-        PoseableEntityState<PokemonEntity> state = new PokemonFloatingState();
-        Species species = PokemonSpecies.INSTANCE.getByName(tokens[tokens.length - 1]);
+        Species species = PokemonSpecies.INSTANCE.getByName(lastToken);
         if (species == null) {
             System.err.println("PokemonSpecies not found for name: " + pokemonName);
             stack.pop();
@@ -82,8 +96,9 @@ public class PokemonComponent extends BaseComponent {
             return;
         }
 
+        PoseableEntityState<PokemonEntity> state = new PokemonFloatingState();
         Pokemon pokemon = pokemonFromSplitString(tokens);
-        if(pokemon != null) {
+        if (pokemon != null) {
             GuiUtilsKt.drawPortraitPokemon(species, pokemon.getAspects(), stack, 13f, reversed, state, partialTicks);
         }
 
@@ -109,7 +124,13 @@ public class PokemonComponent extends BaseComponent {
             return null;
         }
 
-        Species species = PokemonSpecies.INSTANCE.getByName(tokens[tokens.length - 1]);
+        Species species;
+
+        if(tokens[tokens.length - 1].equalsIgnoreCase("random")){
+            species = PokemonSpecies.INSTANCE.random();
+        } else {
+            species = PokemonSpecies.INSTANCE.getByName(tokens[tokens.length - 1]);
+        }
         if(species == null){
             return null;
         }

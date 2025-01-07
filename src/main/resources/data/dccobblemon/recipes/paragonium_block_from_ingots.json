@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "chromium",
+  "key": {
+    "#": {
+      "item": "dccobblemon:paragonium_ingot"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "dccobblemon:paragonium_block"
+  },
+  "show_notification": true
+}

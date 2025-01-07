@@ -12,7 +12,7 @@ import com.simibubi.create.foundation.ponder.instruction.EmitParticlesInstructio
 import com.simibubi.create.foundation.utility.Pointing;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.block.Blocks;
-import net.dandycorp.dccobblemon.util.GrinderPointGenerator;
+import net.dandycorp.dccobblemon.util.grinder.GrinderPointGenerator;
 import net.dandycorp.dccobblemon.util.TextUtils;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -23,15 +23,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.Registries;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.random.RandomGeneratorFactory;
 
 public class GrinderScenes {
 
