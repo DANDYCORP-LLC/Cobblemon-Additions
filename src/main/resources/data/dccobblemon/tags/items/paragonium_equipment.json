@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "dccobblemon:paragonium_sword",
+    "dccobblemon:paragonium_axe",
+    "dccobblemon:paragonium_pickaxe",
+    "dccobblemon:paragonium_shovel",
+    "dccobblemon:paragonium_hoe",
+    "dccobblemon:paragonium_bow"
+  ]
+}

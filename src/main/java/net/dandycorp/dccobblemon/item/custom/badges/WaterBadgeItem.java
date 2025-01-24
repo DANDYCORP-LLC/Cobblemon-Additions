@@ -1,7 +1,7 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
 import dev.emi.trinkets.api.SlotReference;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -32,7 +32,7 @@ public class WaterBadgeItem extends BadgeItem {
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (!entity.getEntityWorld().isClient) {
             if (entity.age % 20 == 0) {
-                if(this.isEquipped(entity,Items.WATER_BADGE)){
+                if(this.isEquipped(entity, DANDYCORPItems.WATER_BADGE)){
                     entity.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 600, 0, false, false));
                 }
             }

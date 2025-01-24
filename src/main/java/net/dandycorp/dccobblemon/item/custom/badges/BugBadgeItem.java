@@ -2,8 +2,7 @@ package net.dandycorp.dccobblemon.item.custom.badges;
 
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
-import dev.emi.trinkets.api.Trinket;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -43,7 +42,7 @@ public class BugBadgeItem extends BadgeItem {
 
         if(!entity.getEntityWorld().isClient) {
             if(entity.age % 20 == 0) {
-                if (this.isEquipped(entity, Items.BUG_BADGE)) {
+                if (this.isEquipped(entity, DANDYCORPItems.BUG_BADGE)) {
                     ScaleTypes.HEIGHT.getScaleData(entity).setScale(0.66f);
                     ScaleTypes.WIDTH.getScaleData(entity).setScale(0.66f);
                 }

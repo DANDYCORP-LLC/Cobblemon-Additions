@@ -1,7 +1,7 @@
 package net.dandycorp.dccobblemon.item;
 
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
-import net.dandycorp.dccobblemon.block.Blocks;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.dandycorp.dccobblemon.item.custom.ShinyCharmItem;
 import net.dandycorp.dccobblemon.item.custom.ShinySandwichItem;
@@ -29,14 +29,14 @@ import java.util.List;
 import static net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions.SPARKLING_POWER;
 
 
-public class Items {
+public class DANDYCORPItems {
 
 
     // custom creative menu (item group)
     // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     public static final RegistryKey<ItemGroup> DANDYCORP_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(DANDYCORPCobblemonAdditions.MOD_ID, "item_group"));
     public static final ItemGroup DANDYCORP_GROUP = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(Items.TICKET))
+            .icon(() -> new ItemStack(DANDYCORPItems.TICKET))
             .displayName(Text.translatable("itemGroup.dccobblemon"))
             .build();
     // ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
@@ -80,7 +80,7 @@ public class Items {
             new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
 
     public static final Item TICKET = registerItem("ticket", new Ticket(new Item.Settings().rarity(Rarity.RARE)));
-    public static final Item VENDOR = registerItem("vendor", new TallBlockItem(Blocks.VENDOR_BLOCK,new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item VENDOR = registerItem("vendor", new TallBlockItem(DANDYCORPBlocks.VENDOR_BLOCK,new Item.Settings().rarity(Rarity.UNCOMMON)));
     public static final Item GRINDER_BLADES = registerItem("grinder_blades", new Item(new Item.Settings().fireproof()));
     public static final Item CHROMIUM_INGOT = registerItem("chromium_ingot", new Item(new Item.Settings()));
     public static final Item CHROMIUM_NUGGET = registerItem("chromium_nugget", new Item(new Item.Settings()));
@@ -106,7 +106,7 @@ public class Items {
             new HoeItem(DANDYCORPToolMaterials.CHROMIUM,-3,0.0f,new Item.Settings()));
 
     public static final Item PARAGONIUM_INGOT = registerItem("paragonium_ingot",new ParagoniumItem(new Item.Settings().rarity(Rarity.EPIC).fireproof()));
-    public static final Item PARAGONIUM_BLOCK_ITEM = registerItem("paragonium_block",new ParagoniumBlockItem(Blocks.PARAGONIUM_BLOCK, new FabricItemSettings().fireproof().rarity(Rarity.EPIC)));
+    public static final Item PARAGONIUM_BLOCK_ITEM = registerItem("paragonium_block",new ParagoniumBlockItem(DANDYCORPBlocks.PARAGONIUM_BLOCK, new FabricItemSettings().fireproof().rarity(Rarity.EPIC)));
     public static final Item PARAGONIUM_NUGGET = registerItem("paragonium_nugget",new ParagoniumItem(new Item.Settings().rarity(Rarity.EPIC).fireproof()));
     public static final Item PARAGONIUM_HELMET = registerItem("paragonium_helmet",
             new ParagoniumArmorItem(DANDYCORPArmorMaterials.PARAGONIUM, ParagoniumArmorItem.Type.HELMET, new Item.Settings().rarity(Rarity.EPIC).fireproof()));
@@ -258,15 +258,15 @@ public class Items {
             entries.add(TICKET);
             entries.add(VENDOR);
             entries.add(GRINDER_BLADES);
-            entries.add(Blocks.GRINDER_BLOCK);
+            entries.add(DANDYCORPBlocks.GRINDER_BLOCK);
 
             // chromium
             entries.add(CHROMIUM_INGOT);
             entries.add(CHROMIUM_NUGGET);
             entries.add(CHROMIUM_DUST);
             entries.add(RAW_CHROMIUM);
-            entries.add(Blocks.CHROMIUM_BLOCK);
-            entries.add(Blocks.RAW_CHROMIUM_BLOCK);
+            entries.add(DANDYCORPBlocks.CHROMIUM_BLOCK);
+            entries.add(DANDYCORPBlocks.RAW_CHROMIUM_BLOCK);
             entries.add(CHROMIUM_HELMET);
             entries.add(CHROMIUM_CHESTPLATE);
             entries.add(CHROMIUM_LEGGINGS);

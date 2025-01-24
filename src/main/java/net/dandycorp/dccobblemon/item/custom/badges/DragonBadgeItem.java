@@ -3,7 +3,7 @@ package net.dandycorp.dccobblemon.item.custom.badges;
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents;
 import net.fabricmc.fabric.api.entity.event.v1.FabricElytraItem;
@@ -58,7 +58,7 @@ public class DragonBadgeItem extends BadgeItem implements FabricElytraItem {
                         trinketComponent.getAllEquipped().stream()
                                 .map(Pair::getRight) // Get the ItemStack from the pair
                                 .map(ItemStack::getItem) // Get the Item from the ItemStack
-                                .anyMatch(item -> item == Items.DRAGON_BADGE)
+                                .anyMatch(item -> item == DANDYCORPItems.DRAGON_BADGE)
                 )
                 .orElse(false);
     }

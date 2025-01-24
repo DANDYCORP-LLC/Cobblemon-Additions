@@ -2,7 +2,7 @@ package net.dandycorp.dccobblemon.event;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.block.Block;
@@ -12,7 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.text.Text;
 import net.minecraft.util.Pair;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -41,7 +40,7 @@ public class BreakBlockHandler implements PlayerBlockBreakEvents.Before {
                         .map(ItemStack::getItem) // Get the Item from the ItemStack
                         .filter(item -> item instanceof BadgeItem) // Filter for BadgeItems
                         .forEach(item -> {
-                            if (item == Items.GROUND_BADGE && !player.isSneaking()) {
+                            if (item == DANDYCORPItems.GROUND_BADGE && !player.isSneaking()) {
 
                                 ItemStack heldItem = player.getMainHandStack();
 

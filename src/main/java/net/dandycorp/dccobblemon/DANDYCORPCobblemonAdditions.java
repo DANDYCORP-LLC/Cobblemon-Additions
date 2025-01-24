@@ -12,13 +12,20 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
+import dev.onyxstudios.cca.api.v3.component.ComponentKey;
+import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
+import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
+import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
+import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 import kotlin.Unit;
-import net.dandycorp.dccobblemon.block.BlockEntities;
-import net.dandycorp.dccobblemon.block.Blocks;
+import net.dandycorp.dccobblemon.attribute.DANDYCORPAttributes;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
+import net.dandycorp.dccobblemon.attribute.InfinityGuardComponent;
 import net.dandycorp.dccobblemon.effect.SparklingPowerEffect;
 import net.dandycorp.dccobblemon.event.AttackEntityHandler;
 import net.dandycorp.dccobblemon.event.BreakBlockHandler;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.badges.DragonBadgeItem;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
 import net.dandycorp.dccobblemon.util.*;
@@ -54,7 +61,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-public class DANDYCORPCobblemonAdditions implements ModInitializer {
+public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityComponentInitializer {
 
 
 	public static final String MOD_ID = "dccobblemon";
@@ -74,6 +81,9 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 					new ExtendedScreenHandlerType<>(VendorScreenHandler::new));
 
 	public static final StatusEffect SPARKLING_POWER = new SparklingPowerEffect();
+
+	public static final ComponentKey<InfinityGuardComponent> INFINITY_GUARD =
+			ComponentRegistry.getOrCreate(new Identifier(MOD_ID, "infinity_guard"), InfinityGuardComponent.class);
 
 	@Override
 	public void onInitialize() {
@@ -96,10 +106,12 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 		VendorDataLoader.loadVendorData();
 
 
-		Items.registerAllItems();
-		Blocks.registerAllBlocks();
-		BlockEntities.registerAllBlockEntities();
+		DANDYCORPItems.registerAllItems();
+		DANDYCORPBlocks.registerAllBlocks();
+		DANDYCORPTags.initialize();
+		DANDYCORPBlockEntities.registerAllBlockEntities();
 		LootTableModifier.modifyLootTables();
+		DANDYCORPAttributes.initialize();
 		HeadHelper.initializeCache();
 		DANDYCORPSounds.registerSounds();
 		REGISTRATE.register();
@@ -179,7 +191,7 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 
 			Optional<TrinketComponent> component = TrinketsApi.getTrinketComponent(player);
 			if (component.isPresent()) {
-				for (Pair<SlotReference, ItemStack> p : component.get().getAllEquipped().stream().filter(pair -> pair.getRight().isOf(Items.SHINY_CHARM)).toList()) {
+				for (Pair<SlotReference, ItemStack> p : component.get().getAllEquipped().stream().filter(pair -> pair.getRight().isOf(DANDYCORPItems.SHINY_CHARM)).toList()) {
 					rolls += 2;
 					chance = (float) Math.floor(chance); // barely an extra chance, but it's something.
 				}
@@ -192,5 +204,10 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer {
 			}
 		}
 		return Unit.INSTANCE;
+	}
+
+	@Override
+	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
+		registry.registerForPlayers(INFINITY_GUARD, InfinityGuardComponent::new, RespawnCopyStrategy.INVENTORY);
 	}
 }

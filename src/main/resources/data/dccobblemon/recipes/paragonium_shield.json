@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "dccobblemon:paragonium_ingot"
+    },
+    "x": {
+      "item": "minecraft:iron_block"
+    }
+  },
+  "pattern": [
+    "###",
+    "xxx",
+    " x "
+  ],
+  "result": {
+    "item": "dccobblemon:paragonium_shield"
+  },
+  "show_notification": true
+}

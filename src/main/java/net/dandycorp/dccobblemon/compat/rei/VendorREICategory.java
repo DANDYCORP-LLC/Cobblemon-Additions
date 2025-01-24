@@ -9,7 +9,8 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.dandycorp.dccobblemon.block.Blocks;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.ui.PokemonComponent;
 import net.dandycorp.dccobblemon.ui.PokemonRenderUtils;
 import net.dandycorp.dccobblemon.util.TextUtils;
@@ -47,7 +48,7 @@ public class VendorREICategory implements DisplayCategory<VendorREIDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(Blocks.VENDOR_BLOCK);
+        return EntryStacks.of(DANDYCORPBlocks.VENDOR_BLOCK);
     }
 
     @Override
@@ -101,7 +102,7 @@ public class VendorREICategory implements DisplayCategory<VendorREIDisplay> {
             VendorItem currentItem = getCurrentVendorItem(display);
             if (currentItem != null) {
 
-                if (currentItem.getId().startsWith("pokemon:")) {
+                if (currentItem.getId().startsWith("pokemon:") && !currentItem.getId().endsWith("random")) {
                     String pokemonName = currentItem.getId().substring("pokemon:".length());
                     Pokemon pokemon = createPokemonFromName(pokemonName);
                     if (pokemon != null) {
@@ -111,7 +112,10 @@ public class VendorREICategory implements DisplayCategory<VendorREIDisplay> {
                         drawContext.disableScissor();
                     }
                 } else {
-                    ItemStack stack = getItemStackFromID(currentItem.getId());
+                    ItemStack stack = (currentItem.getId().startsWith("pokemon:") && currentItem.getId().endsWith("random"))
+                            ? new ItemStack(DANDYCORPItems.BADGE)
+                            : getItemStackFromID(currentItem.getId());
+
                     if (stack != null && !stack.isEmpty()) {
                         drawContext.drawItem(stack, itemRenderX, itemRenderY);
                         if (currentItem.getQuantity() > 1) {

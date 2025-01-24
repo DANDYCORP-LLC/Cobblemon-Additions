@@ -9,7 +9,7 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.dandycorp.dccobblemon.block.Blocks;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -63,7 +63,7 @@ public class GrinderREICategory implements DisplayCategory<BasicDisplay> {
             drawContext.getMatrices().scale(scale, scale, 1.0f);
 
             // Render the item directly
-            ItemStack stack = Blocks.GRINDER_BLOCK.asItem().getDefaultStack();
+            ItemStack stack = DANDYCORPBlocks.GRINDER_BLOCK.asItem().getDefaultStack();
             drawContext.drawItem(stack, 0, 0);
             drawContext.getMatrices().pop();
         }));
@@ -78,6 +78,6 @@ public class GrinderREICategory implements DisplayCategory<BasicDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(Blocks.GRINDER_BLOCK);
+        return EntryStacks.of(DANDYCORPBlocks.GRINDER_BLOCK);
     }
 }

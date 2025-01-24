@@ -2,7 +2,7 @@ package net.dandycorp.dccobblemon.item.custom.badges;
 
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -46,7 +46,7 @@ public class IceBadgeItem extends BadgeItem {
         if (!entity.getEntityWorld().isClient) {
 
             if (entity.age % 20 == 0) {
-                if(this.isEquipped(entity,Items.ICE_BADGE)) {
+                if(this.isEquipped(entity, DANDYCORPItems.ICE_BADGE)) {
                     entity.setFrozenTicks(0);
                     entity.removeStatusEffect(StatusEffects.SLOWNESS);
                 }
@@ -57,7 +57,7 @@ public class IceBadgeItem extends BadgeItem {
     @Override
     public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (!entity.getEntityWorld().isClient) {
-            if (this.isEquipped(entity,Items.ICE_BADGE)) {
+            if (this.isEquipped(entity, DANDYCORPItems.ICE_BADGE)) {
                 entity.setFrozenTicks(0);
             }
         }

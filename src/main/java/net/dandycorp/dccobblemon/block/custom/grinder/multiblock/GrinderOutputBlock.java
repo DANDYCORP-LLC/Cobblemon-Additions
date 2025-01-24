@@ -1,7 +1,7 @@
 package net.dandycorp.dccobblemon.block.custom.grinder.multiblock;
 
 import com.simibubi.create.foundation.block.IBE;
-import net.dandycorp.dccobblemon.block.BlockEntities;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -62,11 +62,11 @@ public class GrinderOutputBlock extends MultiblockPartBlock implements IBE<Grind
 
     @Override
     public BlockEntityType<? extends GrinderOutputBlockEntity> getBlockEntityType() {
-        return BlockEntities.GRINDER_OUTPUT_BLOCK_ENTITY.get();
+        return DANDYCORPBlockEntities.GRINDER_OUTPUT_BLOCK_ENTITY.get();
     }
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new GrinderOutputBlockEntity(BlockEntities.GRINDER_OUTPUT_BLOCK_ENTITY.get(),blockPos, blockState);
+        return new GrinderOutputBlockEntity(DANDYCORPBlockEntities.GRINDER_OUTPUT_BLOCK_ENTITY.get(),blockPos, blockState);
     }
 }

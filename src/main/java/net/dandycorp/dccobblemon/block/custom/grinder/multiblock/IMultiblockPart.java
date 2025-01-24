@@ -1,9 +1,8 @@
 package net.dandycorp.dccobblemon.block.custom.grinder.multiblock;
 
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import net.dandycorp.dccobblemon.block.Blocks;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.block.custom.grinder.GrinderBlock;
-import net.dandycorp.dccobblemon.item.Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,13 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public interface IMultiblockPart extends IWrenchable {
     Direction getMainBlockDirection(BlockState state);
@@ -55,7 +50,7 @@ public interface IMultiblockPart extends IWrenchable {
             Block mainBlock = mainState.getBlock();
             if (mainBlock instanceof GrinderBlock grinder) {
                 if (player != null && !player.isCreative()) {
-                    player.getInventory().offerOrDrop(Blocks.GRINDER_BLOCK.asStack());
+                    player.getInventory().offerOrDrop(DANDYCORPBlocks.GRINDER_BLOCK.asStack());
                 }
                 grinder.deconstruct(world, mainPos, mainState, player,false);
                 state.onStacksDropped((ServerWorld) world, mainPos, ItemStack.EMPTY, true);

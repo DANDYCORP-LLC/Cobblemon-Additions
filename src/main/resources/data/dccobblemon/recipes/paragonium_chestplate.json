@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "dccobblemon:paragonium_ingot"
+    },
+    "x": {
+      "item": "dccobblemon:chromium_chestplate"
+    }
+  },
+  "pattern": [
+    "#x#",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "dccobblemon:paragonium_chestplate"
+  },
+  "show_notification": true
+}

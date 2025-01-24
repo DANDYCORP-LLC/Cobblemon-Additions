@@ -2,7 +2,7 @@ package net.dandycorp.dccobblemon.item.custom.badges;
 
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -44,7 +44,7 @@ public class DarkBadgeItem extends BadgeItem {
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (!entity.getEntityWorld().isClient) {
             if (entity.age % 20 == 0) {
-                if (this.isEquipped(entity,Items.DARK_BADGE)) {
+                if (this.isEquipped(entity, DANDYCORPItems.DARK_BADGE)) {
                     entity.removeStatusEffect(StatusEffects.DARKNESS);
                     entity.removeStatusEffect(StatusEffects.BLINDNESS);
                 }

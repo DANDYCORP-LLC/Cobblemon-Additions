@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "dccobblemon:paragonium_ingot"
+    },
+    "x": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "pattern": [
+    " #x",
+    "# x",
+    " #x"
+  ],
+  "result": {
+    "item": "dccobblemon:paragonium_bow"
+  },
+  "show_notification": true
+}

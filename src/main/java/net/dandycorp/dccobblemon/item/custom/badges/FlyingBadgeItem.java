@@ -1,14 +1,11 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
-import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
@@ -17,7 +14,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.UUID;
 
 public class FlyingBadgeItem extends BadgeItem implements Trinket {
 
@@ -37,7 +33,7 @@ public class FlyingBadgeItem extends BadgeItem implements Trinket {
         if (!entity.getEntityWorld().isClient) {
 
             if (entity.age % 20 == 0) {
-                if(this.isEquipped(entity,Items.FLYING_BADGE)) {
+                if(this.isEquipped(entity, DANDYCORPItems.FLYING_BADGE)) {
                     entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 600, 0, false, false));
                     entity.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 600, 4, false, false));
                 }

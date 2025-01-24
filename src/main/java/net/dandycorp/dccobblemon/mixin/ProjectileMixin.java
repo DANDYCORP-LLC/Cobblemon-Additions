@@ -1,6 +1,6 @@
 package net.dandycorp.dccobblemon.mixin;
 
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -52,7 +52,7 @@ public class ProjectileMixin {
     private boolean blockWithParagoniumShield(EntityHitResult entityHitResult){
         Entity target = entityHitResult.getEntity();
         if(target instanceof PlayerEntity player && !target.getWorld().isClient()) {
-            return player.getActiveItem().isOf(Items.PARAGONIUM_SHIELD);
+            return player.getActiveItem().isOf(DANDYCORPItems.PARAGONIUM_SHIELD);
         }
         return false;
     }

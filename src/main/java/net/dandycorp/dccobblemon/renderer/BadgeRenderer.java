@@ -25,7 +25,7 @@ public class BadgeRenderer implements TrinketRenderer {
 
         if (contextModel instanceof PlayerEntityModel<?> playerModel) {
             TrinketRenderer.translateToChest(matrices, (PlayerEntityModel<AbstractClientPlayerEntity>) playerModel, (AbstractClientPlayerEntity) entity);
-            matrices.translate(-0.15F, -0.2F, -0.2F);
+            matrices.translate(-0.15F, -0.2F, 0.01f);
             matrices.scale(0.2F,0.2F,0.2F);
             matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0F));
 

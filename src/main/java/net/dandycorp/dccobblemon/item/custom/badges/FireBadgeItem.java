@@ -2,11 +2,11 @@ package net.dandycorp.dccobblemon.item.custom.badges;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.block.*;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -18,7 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class FireBadgeItem extends BadgeItem implements Trinket {
@@ -39,7 +38,7 @@ public class FireBadgeItem extends BadgeItem implements Trinket {
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (entity.getWorld() instanceof ServerWorld world) {
             if (entity.age % 20 == 0) {
-                if (this.isEquipped(entity, Items.FIRE_BADGE)) {
+                if (this.isEquipped(entity, DANDYCORPItems.FIRE_BADGE)) {
                     entity.setFireTicks(0);
                     entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 600, 0, false, false));
 
@@ -47,7 +46,7 @@ public class FireBadgeItem extends BadgeItem implements Trinket {
             }
             if (entity.isOnGround()) {
                 BlockPos blockPos = entity.getBlockPos();
-                BlockState blockState = net.dandycorp.dccobblemon.block.Blocks.WALKER_MAGMA.getDefaultState();
+                BlockState blockState = DANDYCORPBlocks.WALKER_MAGMA.getDefaultState();
                 int i = Math.min(16, 2);
                 BlockPos.Mutable mutable = new BlockPos.Mutable();
 
@@ -59,7 +58,7 @@ public class FireBadgeItem extends BadgeItem implements Trinket {
                             BlockState blockState3 = world.getBlockState(blockPos2);
                             if (blockState3 == Blocks.LAVA.getDefaultState() && blockState.canPlaceAt(world, blockPos2) && world.canPlace(blockState, blockPos2, ShapeContext.absent())) {
                                 world.setBlockState(blockPos2, blockState);
-                                world.scheduleBlockTick(blockPos2, net.dandycorp.dccobblemon.block.Blocks.WALKER_MAGMA, MathHelper.nextInt(entity.getRandom(), 60, 120));
+                                world.scheduleBlockTick(blockPos2, DANDYCORPBlocks.WALKER_MAGMA, MathHelper.nextInt(entity.getRandom(), 60, 120));
                             }
                         }
                     }

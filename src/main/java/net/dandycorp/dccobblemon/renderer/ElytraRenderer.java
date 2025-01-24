@@ -1,6 +1,7 @@
 package net.dandycorp.dccobblemon.renderer;
 
 import dev.emi.trinkets.api.TrinketsApi;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -17,10 +18,8 @@ import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 
@@ -41,14 +40,14 @@ public class ElytraRenderer<T extends LivingEntity, M extends EntityModel<T>> ex
                 .map(trinketComponent ->
                         trinketComponent.getAllEquipped().stream()
                                 .map(Pair::getRight) // Get the ItemStack from the pair
-                                .filter(stack -> stack.getItem() == net.dandycorp.dccobblemon.item.Items.DRAGON_BADGE) // Filter for the specific item you're looking for
+                                .filter(stack -> stack.getItem() == DANDYCORPItems.DRAGON_BADGE) // Filter for the specific item you're looking for
                                 .findFirst() // Find the first match (if any)
                                 .orElse(ItemStack.EMPTY) // Return the found ItemStack or EMPTY if not found
                 )
                 .orElse(ItemStack.EMPTY);
 
 
-        if (itemStack.isOf(net.dandycorp.dccobblemon.item.Items.DRAGON_BADGE)) {
+        if (itemStack.isOf(DANDYCORPItems.DRAGON_BADGE)) {
             Identifier identifier;
             if (livingEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
                 if (abstractClientPlayerEntity.canRenderElytraTexture() && abstractClientPlayerEntity.getElytraTexture() != null) {

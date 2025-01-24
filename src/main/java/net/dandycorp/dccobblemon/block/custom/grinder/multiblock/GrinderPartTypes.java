@@ -1,6 +1,6 @@
 package net.dandycorp.dccobblemon.block.custom.grinder.multiblock;
 
-import net.dandycorp.dccobblemon.block.Blocks;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.minecraft.block.Block;
 
 /*
@@ -13,31 +13,31 @@ public enum GrinderPartTypes {
     MAIN {
         @Override
         public Block getBlock() {
-            return Blocks.GRINDER_BLOCK.get();
+            return DANDYCORPBlocks.GRINDER_BLOCK.get();
         }
     },
     INPUT {
         @Override
         public Block getBlock() {
-            return Blocks.GRINDER_INPUT_BLOCK.get();
+            return DANDYCORPBlocks.GRINDER_INPUT_BLOCK.get();
         }
     },
     ROTATIONAL {
         @Override
         public Block getBlock() {
-            return Blocks.GRINDER_ROTATIONAL_BLOCK.get();
+            return DANDYCORPBlocks.GRINDER_ROTATIONAL_BLOCK.get();
         }
     },
     OUTPUT {
         @Override
         public Block getBlock() {
-            return Blocks.GRINDER_OUTPUT_BLOCK.get();
+            return DANDYCORPBlocks.GRINDER_OUTPUT_BLOCK.get();
         }
     },
     CORNER {
         @Override
         public Block getBlock() {
-            return Blocks.GRINDER_CORNER_BLOCK.get();
+            return DANDYCORPBlocks.GRINDER_CORNER_BLOCK.get();
         }
     },
     EMPTY {

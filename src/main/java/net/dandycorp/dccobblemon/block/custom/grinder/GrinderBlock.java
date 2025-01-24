@@ -1,42 +1,29 @@
 package net.dandycorp.dccobblemon.block.custom.grinder;
 
-import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
-import com.simibubi.create.foundation.utility.Iterate;
-import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
-import net.dandycorp.dccobblemon.block.BlockEntities;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
 import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.*;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 
 public class GrinderBlock extends HorizontalKineticBlock implements IBE<GrinderBlockEntity> {
@@ -138,12 +125,12 @@ public class GrinderBlock extends HorizontalKineticBlock implements IBE<GrinderB
 
     @Override
     public BlockEntityType<? extends GrinderBlockEntity> getBlockEntityType() {
-        return BlockEntities.GRINDER_BLOCK_ENTITY.get();
+        return DANDYCORPBlockEntities.GRINDER_BLOCK_ENTITY.get();
     }
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new GrinderBlockEntity(BlockEntities.GRINDER_BLOCK_ENTITY.get(),blockPos, blockState);
+        return new GrinderBlockEntity(DANDYCORPBlockEntities.GRINDER_BLOCK_ENTITY.get(),blockPos, blockState);
     }
 
     @Override

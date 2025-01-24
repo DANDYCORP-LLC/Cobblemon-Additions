@@ -2,7 +2,7 @@ package net.dandycorp.dccobblemon.event;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.Entity;
@@ -41,14 +41,14 @@ public class AttackEntityHandler implements AttackEntityCallback {
                         .filter(item -> item instanceof BadgeItem) // Filter for BadgeItems
                         .forEach(item -> {
                             // Apply effects based on the type of badge
-                            if (item == Items.POISON_BADGE) {
+                            if (item == DANDYCORPItems.POISON_BADGE) {
                                 targetEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 2));
-                            } else if (item == Items.ICE_BADGE) {
+                            } else if (item == DANDYCORPItems.ICE_BADGE) {
                                 targetEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0));
                                 targetEntity.setFrozenTicks(220);
-                            } else if (item == Items.FIRE_BADGE) {
+                            } else if (item == DANDYCORPItems.FIRE_BADGE) {
                                 targetEntity.setOnFireFor((targetEntity.getFireTicks()/20)+4);
-                            } else if (item == Items.DARK_BADGE) {
+                            } else if (item == DANDYCORPItems.DARK_BADGE) {
                                 targetEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 100, 2));
                                 targetEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 100, 2));
                             }

@@ -3,21 +3,19 @@ package net.dandycorp.dccobblemon.item;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
-import java.util.EnumMap;
 import java.util.function.Supplier;
 
 public enum DANDYCORPArmorMaterials implements ArmorMaterial {
     CHROMIUM("chromium",40,new int[] {4,9,7,4}, 19,
-            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 4f, 0.1f, () -> Ingredient.ofItems(Items.CHROMIUM_INGOT))
+            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 4f, 0.1f, () -> Ingredient.ofItems(DANDYCORPItems.CHROMIUM_INGOT))
     ,
 
     PARAGONIUM("paragonium", 0 ,new int[] {6,11,9,6},30,
-            SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 5f, 0.25f, () -> Ingredient.ofItems(Items.PARAGONIUM_INGOT))
+            SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 5f, 0.25f, () -> Ingredient.ofItems(DANDYCORPItems.PARAGONIUM_INGOT))
     ;
 
     private final String name;

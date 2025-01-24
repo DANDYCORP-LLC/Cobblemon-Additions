@@ -11,7 +11,8 @@ import com.simibubi.create.foundation.ponder.element.InputWindowElement;
 import com.simibubi.create.foundation.ponder.instruction.EmitParticlesInstruction;
 import com.simibubi.create.foundation.utility.Pointing;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
-import net.dandycorp.dccobblemon.block.Blocks;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.util.grinder.GrinderPointGenerator;
 import net.dandycorp.dccobblemon.util.TextUtils;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -189,7 +190,7 @@ public class GrinderScenes {
                 .pointAt(util.vector.of(3.5, 1.5, 7));
         scene.idle(8);
         for(int i = 0; i < 3; i++) {
-            scene.world.createItemOnBelt(util.grid.at(3, 1, 7), Direction.NORTH, net.dandycorp.dccobblemon.item.Items.TICKET.getDefaultStack());
+            scene.world.createItemOnBelt(util.grid.at(3, 1, 7), Direction.NORTH, DANDYCORPItems.TICKET.getDefaultStack());
             scene.idle(30);
         }
         scene.idle(70);
@@ -339,8 +340,8 @@ public class GrinderScenes {
         scene.world.setKineticSpeed(util.select.position(4,1,7),32);
         scene.world.setKineticSpeed(util.select.position(3,0,7),-16);
         scene.idle(10);
-        scene.overlay.showControls(new InputWindowElement(util.vector.of(4.5, 3, 6.5), Pointing.DOWN).withItem(net.dandycorp.dccobblemon.item.Items.TICKET.getDefaultStack()),40);
-        scene.world.createItemOnBelt(util.grid.at(4, 1, 6), Direction.EAST, net.dandycorp.dccobblemon.item.Items.TICKET.getDefaultStack());
+        scene.overlay.showControls(new InputWindowElement(util.vector.of(4.5, 3, 6.5), Pointing.DOWN).withItem(DANDYCORPItems.TICKET.getDefaultStack()),40);
+        scene.world.createItemOnBelt(util.grid.at(4, 1, 6), Direction.EAST, DANDYCORPItems.TICKET.getDefaultStack());
         scene.idle(80);
         scene.overlay.showText(180)
                 .text("Goggles will show you how close your grinder is to producing a ticket.")
@@ -356,11 +357,11 @@ public class GrinderScenes {
                     .placeNearTarget();
             scene.idle(30);
             if(i == 5){
-                scene.world.createItemOnBelt(util.grid.at(4, 1, 6), Direction.EAST, net.dandycorp.dccobblemon.item.Items.TICKET.getDefaultStack());
+                scene.world.createItemOnBelt(util.grid.at(4, 1, 6), Direction.EAST, DANDYCORPItems.TICKET.getDefaultStack());
             }
         }
         scene.idle(30);
-        scene.overlay.showControls(new InputWindowElement(util.vector.of(2, 4, 3), Pointing.DOWN).withItem(Blocks.VENDOR_BLOCK.asItem().getDefaultStack()),60);
+        scene.overlay.showControls(new InputWindowElement(util.vector.of(2, 4, 3), Pointing.DOWN).withItem(DANDYCORPBlocks.VENDOR_BLOCK.asItem().getDefaultStack()),60);
         scene.overlay.showText(60)
                 .text("Tickets can be spent at your local DANDYCORP Vendor™!")
                 .attachKeyFrame()

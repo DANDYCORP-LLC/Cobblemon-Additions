@@ -1,14 +1,12 @@
 package net.dandycorp.dccobblemon;
 
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.item.Item;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.util.Identifier;
 
 public class LootTableModifier {
@@ -31,14 +29,14 @@ public class LootTableModifier {
             if (id.equals(JUNGLE_TEMPLE_ID)) {
                 LootPool.Builder junglePool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2.2F))
-                        .with(ItemEntry.builder(Items.VENUSAURITE))
-                        .with(ItemEntry.builder(Items.PINSIRITE))
-                        .with(ItemEntry.builder(Items.SCIZORITE))
-                        .with(ItemEntry.builder(Items.HERACRONITE))
-                        .with(ItemEntry.builder(Items.ABOMASITE))
-                        .with(ItemEntry.builder(Items.BEEDRILLITE))
-                        .with(ItemEntry.builder(Items.SCEPTILITE))
-                        .with(ItemEntry.builder(Items.GENGARITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.VENUSAURITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.PINSIRITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SCIZORITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.HERACRONITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.ABOMASITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.BEEDRILLITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SCEPTILITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GENGARITE))
                         .conditionally(RandomChanceLootCondition.builder(1.0f)); // 70% chance
                 tableBuilder.pool(junglePool.build());
             }
@@ -47,21 +45,21 @@ public class LootTableModifier {
             if (id.equals(ANCIENT_CITY_ID)) {
                 LootPool.Builder ancientCityPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .with(ItemEntry.builder(Items.ABSOLITE))
-                        .with(ItemEntry.builder(Items.HOUNDOOMINITE))
-                        .with(ItemEntry.builder(Items.MEWTWONITE_X))
-                        .with(ItemEntry.builder(Items.SABLENITE))
-                        .with(ItemEntry.builder(Items.TYRANITARITE))
-                        .with(ItemEntry.builder(Items.ALAKAZITE))
-                        .with(ItemEntry.builder(Items.GALLADITE))
-                        .with(ItemEntry.builder(Items.GARDEVOIRITE))
-                        .with(ItemEntry.builder(Items.MEDICHAMITE))
-                        .with(ItemEntry.builder(Items.METAGROSSITE))
-                        .with(ItemEntry.builder(Items.MEWTWONITE_Y))
-                        .with(ItemEntry.builder(Items.LATIASITE))
-                        .with(ItemEntry.builder(Items.LATIOSITE))
-                        .with(ItemEntry.builder(Items.BANETTITE))
-                        .with(ItemEntry.builder(Items.GENGARITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.ABSOLITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.HOUNDOOMINITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MEWTWONITE_X))
+                        .with(ItemEntry.builder(DANDYCORPItems.SABLENITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.TYRANITARITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.ALAKAZITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GALLADITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GARDEVOIRITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MEDICHAMITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.METAGROSSITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MEWTWONITE_Y))
+                        .with(ItemEntry.builder(DANDYCORPItems.LATIASITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.LATIOSITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.BANETTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GENGARITE))
                         .conditionally(RandomChanceLootCondition.builder(0.35f));
                 tableBuilder.pool(ancientCityPool.build());
             }
@@ -70,22 +68,22 @@ public class LootTableModifier {
             if (id.equals(BASTION_ID)) {
                 LootPool.Builder bastionPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2.2F))
-                        .with(ItemEntry.builder(Items.AGGRONITE))
-                        .with(ItemEntry.builder(Items.SCIZORITE))
-                        .with(ItemEntry.builder(Items.LUCARIONITE))
-                        .with(ItemEntry.builder(Items.MAWILITE))
-                        .with(ItemEntry.builder(Items.METAGROSSITE))
-                        .with(ItemEntry.builder(Items.STEELIXITE))
-                        .with(ItemEntry.builder(Items.TYRANITARITE))
-                        .with(ItemEntry.builder(Items.BLAZIKENITE))
-                        .with(ItemEntry.builder(Items.GALLADITE))
-                        .with(ItemEntry.builder(Items.HERACRONITE))
-                        .with(ItemEntry.builder(Items.PINSIRITE))
-                        .with(ItemEntry.builder(Items.LOPUNNITE))
-                        .with(ItemEntry.builder(Items.MEDICHAMITE))
-                        .with(ItemEntry.builder(Items.BEEDRILLITE))
-                        .with(ItemEntry.builder(Items.GENGARITE))
-                        .with(ItemEntry.builder(Items.VENUSAURITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.AGGRONITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SCIZORITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.LUCARIONITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MAWILITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.METAGROSSITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.STEELIXITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.TYRANITARITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.BLAZIKENITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GALLADITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.HERACRONITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.PINSIRITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.LOPUNNITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MEDICHAMITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.BEEDRILLITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GENGARITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.VENUSAURITE))
                         .conditionally(RandomChanceLootCondition.builder(1f));
                 tableBuilder.pool(bastionPool.build());
             }
@@ -94,13 +92,13 @@ public class LootTableModifier {
             if (id.equals(PYRAMID_ID)) {
                 LootPool.Builder pyramidPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .with(ItemEntry.builder(Items.CAMERUPTITE))
-                        .with(ItemEntry.builder(Items.GARCHOMPITE))
-                        .with(ItemEntry.builder(Items.SWAMPERTITE))
-                        .with(ItemEntry.builder(Items.AMPHAROSITE))
-                        .with(ItemEntry.builder(Items.MANECTITE))
-                        .with(ItemEntry.builder(Items.BLAZIKENITE))
-                        .with(ItemEntry.builder(Items.HOUNDOOMINITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.CAMERUPTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GARCHOMPITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SWAMPERTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.AMPHAROSITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MANECTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.BLAZIKENITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.HOUNDOOMINITE))
                         .conditionally(RandomChanceLootCondition.builder(0.5f));
                 tableBuilder.pool(pyramidPool.build());
             }
@@ -109,23 +107,23 @@ public class LootTableModifier {
             if (id.equals(END_CITY_ID)) {
                 LootPool.Builder endCityPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.4F))
-                        .with(ItemEntry.builder(Items.ALTARIANITE))
-                        .with(ItemEntry.builder(Items.GARCHOMPITE))
-                        .with(ItemEntry.builder(Items.LATIASITE))
-                        .with(ItemEntry.builder(Items.LATIOSITE))
-                        .with(ItemEntry.builder(Items.SCEPTILITE))
-                        .with(ItemEntry.builder(Items.SALAMENCITE))
-                        .with(ItemEntry.builder(Items.CHARIZARDITE_X))
-                        .with(ItemEntry.builder(Items.DIANCITE))
-                        .with(ItemEntry.builder(Items.GARDEVOIRITE))
-                        .with(ItemEntry.builder(Items.MAWILITE))
-                        .with(ItemEntry.builder(Items.AUDINITE))
-                        .with(ItemEntry.builder(Items.KANGASKHANITE))
-                        .with(ItemEntry.builder(Items.AERODACTYLITE))
-                        .with(ItemEntry.builder(Items.CHARIZARDITE_Y))
-                        .with(ItemEntry.builder(Items.GYARADOSITE))
-                        .with(ItemEntry.builder(Items.MEWTWONITE_Y))
-                        .with(ItemEntry.builder(Items.MEWTWONITE_X))
+                        .with(ItemEntry.builder(DANDYCORPItems.ALTARIANITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GARCHOMPITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.LATIASITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.LATIOSITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SCEPTILITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SALAMENCITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.CHARIZARDITE_X))
+                        .with(ItemEntry.builder(DANDYCORPItems.DIANCITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GARDEVOIRITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MAWILITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.AUDINITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.KANGASKHANITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.AERODACTYLITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.CHARIZARDITE_Y))
+                        .with(ItemEntry.builder(DANDYCORPItems.GYARADOSITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MEWTWONITE_Y))
+                        .with(ItemEntry.builder(DANDYCORPItems.MEWTWONITE_X))
                         .conditionally(RandomChanceLootCondition.builder(1.0f));
                 tableBuilder.pool(endCityPool.build());
             }
@@ -134,17 +132,17 @@ public class LootTableModifier {
             if (id.equals(NETHER_FORTRESS_ID)) {
                 LootPool.Builder netherFortressPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .with(ItemEntry.builder(Items.BLAZIKENITE))
-                        .with(ItemEntry.builder(Items.CAMERUPTITE))
-                        .with(ItemEntry.builder(Items.HOUNDOOMINITE))
-                        .with(ItemEntry.builder(Items.ABSOLITE))
-                        .with(ItemEntry.builder(Items.HOUNDOOMINITE))
-                        .with(ItemEntry.builder(Items.MEWTWONITE_X))
-                        .with(ItemEntry.builder(Items.SABLENITE))
-                        .with(ItemEntry.builder(Items.TYRANITARITE))
-                        .with(ItemEntry.builder(Items.AERODACTYLITE))
-                        .with(ItemEntry.builder(Items.AGGRONITE))
-                        .with(ItemEntry.builder(Items.STEELIXITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.BLAZIKENITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.CAMERUPTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.HOUNDOOMINITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.ABSOLITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.HOUNDOOMINITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MEWTWONITE_X))
+                        .with(ItemEntry.builder(DANDYCORPItems.SABLENITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.TYRANITARITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.AERODACTYLITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.AGGRONITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.STEELIXITE))
                         .conditionally(RandomChanceLootCondition.builder(0.7f)); // 70% chance
                 tableBuilder.pool(netherFortressPool.build());
             }
@@ -153,25 +151,25 @@ public class LootTableModifier {
             if (id.equals(PILLAGER_OUTPOST_ID)) {
                 LootPool.Builder pillagerOutpostPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2.2F))
-                        .with(ItemEntry.builder(Items.AERODACTYLITE))
-                        .with(ItemEntry.builder(Items.ALTARIANITE))
-                        .with(ItemEntry.builder(Items.CHARIZARDITE_Y))
-                        .with(ItemEntry.builder(Items.GYARADOSITE))
-                        .with(ItemEntry.builder(Items.PIDGEOTITE))
-                        .with(ItemEntry.builder(Items.SALAMENCITE))
-                        .with(ItemEntry.builder(Items.MEWTWONITE_Y))
-                        .with(ItemEntry.builder(Items.BLAZIKENITE))
-                        .with(ItemEntry.builder(Items.GALLADITE))
-                        .with(ItemEntry.builder(Items.HERACRONITE))
-                        .with(ItemEntry.builder(Items.PINSIRITE))
-                        .with(ItemEntry.builder(Items.LOPUNNITE))
-                        .with(ItemEntry.builder(Items.LUCARIONITE))
-                        .with(ItemEntry.builder(Items.MEDICHAMITE))
-                        .with(ItemEntry.builder(Items.AUDINITE))
-                        .with(ItemEntry.builder(Items.KANGASKHANITE))
-                        .with(ItemEntry.builder(Items.PIDGEOTITE))
-                        .with(ItemEntry.builder(Items.ABOMASITE))
-                        .with(ItemEntry.builder(Items.GLALITITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.AERODACTYLITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.ALTARIANITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.CHARIZARDITE_Y))
+                        .with(ItemEntry.builder(DANDYCORPItems.GYARADOSITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.PIDGEOTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SALAMENCITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MEWTWONITE_Y))
+                        .with(ItemEntry.builder(DANDYCORPItems.BLAZIKENITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GALLADITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.HERACRONITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.PINSIRITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.LOPUNNITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.LUCARIONITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MEDICHAMITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.AUDINITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.KANGASKHANITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.PIDGEOTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.ABOMASITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GLALITITE))
                         .conditionally(RandomChanceLootCondition.builder(1f)); // 70% chance
                 tableBuilder.pool(pillagerOutpostPool.build());
             }
@@ -180,17 +178,17 @@ public class LootTableModifier {
             if (id.equals(SHIPWRECK_ID)) {
                 LootPool.Builder shipwreckPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .with(ItemEntry.builder(Items.BLASTOISINITE))
-                        .with(ItemEntry.builder(Items.GYARADOSITE))
-                        .with(ItemEntry.builder(Items.SLOWBRONITE))
-                        .with(ItemEntry.builder(Items.SHARPEDONITE))
-                        .with(ItemEntry.builder(Items.SWAMPERTITE))
-                        .with(ItemEntry.builder(Items.AUDINITE))
-                        .with(ItemEntry.builder(Items.LOPUNNITE))
-                        .with(ItemEntry.builder(Items.KANGASKHANITE))
-                        .with(ItemEntry.builder(Items.PIDGEOTITE))
-                        .with(ItemEntry.builder(Items.ABOMASITE))
-                        .with(ItemEntry.builder(Items.GLALITITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.BLASTOISINITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GYARADOSITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SLOWBRONITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SHARPEDONITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SWAMPERTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.AUDINITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.LOPUNNITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.KANGASKHANITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.PIDGEOTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.ABOMASITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GLALITITE))
                         .conditionally(RandomChanceLootCondition.builder(0.7f)); // 70% chance
                 tableBuilder.pool(shipwreckPool.build());
             }
@@ -200,20 +198,20 @@ public class LootTableModifier {
                 LootPool.Builder dungeonFirstPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.5f));
-                for(Item item : Items.ALL_STONES){
+                for(Item item : DANDYCORPItems.ALL_STONES){
                     dungeonFirstPool.with(ItemEntry.builder(item));
                 }
                 tableBuilder.pool(dungeonFirstPool.build());
 
                 LootPool.Builder dungeonSecondPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .with(ItemEntry.builder(Items.VENUSAURITE))
-                        .with(ItemEntry.builder(Items.PINSIRITE))
-                        .with(ItemEntry.builder(Items.SCIZORITE))
-                        .with(ItemEntry.builder(Items.HERACRONITE))
-                        .with(ItemEntry.builder(Items.ABOMASITE))
-                        .with(ItemEntry.builder(Items.BEEDRILLITE))
-                        .with(ItemEntry.builder(Items.SCEPTILITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.VENUSAURITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.PINSIRITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SCIZORITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.HERACRONITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.ABOMASITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.BEEDRILLITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SCEPTILITE))
                         .conditionally(RandomChanceLootCondition.builder(0.7f));
                 tableBuilder.pool(dungeonSecondPool.build());
             }
@@ -222,16 +220,16 @@ public class LootTableModifier {
             if (id.equals(STRONGHOLD_ID)) {
                 LootPool.Builder strongholdPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .with(ItemEntry.builder(Items.CAMERUPTITE))
-                        .with(ItemEntry.builder(Items.GARCHOMPITE))
-                        .with(ItemEntry.builder(Items.SWAMPERTITE))
-                        .with(ItemEntry.builder(Items.AERODACTYLITE))
-                        .with(ItemEntry.builder(Items.AGGRONITE))
-                        .with(ItemEntry.builder(Items.STEELIXITE))
-                        .with(ItemEntry.builder(Items.TYRANITARITE))
-                        .with(ItemEntry.builder(Items.ABOMASITE))
-                        .with(ItemEntry.builder(Items.SCEPTILITE))
-                        .with(ItemEntry.builder(Items.VENUSAURITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.CAMERUPTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GARCHOMPITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SWAMPERTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.AERODACTYLITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.AGGRONITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.STEELIXITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.TYRANITARITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.ABOMASITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SCEPTILITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.VENUSAURITE))
                         .conditionally(RandomChanceLootCondition.builder(0.5f));
                 tableBuilder.pool(strongholdPool.build());
             }
@@ -240,23 +238,23 @@ public class LootTableModifier {
             if (id.equals(MANSION_ID)) {
                 LootPool.Builder mansionPool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .with(ItemEntry.builder(Items.ALAKAZITE))
-                        .with(ItemEntry.builder(Items.GALLADITE))
-                        .with(ItemEntry.builder(Items.GARDEVOIRITE))
-                        .with(ItemEntry.builder(Items.MAWILITE))
-                        .with(ItemEntry.builder(Items.MEDICHAMITE))
-                        .with(ItemEntry.builder(Items.METAGROSSITE))
-                        .with(ItemEntry.builder(Items.MEWTWONITE_X))
-                        .with(ItemEntry.builder(Items.MEWTWONITE_Y))
-                        .with(ItemEntry.builder(Items.LATIASITE))
-                        .with(ItemEntry.builder(Items.LATIOSITE))
-                        .with(ItemEntry.builder(Items.BEEDRILLITE))
-                        .with(ItemEntry.builder(Items.GENGARITE))
-                        .with(ItemEntry.builder(Items.VENUSAURITE))
-                        .with(ItemEntry.builder(Items.AMPHAROSITE))
-                        .with(ItemEntry.builder(Items.MANECTITE))
-                        .with(ItemEntry.builder(Items.BANETTITE))
-                        .with(ItemEntry.builder(Items.SABLENITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.ALAKAZITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GALLADITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GARDEVOIRITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MAWILITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MEDICHAMITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.METAGROSSITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MEWTWONITE_X))
+                        .with(ItemEntry.builder(DANDYCORPItems.MEWTWONITE_Y))
+                        .with(ItemEntry.builder(DANDYCORPItems.LATIASITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.LATIOSITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.BEEDRILLITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.GENGARITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.VENUSAURITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.AMPHAROSITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.MANECTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.BANETTITE))
+                        .with(ItemEntry.builder(DANDYCORPItems.SABLENITE))
                         .conditionally(RandomChanceLootCondition.builder(0.9f));
                 tableBuilder.pool(mansionPool.build());
             }

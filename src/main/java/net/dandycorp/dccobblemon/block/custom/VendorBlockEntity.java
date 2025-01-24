@@ -1,6 +1,6 @@
 package net.dandycorp.dccobblemon.block.custom;
 
-import net.dandycorp.dccobblemon.block.BlockEntities;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
 import net.dandycorp.dccobblemon.util.vendor.VendorData;
 import net.dandycorp.dccobblemon.util.vendor.VendorDataLoader;
@@ -30,7 +30,7 @@ public class VendorBlockEntity extends BlockEntity implements ExtendedScreenHand
     public Queue<ItemStack> toDispense = new LinkedList<>();
 
     public VendorBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntities.VENDOR_BLOCK_ENTITY, pos, state);
+        super(DANDYCORPBlockEntities.VENDOR_BLOCK_ENTITY, pos, state);
     }
 
     @Override

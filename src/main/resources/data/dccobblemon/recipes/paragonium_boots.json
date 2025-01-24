@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "dccobblemon:paragonium_ingot"
+    },
+    "x": {
+      "item": "dccobblemon:chromium_boots"
+    }
+  },
+  "pattern": [
+    "#x#",
+    "# #"
+  ],
+  "result": {
+    "item": "dccobblemon:paragonium_boots"
+  },
+  "show_notification": true
+}

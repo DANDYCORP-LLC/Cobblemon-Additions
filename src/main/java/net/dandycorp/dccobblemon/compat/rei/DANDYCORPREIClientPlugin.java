@@ -10,10 +10,10 @@ import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.dandycorp.dccobblemon.block.Blocks;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.util.grinder.GrinderDataCache;
 import net.dandycorp.dccobblemon.util.vendor.*;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
@@ -45,9 +45,9 @@ public class DANDYCORPREIClientPlugin implements REIClientPlugin {
     @Override
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new GrinderREICategory());
-        registry.addWorkstations(GrinderREICategory.GRINDING, EntryStacks.of(Blocks.GRINDER_BLOCK));
+        registry.addWorkstations(GrinderREICategory.GRINDING, EntryStacks.of(DANDYCORPBlocks.GRINDER_BLOCK));
         registry.add(new VendorREICategory());
-        registry.addWorkstations(VendorREICategory.VENDOR, EntryStacks.of(Blocks.VENDOR_BLOCK));
+        registry.addWorkstations(VendorREICategory.VENDOR, EntryStacks.of(DANDYCORPBlocks.VENDOR_BLOCK));
         REIClientPlugin.super.registerCategories(registry);
     }
 
@@ -71,7 +71,7 @@ public class DANDYCORPREIClientPlugin implements REIClientPlugin {
             float pointValue = entry.getValue();
             if (pointValue > 0f) {
                 ItemStack inputStack = new ItemStack(item);
-                ItemStack outputStack = new ItemStack(Items.TICKET);
+                ItemStack outputStack = new ItemStack(DANDYCORPItems.TICKET);
                 GrinderREIDisplay display = new GrinderREIDisplay(inputStack, outputStack, pointValue);
                 registry.add(display);
                 registeredGrinderDisplays.add(display);
@@ -92,7 +92,7 @@ public class DANDYCORPREIClientPlugin implements REIClientPlugin {
             if (category.getEntries() == null) continue;
             for (VendorEntry entry : category.getEntries()) {
                 List<VendorItem> entryItems = entry.getItems();
-                ItemStack inputStack = Items.TICKET.getDefaultStack();
+                ItemStack inputStack = DANDYCORPItems.TICKET.getDefaultStack();
                 inputStack.setCount(entry.getCost());
                 List<EntryIngredient> outputs = new ArrayList<>(entryItems.size());
                 for (VendorItem item : entryItems) {

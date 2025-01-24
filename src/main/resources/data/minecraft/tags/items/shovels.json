@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "dccobblemon:chromium_shovel"
+    "dccobblemon:chromium_shovel",
+    "dccobblemon:paragonium_shovel"
   ]
 }

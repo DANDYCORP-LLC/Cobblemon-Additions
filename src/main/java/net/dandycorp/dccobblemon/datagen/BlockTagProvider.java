@@ -1,10 +1,8 @@
 package net.dandycorp.dccobblemon.datagen;
 
-import net.dandycorp.dccobblemon.block.Blocks;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 
@@ -18,18 +16,18 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(
-                Blocks.CHROMIUM_BLOCK,
-                Blocks.RAW_CHROMIUM_BLOCK,
-                Blocks.WALKER_MAGMA,
-                Blocks.VENDOR_BLOCK
+                DANDYCORPBlocks.CHROMIUM_BLOCK,
+                DANDYCORPBlocks.RAW_CHROMIUM_BLOCK,
+                DANDYCORPBlocks.WALKER_MAGMA,
+                DANDYCORPBlocks.VENDOR_BLOCK
         );
 
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL).add(
-                Blocks.CHROMIUM_BLOCK,
-                Blocks.RAW_CHROMIUM_BLOCK
+                DANDYCORPBlocks.CHROMIUM_BLOCK,
+                DANDYCORPBlocks.RAW_CHROMIUM_BLOCK
         );
         getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL).add(
-                Blocks.VENDOR_BLOCK
+                DANDYCORPBlocks.VENDOR_BLOCK
         );
     }
 }

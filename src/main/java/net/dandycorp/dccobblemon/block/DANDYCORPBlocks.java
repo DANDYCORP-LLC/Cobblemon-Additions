@@ -30,7 +30,7 @@ import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions.REGISTRATE;
 
-public class Blocks {
+public class DANDYCORPBlocks {
 
     public static final Block WALKER_MAGMA = registerBlock("walker_magma",new WalkerMagmaBlock(FabricBlockSettings.copy(net.minecraft.block.Blocks.MAGMA_BLOCK).ticksRandomly().dropsNothing().solidBlock(net.minecraft.block.Blocks::never)),false);
     public static final Block CHROMIUM_BLOCK = registerBlock("chromium_block",new ChromiumBlock(FabricBlockSettings.copy(net.minecraft.block.Blocks.IRON_BLOCK)),true);

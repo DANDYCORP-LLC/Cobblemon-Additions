@@ -1,9 +1,7 @@
 package net.dandycorp.dccobblemon.block.custom.grinder.multiblock;
 
-import com.simibubi.create.content.kinetics.belt.behaviour.DirectBeltInputBehaviour;
 import com.simibubi.create.foundation.block.IBE;
-import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import net.dandycorp.dccobblemon.block.BlockEntities;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -19,8 +17,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class GrinderInputBlock extends MultiblockPartBlock implements IBE<GrinderInputBlockEntity> {
 
@@ -124,11 +120,11 @@ public class GrinderInputBlock extends MultiblockPartBlock implements IBE<Grinde
 
     @Override
     public BlockEntityType<? extends GrinderInputBlockEntity> getBlockEntityType() {
-        return BlockEntities.GRINDER_INPUT_BLOCK_ENTITY.get();
+        return DANDYCORPBlockEntities.GRINDER_INPUT_BLOCK_ENTITY.get();
     }
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new GrinderInputBlockEntity(BlockEntities.GRINDER_INPUT_BLOCK_ENTITY.get(),blockPos, blockState);
+        return new GrinderInputBlockEntity(DANDYCORPBlockEntities.GRINDER_INPUT_BLOCK_ENTITY.get(),blockPos, blockState);
     }
 }

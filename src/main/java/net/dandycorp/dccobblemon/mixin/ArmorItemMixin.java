@@ -1,6 +1,7 @@
 package net.dandycorp.dccobblemon.mixin;
 
 import com.google.common.collect.ImmutableMultimap;
+import net.dandycorp.dccobblemon.attribute.DANDYCORPAttributes;
 import net.dandycorp.dccobblemon.item.DANDYCORPArmorMaterials;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -29,8 +30,9 @@ public class ArmorItemMixin {
             Item.Settings settings)
     {
         if(armorMaterial == DANDYCORPArmorMaterials.PARAGONIUM){
-            builder.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier("paragonium_speed", 0.08, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
-            builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("paragonium_damage", 0.025, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+            builder.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier("paragonium_"+type.getEquipmentSlot().getName().toLowerCase()+"speed", 0.08, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+            builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("paragonium_"+type.getEquipmentSlot().getName().toLowerCase()+"_damage", 0.025, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+            builder.put(DANDYCORPAttributes.INFINITY_GUARD, new EntityAttributeModifier("paragonium_"+type.getEquipmentSlot().getName().toLowerCase()+"_infinity_guard", 5, EntityAttributeModifier.Operation.ADDITION));
         }
         return builder.build();
     }

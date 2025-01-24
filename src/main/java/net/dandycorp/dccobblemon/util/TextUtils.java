@@ -77,32 +77,16 @@ public class TextUtils {
             int color;
             if (adjustedFraction <= 0.5f) {
                 float t = adjustedFraction / 0.5f;
-                color = interpolateColor(endColorHex, startColorHex, t);
+                color = ColorUtils.interpolateColor(endColorHex, startColorHex, t);
             } else {
                 float t = (adjustedFraction - 0.5f) / 0.5f;
-                color = interpolateColor(startColorHex, endColorHex, t);
+                color = ColorUtils.interpolateColor(startColorHex, endColorHex, t);
             }
             MutableText charText = Text.literal(String.valueOf(c))
                     .setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color)));
             result.append(charText);
         }
         return result;
-    }
-
-    private static int interpolateColor(int startColor, int endColor, float t) {
-        int startR = (startColor >> 16) & 0xFF;
-        int startG = (startColor >> 8) & 0xFF;
-        int startB = startColor & 0xFF;
-
-        int endR = (endColor >> 16) & 0xFF;
-        int endG = (endColor >> 8) & 0xFF;
-        int endB = endColor & 0xFF;
-
-        int r = (int)(startR + (endR - startR) * t);
-        int g = (int)(startG + (endG - startG) * t);
-        int b = (int)(startB + (endB - startB) * t);
-
-        return (r << 16) | (g << 8) | b;
     }
 
 }

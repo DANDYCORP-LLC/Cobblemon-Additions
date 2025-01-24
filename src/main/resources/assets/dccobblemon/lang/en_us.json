@@ -39,8 +39,9 @@
 
   "item.dccobblemon.paragonium_ingot": "Paragonium Ingot",
   "item.dccobblemon.paragonium_ingot.description": "A masterpiece of metallurgy, forged from the rarest and most resilient elements in existence.",
+  "item.dccobblemon.paragonium_equipment.description": "+10% True Damage",
   "item.dccobblemon.paragonium_tool.description": "Indestructible",
-  "item.dccobblemon.paragonium_bow.description": "Infinity +1",
+  "item.dccobblemon.paragonium_bow.description": "True Infinity",
   "item.dccobblemon.paragonium_weapon.description": "Beheading",
   "item.dccobblemon.paragonium_shield.description": "Reflecting",
   "item.dccobblemon.paragonium_nugget": "Paragonium Nugget",
@@ -56,6 +57,8 @@
   "item.dccobblemon.paragonium_bow": "Paragonium Bow",
   "item.dccobblemon.paragonium_shield": "Paragonium Shield",
   "block.dccobblemon.paragonium_block": "Paragonium Block",
+  "attribute.name.generic.dccobblemon.infinity_guard": "Infinity Guard",
+  "death.attack.paragonium": "%1$s was pierced by the heavens.",
 
 
   "block.dccobblemon.walker_magma": "Lava Rock",

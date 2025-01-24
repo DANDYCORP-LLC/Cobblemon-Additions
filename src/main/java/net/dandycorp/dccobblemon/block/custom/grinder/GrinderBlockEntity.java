@@ -6,10 +6,10 @@ import com.simibubi.create.foundation.item.SmartInventory;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
 import net.dandycorp.dccobblemon.DANDYCORPSounds;
-import net.dandycorp.dccobblemon.block.Blocks;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.GrinderOutputBlockEntity;
 import net.dandycorp.dccobblemon.util.grinder.GrinderDataCache;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.sound.GrinderSoundScapes;
 import net.dandycorp.dccobblemon.util.grinder.GrinderPointGenerator;
 import net.dandycorp.dccobblemon.util.TextUtils;
@@ -165,7 +165,7 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
 
         Item item = input.getItem();
 
-        if (item.equals(Blocks.VENDOR_BLOCK.asItem())) {
+        if (item.equals(DANDYCORPBlocks.VENDOR_BLOCK.asItem())) {
             if (getCachedState().getBlock() instanceof GrinderBlock gb){
                 gb.deconstruct(world,pos,getCachedState(),null,false);
                 if (world == null) return;
@@ -237,10 +237,10 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
             getOutputEntity().notifyUpdate();
             getOutputEntity().markDirty();
             if (output.getStackInSlot(0).isEmpty()) {
-                ItemStack ticket = Items.TICKET.getDefaultStack();
+                ItemStack ticket = DANDYCORPItems.TICKET.getDefaultStack();
                 ticket.setCount(toPrint);
                 output.setStackInSlot(0, ticket);
-            } else if (output.getStackInSlot(0).isOf(Items.TICKET)) {
+            } else if (output.getStackInSlot(0).isOf(DANDYCORPItems.TICKET)) {
                 output.getStackInSlot(0).increment(1);
             }
         }

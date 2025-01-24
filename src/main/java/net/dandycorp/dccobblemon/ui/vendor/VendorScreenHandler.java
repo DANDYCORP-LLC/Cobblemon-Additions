@@ -6,7 +6,7 @@ import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
 import net.dandycorp.dccobblemon.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.block.custom.VendorBlockEntity;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.ui.PokemonComponent;
 import net.dandycorp.dccobblemon.util.HeadHelper;
 import net.dandycorp.dccobblemon.util.vendor.*;
@@ -93,7 +93,7 @@ public class VendorScreenHandler extends ScreenHandler {
                         return true;
                     case -122: // donor head
                         player.getWorld().playSound(null, blockPos, DANDYCORPSounds.VENDOR_BUY_EVENT, SoundCategory.MASTER, 1.0f, (float) (0.9f + (0.2 * Math.random())));
-                        ItemStack donorHead = HeadHelper.getPlayerHead(HeadHelper.getRandomDonor());
+                        ItemStack donorHead = HeadHelper.getPlayerHead(HeadHelper.getRandomContributor());
                         spawnItems(donorHead);
                         return true;
                 }
@@ -165,7 +165,7 @@ public class VendorScreenHandler extends ScreenHandler {
         if (!player.getWorld().isClient()) {
             for (Slot slot : this.slots) {
                 ItemStack stack = slot.getStack();
-                if (!stack.isEmpty() && stack.getItem() == Items.TICKET) {
+                if (!stack.isEmpty() && stack.getItem() == DANDYCORPItems.TICKET) {
                     int toRemove = Math.min(cost, stack.getCount());
                     stack.decrement(toRemove);
                     cost -= toRemove;
@@ -188,12 +188,12 @@ public class VendorScreenHandler extends ScreenHandler {
     public int getBalance(PlayerInventory playerInventory) {
         int ticketCount = 0;
         for (ItemStack stack : playerInventory.main) {
-            if (stack.getItem() == Items.TICKET) {
+            if (stack.getItem() == DANDYCORPItems.TICKET) {
                 ticketCount += stack.getCount();
             }
         }
         for (ItemStack stack : playerInventory.offHand) {
-            if (stack.getItem() == Items.TICKET) {
+            if (stack.getItem() == DANDYCORPItems.TICKET) {
                 ticketCount += stack.getCount();
             }
         }

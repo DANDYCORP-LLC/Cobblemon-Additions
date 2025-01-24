@@ -2,8 +2,8 @@ package net.dandycorp.dccobblemon.block.custom.grinder.multiblock;
 
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
-import net.dandycorp.dccobblemon.block.BlockEntities;
-import net.dandycorp.dccobblemon.block.Blocks;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -63,12 +63,12 @@ public class GrinderRotationalBlock extends DirectionalKineticBlock implements I
 
     @Override
     public BlockEntityType<? extends GrinderRotationalBlockEntity> getBlockEntityType() {
-        return BlockEntities.GRINDER_ROTATIONAL_BLOCK_ENTITY.get();
+        return DANDYCORPBlockEntities.GRINDER_ROTATIONAL_BLOCK_ENTITY.get();
     }
 
     @Override
     public BlockEntity createBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new GrinderRotationalBlockEntity(BlockEntities.GRINDER_ROTATIONAL_BLOCK_ENTITY.get(),blockPos, blockState);
+        return new GrinderRotationalBlockEntity(DANDYCORPBlockEntities.GRINDER_ROTATIONAL_BLOCK_ENTITY.get(),blockPos, blockState);
     }
 
     @Override
@@ -170,6 +170,6 @@ public class GrinderRotationalBlock extends DirectionalKineticBlock implements I
 
     @Override
     public ItemStack getPickStack(BlockView blockView, BlockPos blockPos, BlockState blockState) {
-        return Blocks.GRINDER_BLOCK.asItem().getDefaultStack();
+        return DANDYCORPBlocks.GRINDER_BLOCK.asItem().getDefaultStack();
     }
 }

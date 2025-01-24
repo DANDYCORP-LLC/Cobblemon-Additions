@@ -2,7 +2,7 @@ package net.dandycorp.dccobblemon.item.custom.badges;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -35,7 +35,7 @@ public class JeffBadgeItem extends BadgeItem {
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (entity.getEntityWorld() instanceof ServerWorld world && entity instanceof PlayerEntity player) {
             if (entity.age % 20 == 0) {
-                if(this.isEquipped(entity,Items.JEFF_BADGE)) {
+                if(this.isEquipped(entity, DANDYCORPItems.JEFF_BADGE)) {
                     applyEffects(player, world);
                 }
             }
@@ -111,7 +111,7 @@ public class JeffBadgeItem extends BadgeItem {
                         trinketComponent.getAllEquipped().stream()
                                 .map(Pair::getRight) // Get the ItemStack from the pair
                                 .map(ItemStack::getItem) // Get the Item from the ItemStack
-                                .anyMatch(item -> item == Items.JEFF_BADGE)
+                                .anyMatch(item -> item == DANDYCORPItems.JEFF_BADGE)
                 )
                 .orElse(false);
     }

@@ -1,13 +1,11 @@
 package net.dandycorp.dccobblemon.datagen;
 
-import net.dandycorp.dccobblemon.block.Blocks;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.server.recipe.RecipeJsonBuilder;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.util.Identifier;
@@ -17,10 +15,10 @@ import java.util.function.Consumer;
 
 public class RecipeProvider extends FabricRecipeProvider {
 
-    private static final List<ItemConvertible> CHROMIUM_SMELTABLES = List.of(Items.CHROMIUM_DUST,Items.RAW_CHROMIUM);
-    private static final List<ItemConvertible> CHROMIUM_EQUIPMENT = List.of(Items.CHROMIUM_HELMET,Items.CHROMIUM_CHESTPLATE,
-            Items.CHROMIUM_LEGGINGS,Items.CHROMIUM_BOOTS,Items.CHROMIUM_SWORD,Items.CHROMIUM_PICKAXE,Items.CHROMIUM_AXE,
-            Items.CHROMIUM_SHOVEL,Items.CHROMIUM_HOE);
+    private static final List<ItemConvertible> CHROMIUM_SMELTABLES = List.of(DANDYCORPItems.CHROMIUM_DUST, DANDYCORPItems.RAW_CHROMIUM);
+    private static final List<ItemConvertible> CHROMIUM_EQUIPMENT = List.of(DANDYCORPItems.CHROMIUM_HELMET, DANDYCORPItems.CHROMIUM_CHESTPLATE,
+            DANDYCORPItems.CHROMIUM_LEGGINGS, DANDYCORPItems.CHROMIUM_BOOTS, DANDYCORPItems.CHROMIUM_SWORD, DANDYCORPItems.CHROMIUM_PICKAXE, DANDYCORPItems.CHROMIUM_AXE,
+            DANDYCORPItems.CHROMIUM_SHOVEL, DANDYCORPItems.CHROMIUM_HOE);
 
     public RecipeProvider(FabricDataOutput output) {
         super(output);
@@ -28,95 +26,95 @@ public class RecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
-        offerSmelting(exporter, CHROMIUM_SMELTABLES, RecipeCategory.MISC, Items.CHROMIUM_INGOT,
+        offerSmelting(exporter, CHROMIUM_SMELTABLES, RecipeCategory.MISC, DANDYCORPItems.CHROMIUM_INGOT,
                 2f, 200, "chromium");
-        offerBlasting(exporter, CHROMIUM_SMELTABLES, RecipeCategory.MISC, Items.CHROMIUM_INGOT,
+        offerBlasting(exporter, CHROMIUM_SMELTABLES, RecipeCategory.MISC, DANDYCORPItems.CHROMIUM_INGOT,
                 2f, 100, "chromium");
 
-        offerReversibleCompactingRecipesWithCompactingRecipeGroup(exporter, RecipeCategory.BUILDING_BLOCKS, Items.CHROMIUM_INGOT, RecipeCategory.MISC,
-                Blocks.CHROMIUM_BLOCK,"chromium_block_from_ingots","chromium");
-        offerReversibleCompactingRecipesWithCompactingRecipeGroup(exporter, RecipeCategory.MISC, Items.CHROMIUM_NUGGET, RecipeCategory.MISC,
-                Items.CHROMIUM_INGOT,"chromium_ingot_from_nuggets","chromium");
-        offerReversibleCompactingRecipesWithCompactingRecipeGroup(exporter, RecipeCategory.MISC, Items.RAW_CHROMIUM, RecipeCategory.MISC,
-                Blocks.RAW_CHROMIUM_BLOCK,"raw_chromium_block_from_raw_chromium","chromium");
+        offerReversibleCompactingRecipesWithCompactingRecipeGroup(exporter, RecipeCategory.BUILDING_BLOCKS, DANDYCORPItems.CHROMIUM_INGOT, RecipeCategory.MISC,
+                DANDYCORPBlocks.CHROMIUM_BLOCK,"chromium_block_from_ingots","chromium");
+        offerReversibleCompactingRecipesWithCompactingRecipeGroup(exporter, RecipeCategory.MISC, DANDYCORPItems.CHROMIUM_NUGGET, RecipeCategory.MISC,
+                DANDYCORPItems.CHROMIUM_INGOT,"chromium_ingot_from_nuggets","chromium");
+        offerReversibleCompactingRecipesWithCompactingRecipeGroup(exporter, RecipeCategory.MISC, DANDYCORPItems.RAW_CHROMIUM, RecipeCategory.MISC,
+                DANDYCORPBlocks.RAW_CHROMIUM_BLOCK,"raw_chromium_block_from_raw_chromium","chromium");
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.CHROMIUM_CHESTPLATE, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, DANDYCORPItems.CHROMIUM_CHESTPLATE, 1)
                 .pattern("# #")
                 .pattern("###")
                 .pattern("###")
-                .input('#', Items.CHROMIUM_INGOT)
-                .criterion(hasItem(Items.CHROMIUM_INGOT), conditionsFromItem(Items.CHROMIUM_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.CHROMIUM_CHESTPLATE)));
+                .input('#', DANDYCORPItems.CHROMIUM_INGOT)
+                .criterion(hasItem(DANDYCORPItems.CHROMIUM_INGOT), conditionsFromItem(DANDYCORPItems.CHROMIUM_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(DANDYCORPItems.CHROMIUM_CHESTPLATE)));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.CHROMIUM_LEGGINGS, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, DANDYCORPItems.CHROMIUM_LEGGINGS, 1)
                 .pattern("###")
                 .pattern("# #")
                 .pattern("# #")
-                .input('#', Items.CHROMIUM_INGOT)
-                .criterion(hasItem(Items.CHROMIUM_INGOT), conditionsFromItem(Items.CHROMIUM_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.CHROMIUM_LEGGINGS)));
+                .input('#', DANDYCORPItems.CHROMIUM_INGOT)
+                .criterion(hasItem(DANDYCORPItems.CHROMIUM_INGOT), conditionsFromItem(DANDYCORPItems.CHROMIUM_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(DANDYCORPItems.CHROMIUM_LEGGINGS)));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.CHROMIUM_HELMET, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, DANDYCORPItems.CHROMIUM_HELMET, 1)
                 .pattern("###")
                 .pattern("# #")
-                .input('#', Items.CHROMIUM_INGOT)
-                .criterion(hasItem(Items.CHROMIUM_INGOT), conditionsFromItem(Items.CHROMIUM_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.CHROMIUM_HELMET)));
+                .input('#', DANDYCORPItems.CHROMIUM_INGOT)
+                .criterion(hasItem(DANDYCORPItems.CHROMIUM_INGOT), conditionsFromItem(DANDYCORPItems.CHROMIUM_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(DANDYCORPItems.CHROMIUM_HELMET)));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.CHROMIUM_BOOTS, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, DANDYCORPItems.CHROMIUM_BOOTS, 1)
                 .pattern("# #")
                 .pattern("# #")
-                .input('#', Items.CHROMIUM_INGOT)
-                .criterion(hasItem(Items.CHROMIUM_INGOT), conditionsFromItem(Items.CHROMIUM_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.CHROMIUM_BOOTS)));
+                .input('#', DANDYCORPItems.CHROMIUM_INGOT)
+                .criterion(hasItem(DANDYCORPItems.CHROMIUM_INGOT), conditionsFromItem(DANDYCORPItems.CHROMIUM_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(DANDYCORPItems.CHROMIUM_BOOTS)));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.CHROMIUM_SWORD, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, DANDYCORPItems.CHROMIUM_SWORD, 1)
                 .pattern("#")
                 .pattern("#")
                 .pattern("|")
-                .input('#', Items.CHROMIUM_INGOT)
+                .input('#', DANDYCORPItems.CHROMIUM_INGOT)
                 .input('|', net.minecraft.item.Items.STICK)
-                .criterion(hasItem(Items.CHROMIUM_INGOT), conditionsFromItem(Items.CHROMIUM_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.CHROMIUM_SWORD)));
+                .criterion(hasItem(DANDYCORPItems.CHROMIUM_INGOT), conditionsFromItem(DANDYCORPItems.CHROMIUM_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(DANDYCORPItems.CHROMIUM_SWORD)));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.CHROMIUM_PICKAXE, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, DANDYCORPItems.CHROMIUM_PICKAXE, 1)
                 .pattern("###")
                 .pattern(" | ")
                 .pattern(" | ")
-                .input('#', Items.CHROMIUM_INGOT)
+                .input('#', DANDYCORPItems.CHROMIUM_INGOT)
                 .input('|', net.minecraft.item.Items.STICK)
-                .criterion(hasItem(Items.CHROMIUM_INGOT), conditionsFromItem(Items.CHROMIUM_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.CHROMIUM_PICKAXE)));
+                .criterion(hasItem(DANDYCORPItems.CHROMIUM_INGOT), conditionsFromItem(DANDYCORPItems.CHROMIUM_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(DANDYCORPItems.CHROMIUM_PICKAXE)));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.CHROMIUM_AXE, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, DANDYCORPItems.CHROMIUM_AXE, 1)
                 .pattern("##")
                 .pattern("#|")
                 .pattern(" |")
-                .input('#', Items.CHROMIUM_INGOT)
+                .input('#', DANDYCORPItems.CHROMIUM_INGOT)
                 .input('|', net.minecraft.item.Items.STICK)
-                .criterion(hasItem(Items.CHROMIUM_INGOT), conditionsFromItem(Items.CHROMIUM_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.CHROMIUM_AXE)));
+                .criterion(hasItem(DANDYCORPItems.CHROMIUM_INGOT), conditionsFromItem(DANDYCORPItems.CHROMIUM_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(DANDYCORPItems.CHROMIUM_AXE)));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.CHROMIUM_SHOVEL, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, DANDYCORPItems.CHROMIUM_SHOVEL, 1)
                 .pattern("#")
                 .pattern("|")
                 .pattern("|")
-                .input('#', Items.CHROMIUM_INGOT)
+                .input('#', DANDYCORPItems.CHROMIUM_INGOT)
                 .input('|', net.minecraft.item.Items.STICK)
-                .criterion(hasItem(Items.CHROMIUM_INGOT), conditionsFromItem(Items.CHROMIUM_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.CHROMIUM_SHOVEL)));
+                .criterion(hasItem(DANDYCORPItems.CHROMIUM_INGOT), conditionsFromItem(DANDYCORPItems.CHROMIUM_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(DANDYCORPItems.CHROMIUM_SHOVEL)));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.CHROMIUM_HOE, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, DANDYCORPItems.CHROMIUM_HOE, 1)
                 .pattern("##")
                 .pattern(" |")
                 .pattern(" |")
-                .input('#', Items.CHROMIUM_INGOT)
+                .input('#', DANDYCORPItems.CHROMIUM_INGOT)
                 .input('|', net.minecraft.item.Items.STICK)
-                .criterion(hasItem(Items.CHROMIUM_INGOT), conditionsFromItem(Items.CHROMIUM_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(Items.CHROMIUM_HOE)));
+                .criterion(hasItem(DANDYCORPItems.CHROMIUM_INGOT), conditionsFromItem(DANDYCORPItems.CHROMIUM_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(DANDYCORPItems.CHROMIUM_HOE)));
 
 
-        offerSmelting(exporter,CHROMIUM_EQUIPMENT,RecipeCategory.MISC,Items.CHROMIUM_NUGGET,0.2f,200,"chromium");
-        offerBlasting(exporter,CHROMIUM_EQUIPMENT,RecipeCategory.MISC,Items.CHROMIUM_NUGGET,0.1f,100,"chromium");
+        offerSmelting(exporter,CHROMIUM_EQUIPMENT,RecipeCategory.MISC, DANDYCORPItems.CHROMIUM_NUGGET,0.2f,200,"chromium");
+        offerBlasting(exporter,CHROMIUM_EQUIPMENT,RecipeCategory.MISC, DANDYCORPItems.CHROMIUM_NUGGET,0.1f,100,"chromium");
     }
 }

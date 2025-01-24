@@ -3,18 +3,17 @@ package net.dandycorp.dccobblemon.item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Lazy;
 
 import java.util.function.Supplier;
 
 public enum DANDYCORPToolMaterials implements ToolMaterial {
 
     CHROMIUM(4, 1520, 15f, 5F, 22, () -> {
-        return Ingredient.ofItems(new ItemConvertible[]{Items.CHROMIUM_INGOT});}
+        return Ingredient.ofItems(new ItemConvertible[]{DANDYCORPItems.CHROMIUM_INGOT});}
     ),
 
     PARAGONIUM(6, 0, 28f, 11F, 10, () -> {
-        return Ingredient.ofItems(new ItemConvertible[]{Items.PARAGONIUM_INGOT});}
+        return Ingredient.ofItems(new ItemConvertible[]{DANDYCORPItems.PARAGONIUM_INGOT});}
     );
 
     private final int miningLevel;

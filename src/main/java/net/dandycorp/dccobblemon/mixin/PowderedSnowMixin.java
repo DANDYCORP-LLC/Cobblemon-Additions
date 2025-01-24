@@ -1,7 +1,7 @@
 package net.dandycorp.dccobblemon.mixin;
 
 import dev.emi.trinkets.api.TrinketsApi;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.minecraft.block.PowderSnowBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -19,7 +19,7 @@ public class PowderedSnowMixin {
             //entity.sendMessage(Text.literal("mixin!"));
             // Check if the entity is wearing the ICE_BADGE
             boolean hasIceBadge = TrinketsApi.getTrinketComponent(livingEntity).map(trinketComponent ->
-                    trinketComponent.isEquipped(Items.ICE_BADGE)
+                    trinketComponent.isEquipped(DANDYCORPItems.ICE_BADGE)
             ).orElse(false);
 
             if (hasIceBadge) {

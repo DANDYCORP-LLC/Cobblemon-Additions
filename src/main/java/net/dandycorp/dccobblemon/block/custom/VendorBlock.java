@@ -1,7 +1,7 @@
 package net.dandycorp.dccobblemon.block.custom;
 
 import net.dandycorp.dccobblemon.DANDYCORPSounds;
-import net.dandycorp.dccobblemon.block.BlockEntities;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -225,7 +225,7 @@ public class VendorBlock extends BlockWithEntity implements BlockEntityProvider 
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, BlockEntities.VENDOR_BLOCK_ENTITY, VendorBlockEntity::tick);
+        return checkType(type, DANDYCORPBlockEntities.VENDOR_BLOCK_ENTITY, VendorBlockEntity::tick);
     }
 
     @Override

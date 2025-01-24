@@ -2,7 +2,7 @@ package net.dandycorp.dccobblemon.item.custom.badges;
 
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -47,7 +47,7 @@ public class NateBadgeItem extends BadgeItem {
             tickCounter++;
 
             if (tickCounter >= 20) {
-                if (this.isEquipped(entity,Items.NATE_BADGE)) {
+                if (this.isEquipped(entity, DANDYCORPItems.NATE_BADGE)) {
                     ScaleTypes.HEIGHT.getScaleData(entity).setScale(1.33f);
                     ScaleTypes.WIDTH.getScaleData(entity).setScale(1.33f);
                     ScaleTypes.STEP_HEIGHT.getScaleData(entity).setScale(2);

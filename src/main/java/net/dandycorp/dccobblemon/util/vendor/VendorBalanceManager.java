@@ -10,7 +10,7 @@ import io.wispforest.owo.ui.core.Insets;
 import io.wispforest.owo.ui.core.Sizing;
 import io.wispforest.owo.ui.core.VerticalAlignment;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
-import net.dandycorp.dccobblemon.item.Items;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -34,12 +34,12 @@ public class VendorBalanceManager {
     public int getBalance() {
         int ticketCount = 0;
         for (ItemStack stack : playerInventory.main) {
-            if (stack.getItem() == Items.TICKET) {
+            if (stack.getItem() == DANDYCORPItems.TICKET) {
                 ticketCount += stack.getCount();
             }
         }
         for (ItemStack stack : playerInventory.offHand) {
-            if (stack.getItem() == Items.TICKET) {
+            if (stack.getItem() == DANDYCORPItems.TICKET) {
                 ticketCount += stack.getCount();
             }
         }
