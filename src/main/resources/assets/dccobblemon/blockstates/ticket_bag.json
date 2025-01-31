@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "dccobblemon:block/ticket_bag",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "dccobblemon:block/ticket_bag"
+    },
+    "facing=south": {
+      "model": "dccobblemon:block/ticket_bag",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "dccobblemon:block/ticket_bag",
+      "y": 270
+    }
+  }
+}

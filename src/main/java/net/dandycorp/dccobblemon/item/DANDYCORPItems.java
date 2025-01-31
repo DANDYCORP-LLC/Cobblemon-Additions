@@ -256,6 +256,7 @@ public class DANDYCORPItems {
 
             // vendor / grinder
             entries.add(TICKET);
+            entries.add(DANDYCORPBlocks.TICKET_BAG);
             entries.add(VENDOR);
             entries.add(GRINDER_BLADES);
             entries.add(DANDYCORPBlocks.GRINDER_BLOCK);

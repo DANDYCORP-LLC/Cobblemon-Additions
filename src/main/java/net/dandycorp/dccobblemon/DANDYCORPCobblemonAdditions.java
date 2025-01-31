@@ -155,9 +155,9 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 			ServerPlayNetworking.send(player, GRINDER_DATA_SYNC, buf);
 		});
 
-		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-			FoodTracker.initialize();
-		});
+//		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+//			FoodTracker.initialize();
+//		});
 
 		LOGGER.info("DANDYCORP initialized!");
 	}

@@ -5,11 +5,13 @@ import com.cobblemon.mod.common.pokemon.Pokemon;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
 import net.dandycorp.dccobblemon.DANDYCORPSounds;
+import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.block.custom.VendorBlockEntity;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.ui.PokemonComponent;
 import net.dandycorp.dccobblemon.util.HeadHelper;
 import net.dandycorp.dccobblemon.util.vendor.*;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -23,6 +25,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -148,7 +151,6 @@ public class VendorScreenHandler extends ScreenHandler {
                         ItemStack stack = getItemStackFromID(item.getId());
                         if (stack != null) {
                             int quantity = item.getQuantity();
-                            // Spawn items one at a time
                             for (int i = 0; i < quantity; i++) {
                                 ItemStack singleItemStack = stack.copy();
                                 singleItemStack.setCount(1);
@@ -162,23 +164,81 @@ public class VendorScreenHandler extends ScreenHandler {
     }
 
     private void spendTickets(PlayerEntity player, int cost) {
-        if (!player.getWorld().isClient()) {
-            for (Slot slot : this.slots) {
-                ItemStack stack = slot.getStack();
-                if (!stack.isEmpty() && stack.getItem() == DANDYCORPItems.TICKET) {
-                    int toRemove = Math.min(cost, stack.getCount());
-                    stack.decrement(toRemove);
-                    cost -= toRemove;
+        if (player.getWorld().isClient()) return;
+        int tickets = getTicketCount(player.getInventory());
 
-                    slot.setStack(stack);
-                    slot.markDirty();
-                    if (cost == 0) break;
-                }
-            }
+        if(tickets >= cost){
+            removeTickets(cost);
+            playerInventory.markDirty();
+            player.playerScreenHandler.sendContentUpdates();
+            this.sendContentUpdates();
+            return;
         }
+
+        System.out.println("cost: " + cost);
+        int remainder = removeTickets(cost);
+        System.out.println("remainder: " + remainder);
+        int change = breakBag(remainder);
+        System.out.println("change: " + change);
+        returnChange(player,change);
+
         playerInventory.markDirty();
         player.playerScreenHandler.sendContentUpdates();
         this.sendContentUpdates();
+    }
+
+    private int removeTickets(int cost) {
+        for (Slot slot : this.slots) {
+            if (cost <= 0) break;
+            ItemStack stack = slot.getStack();
+            if (!stack.isEmpty() && stack.isOf(DANDYCORPItems.TICKET)) {
+                int toRemove = Math.min(cost, stack.getCount());
+                stack.decrement(toRemove);
+                cost -= toRemove;
+                slot.setStack(stack);
+                slot.markDirty();
+            }
+        }
+        return cost;
+    }
+
+    /***
+     * spends ticket bags and returns the remaining change
+     * @param cost the amount of tickets to pull from bags
+     * @return the change remaining after bags have been broken
+     */
+    private int breakBag(int cost) {
+        int change = 16 - cost % 16;
+        int bags = (int) Math.ceil(cost/16f);
+
+        for (Slot slot : this.slots) {
+            if (bags <= 0) break;
+
+
+            ItemStack stack = slot.getStack();
+            if (!stack.isEmpty() && stack.isOf(DANDYCORPBlocks.TICKET_BAG.asItem())) {
+                int toRemove = Math.min(bags, stack.getCount());
+                stack.decrement(toRemove);
+                bags -= toRemove;
+                slot.setStack(stack);
+                slot.markDirty();
+            }
+        }
+        return change;
+    }
+
+    /***
+     * summons tickets on the player
+     * @param player player to spawn tickets on
+     * @param amount amount of tickets to spawn (should not exceed 16)
+     */
+    private void returnChange(PlayerEntity player,int amount) {
+        ItemStack stack = new ItemStack(DANDYCORPItems.TICKET, amount);
+
+        Vec3d pos = player.getPos();
+        ItemEntity itemEntity = new ItemEntity(player.getWorld(), pos.x, pos.y, pos.z, stack);
+
+        player.getWorld().spawnEntity(itemEntity);
     }
 
     public boolean canAfford(int cost) {
@@ -186,18 +246,39 @@ public class VendorScreenHandler extends ScreenHandler {
     }
 
     public int getBalance(PlayerInventory playerInventory) {
+        return getTicketCount(playerInventory) + (16 * getBagCount(playerInventory));
+    }
+
+    private int getTicketCount(PlayerInventory playerInventory) {
         int ticketCount = 0;
         for (ItemStack stack : playerInventory.main) {
-            if (stack.getItem() == DANDYCORPItems.TICKET) {
+            if (stack.isOf(DANDYCORPItems.TICKET)) {
                 ticketCount += stack.getCount();
             }
         }
+
         for (ItemStack stack : playerInventory.offHand) {
-            if (stack.getItem() == DANDYCORPItems.TICKET) {
+            if (stack.isOf(DANDYCORPItems.TICKET)) {
                 ticketCount += stack.getCount();
             }
         }
         return ticketCount;
+    }
+
+    private int getBagCount(PlayerInventory playerInventory) {
+        int bagCount = 0;
+        for (ItemStack stack : playerInventory.main) {
+            if (stack.isOf(DANDYCORPBlocks.TICKET_BAG.asItem())) {
+                bagCount += stack.getCount();
+            }
+        }
+
+        for (ItemStack stack : playerInventory.offHand) {
+            if (stack.isOf(DANDYCORPBlocks.TICKET_BAG.asItem())) {
+                bagCount += stack.getCount();
+            }
+        }
+        return bagCount;
     }
 
     private void spawnItems(ItemStack stack) {

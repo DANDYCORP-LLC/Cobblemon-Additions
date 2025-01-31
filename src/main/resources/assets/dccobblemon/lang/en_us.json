@@ -18,7 +18,8 @@
   "item.dccobblemon.rock_badge": "Stone Badge",
   "item.dccobblemon.water_badge": "Ocean Badge",
 
-  "item.dccobblemon.ticket": "DANDYCORP Coupon",
+  "item.dccobblemon.ticket": "DANDYCORP Ticket",
+  "block.dccobblemon.ticket_bag": "Sack of DANDYCORP Tickets",
   "item.dccobblemon.grinder_blades": "Grinder Blades",
 
   "item.dccobblemon.chromium_ingot": "Chromium Ingot",

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "dccobblemon:ticket_bag"
+    }
+  ],
+  "result": {
+    "count": 16,
+    "item": "dccobblemon:ticket"
+  },
+  "show_notification": true
+}

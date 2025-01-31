@@ -56,7 +56,6 @@ public class GrinderBlock extends HorizontalKineticBlock implements IBE<GrinderB
                     .isSneaking() ? facingDirection : facingDirection.getOpposite());
         }
 
-        //TODO: fix this to not just be a rotation of source code but properly prioritize nearby shafts left/right
         preferred = preferred.rotateClockwise(Direction.Axis.Y);
         return getDefaultState().with(HORIZONTAL_FACING, preferred.getOpposite());
     }
