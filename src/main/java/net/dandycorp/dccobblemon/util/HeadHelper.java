@@ -66,13 +66,13 @@ public class HeadHelper {
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("e6729d6e-d23f-4ca5-8376-cd81a1252c8d"), HeadDescription.CONTRIBUTOR_DEVELOPER); // sowaka
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("3b6aa68d-8460-4cd8-bee6-a3671686f48f"), HeadDescription.DONOR_25); // emil
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("1a590d91-cbc6-4130-ba38-6f3568d4c4e2"), HeadDescription.DONOR_25); // blade
-            PLAYER_CONTRIBUTIONS.put(UUID.fromString("a628538b-b6ae-471b-bed3-5e8fab451c9f"), HeadDescription.CONTRIBUTOR_MUSIC); // alexander
+            PLAYER_CONTRIBUTIONS.put(UUID.fromString("a628538b-b6ae-471b-bed3-5e8fab451c9f"), HeadDescription.CONTRIBUTOR_ART); // alexander
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("d3ef526c-7d01-466e-af7d-6734b9f6b6df"), HeadDescription.SUPPORTER); // natalie
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("9f83d568-562c-4b8e-92aa-a6f188e2c175"), HeadDescription.CONTRIBUTOR_ART); // lilith
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("3f675964-9866-46ff-9372-3656c3b71f41"), HeadDescription.CONTRIBUTOR_ART); // akaleaf
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("778e8ca7-b8b7-40bb-b925-ccb4ff2e3b11"), HeadDescription.DONOR_10); // kappa tea
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("2931b9b5-d40e-4942-a578-bcef66129f93"), HeadDescription.DONOR_5); // tommy
-            PLAYER_CONTRIBUTIONS.put(UUID.fromString("623278ef-7061-4c99-acf0-9fe6695ab00c"), HeadDescription.CONTRIBUTOR_ART); // david
+            PLAYER_CONTRIBUTIONS.put(UUID.fromString("623278ef-7061-4c99-acf0-9fe6695ab00c"), HeadDescription.CONTRIBUTOR_POKEMON); // david
     }
 
     public static void initializeCache() {
@@ -349,6 +349,8 @@ public class HeadHelper {
         CONTRIBUTOR_DEVELOPER("This developer helped turned ideas into reality."),
         CONTRIBUTOR_LORE("This storyteller wove the threads of history and crafted narratives that endure."),
         CONTRIBUTOR_CINEMA("This cinematographer brought the vision to life, one frame at a time."),
+        CONTRIBUTOR_POKEMON("A tactician who ensures that every battle is a challenge worth overcoming."),
+
 
         SUPPORTER("An old friend from the very first days, their belief made everything feel possible."),
 
