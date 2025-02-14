@@ -72,6 +72,7 @@ public class HeadHelper {
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("3f675964-9866-46ff-9372-3656c3b71f41"), HeadDescription.CONTRIBUTOR_ART); // akaleaf
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("778e8ca7-b8b7-40bb-b925-ccb4ff2e3b11"), HeadDescription.DONOR_10); // kappa tea
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("2931b9b5-d40e-4942-a578-bcef66129f93"), HeadDescription.DONOR_5); // tommy
+            PLAYER_CONTRIBUTIONS.put(UUID.fromString("623278ef-7061-4c99-acf0-9fe6695ab00c"), HeadDescription.CONTRIBUTOR_ART); // david
     }
 
     public static void initializeCache() {

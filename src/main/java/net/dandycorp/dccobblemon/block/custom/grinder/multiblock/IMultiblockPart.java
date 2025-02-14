@@ -13,11 +13,12 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public interface IMultiblockPart extends IWrenchable {
     Direction getMainBlockDirection(BlockState state);
 
-    default BlockPos findMainBlock(World world, BlockPos pos, BlockState state) {
+    default @Nullable BlockPos findMainBlock(World world, BlockPos pos, BlockState state) {
         int maxDepth = 5; // Maximum number of steps to search
         for (int i = 0; i < maxDepth; i++) {
             Direction direction = getMainBlockDirection(state);
