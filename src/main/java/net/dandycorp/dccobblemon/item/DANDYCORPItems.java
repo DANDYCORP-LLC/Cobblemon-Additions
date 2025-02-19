@@ -109,27 +109,27 @@ public class DANDYCORPItems {
     public static final Item PARAGONIUM_BLOCK_ITEM = registerItem("paragonium_block",new ParagoniumBlockItem(DANDYCORPBlocks.PARAGONIUM_BLOCK, new FabricItemSettings().fireproof().rarity(Rarity.EPIC)));
     public static final Item PARAGONIUM_NUGGET = registerItem("paragonium_nugget",new ParagoniumItem(new Item.Settings().rarity(Rarity.EPIC).fireproof()));
     public static final Item PARAGONIUM_HELMET = registerItem("paragonium_helmet",
-            new ParagoniumArmorItem(DANDYCORPArmorMaterials.PARAGONIUM, ParagoniumArmorItem.Type.HELMET, new Item.Settings().rarity(Rarity.EPIC).fireproof()));
+            new ParagoniumArmorItem(DANDYCORPArmorMaterials.PARAGONIUM, ParagoniumArmorItem.Type.HELMET, new Item.Settings().rarity(Rarity.EPIC).fireproof().maxCount(1)));
     public static final Item PARAGONIUM_CHESTPLATE = registerItem("paragonium_chestplate",
-            new ParagoniumArmorItem(DANDYCORPArmorMaterials.PARAGONIUM, ParagoniumArmorItem.Type.CHESTPLATE, new Item.Settings().rarity(Rarity.EPIC).fireproof()));
+            new ParagoniumArmorItem(DANDYCORPArmorMaterials.PARAGONIUM, ParagoniumArmorItem.Type.CHESTPLATE, new Item.Settings().rarity(Rarity.EPIC).fireproof().maxCount(1)));
     public static final Item PARAGONIUM_LEGGINGS = registerItem("paragonium_leggings",
-            new ParagoniumArmorItem(DANDYCORPArmorMaterials.PARAGONIUM, ParagoniumArmorItem.Type.LEGGINGS, new Item.Settings().rarity(Rarity.EPIC).fireproof()));
+            new ParagoniumArmorItem(DANDYCORPArmorMaterials.PARAGONIUM, ParagoniumArmorItem.Type.LEGGINGS, new Item.Settings().rarity(Rarity.EPIC).fireproof().maxCount(1)));
     public static final Item PARAGONIUM_BOOTS = registerItem("paragonium_boots",
-            new ParagoniumArmorItem(DANDYCORPArmorMaterials.PARAGONIUM, ParagoniumArmorItem.Type.BOOTS, new Item.Settings().rarity(Rarity.EPIC).fireproof()));
+            new ParagoniumArmorItem(DANDYCORPArmorMaterials.PARAGONIUM, ParagoniumArmorItem.Type.BOOTS, new Item.Settings().rarity(Rarity.EPIC).fireproof().maxCount(1)));
     public static final Item PARAGONIUM_SWORD = registerItem("paragonium_sword",
-            new ParagoniumSwordItem(DANDYCORPToolMaterials.PARAGONIUM,3,-2.2f,new Item.Settings().rarity(Rarity.EPIC).fireproof()));
+            new ParagoniumSwordItem(DANDYCORPToolMaterials.PARAGONIUM,3,-2.2f,new Item.Settings().rarity(Rarity.EPIC).fireproof().maxCount(1)));
     public static final Item PARAGONIUM_PICKAXE = registerItem("paragonium_pickaxe",
-            new ParagoniumPickaxeItem(DANDYCORPToolMaterials.PARAGONIUM,1,-2.8f,new Item.Settings().rarity(Rarity.EPIC).fireproof()));
+            new ParagoniumPickaxeItem(DANDYCORPToolMaterials.PARAGONIUM,1,-2.8f,new Item.Settings().rarity(Rarity.EPIC).fireproof().maxCount(1)));
     public static final Item PARAGONIUM_SHOVEL = registerItem("paragonium_shovel",
-            new ParagoniumShovelItem(DANDYCORPToolMaterials.PARAGONIUM,1,-2.8f,new Item.Settings().rarity(Rarity.EPIC).fireproof()));
+            new ParagoniumShovelItem(DANDYCORPToolMaterials.PARAGONIUM,1,-2.8f,new Item.Settings().rarity(Rarity.EPIC).fireproof().maxCount(1)));
     public static final Item PARAGONIUM_AXE = registerItem("paragonium_axe",
-            new ParagoniumAxeItem(DANDYCORPToolMaterials.PARAGONIUM,8,-3f,new Item.Settings().rarity(Rarity.EPIC).fireproof()));
+            new ParagoniumAxeItem(DANDYCORPToolMaterials.PARAGONIUM,8,-3f,new Item.Settings().rarity(Rarity.EPIC).fireproof().maxCount(1)));
     public static final Item PARAGONIUM_HOE = registerItem("paragonium_hoe",
-            new ParagoniumHoeItem(DANDYCORPToolMaterials.PARAGONIUM,-3,0.0f,new Item.Settings().rarity(Rarity.EPIC).fireproof()));
+            new ParagoniumHoeItem(DANDYCORPToolMaterials.PARAGONIUM,-3,0.0f,new Item.Settings().rarity(Rarity.EPIC).fireproof().maxCount(1)));
     public static final Item PARAGONIUM_BOW = registerItem("paragonium_bow",
-            new ParagoniumBowItem(new Item.Settings().rarity(Rarity.EPIC).fireproof()));
+            new ParagoniumBowItem(new Item.Settings().rarity(Rarity.EPIC).fireproof().maxCount(1)));
     public static final Item PARAGONIUM_SHIELD = registerItem("paragonium_shield",
-            new ParagoniumShieldItem(new Item.Settings().rarity(Rarity.EPIC).fireproof()));
+            new ParagoniumShieldItem(new Item.Settings().rarity(Rarity.EPIC).fireproof().maxCount(1)));
 
     public static final Item ABOMASITE = registerItem("abomasite", new MegaStoneItem(new Item.Settings().fireproof().rarity(Rarity.RARE).maxCount(1), "abomasnow", "abomasite", MegaFormType.MEGA));
     public static final Item ABSOLITE = registerItem("absolite", new MegaStoneItem(new Item.Settings().fireproof().rarity(Rarity.RARE).maxCount(1), "absol", "absolite", MegaFormType.MEGA));

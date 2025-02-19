@@ -86,7 +86,6 @@ public class HeadHelper {
                 }
             }
         }
-
         saveCacheToFile(); // Save cache to file
     }
 
