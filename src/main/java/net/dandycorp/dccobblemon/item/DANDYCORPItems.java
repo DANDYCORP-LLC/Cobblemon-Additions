@@ -79,7 +79,9 @@ public class DANDYCORPItems {
     public static final Item BADGE = registerItem("badge",
             new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
 
-    public static final Item TICKET = registerItem("ticket", new Ticket(new Item.Settings().rarity(Rarity.RARE)));
+    public static final Item TICKET = registerItem("ticket", new Ticket(new Item.Settings().fireproof().rarity(Rarity.RARE)));
+    public static final Item TICKET_BAG_ITEM = registerItem("ticket_bag",new BlockItem(DANDYCORPBlocks.TICKET_BAG, new FabricItemSettings().fireproof().rarity(Rarity.RARE)));
+
     public static final Item VENDOR = registerItem("vendor", new TallBlockItem(DANDYCORPBlocks.VENDOR_BLOCK,new Item.Settings().rarity(Rarity.UNCOMMON)));
     public static final Item GRINDER_BLADES = registerItem("grinder_blades", new Item(new Item.Settings().fireproof()));
     public static final Item CHROMIUM_INGOT = registerItem("chromium_ingot", new Item(new Item.Settings()));
@@ -256,7 +258,7 @@ public class DANDYCORPItems {
 
             // vendor / grinder
             entries.add(TICKET);
-            entries.add(DANDYCORPBlocks.TICKET_BAG);
+            entries.add(DANDYCORPItems.TICKET_BAG_ITEM);
             entries.add(VENDOR);
             entries.add(GRINDER_BLADES);
             entries.add(DANDYCORPBlocks.GRINDER_BLOCK);

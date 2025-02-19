@@ -42,7 +42,7 @@ public class DANDYCORPBlocks {
     public static final Block VENDOR_BLOCK = registerBlock("vendor",new VendorBlock(FabricBlockSettings.copy(net.minecraft.block.Blocks.IRON_DOOR).pistonBehavior(PistonBehavior.BLOCK).luminance((state) -> {
         return state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? 8 : 0;
     }).nonOpaque()),false);
-    public static final Block TICKET_BAG = registerBlock("ticket_bag",new TicketBagBlock(FabricBlockSettings.copy(Blocks.SAND).sounds(BlockSoundGroup.WOOL).nonOpaque()), true);
+    public static final Block TICKET_BAG = registerBlock("ticket_bag",new TicketBagBlock(FabricBlockSettings.copy(Blocks.SAND).sounds(BlockSoundGroup.WOOL).nonOpaque()), false);
 
     public static final BlockEntry<GrinderBlock> GRINDER_BLOCK = REGISTRATE
             .block("grinder", GrinderBlock::new)

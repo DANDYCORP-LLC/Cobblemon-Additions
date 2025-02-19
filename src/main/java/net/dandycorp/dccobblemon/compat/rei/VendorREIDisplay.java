@@ -18,8 +18,8 @@ public class VendorREIDisplay extends BasicDisplay {
     VendorEntry entry;
 
 
-    public VendorREIDisplay(ItemStack input, List<EntryIngredient> outputs, VendorCategory category, VendorEntry entry) {
-        super((Collections.singletonList(EntryIngredients.of(input))), outputs);
+    public VendorREIDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, VendorCategory category, VendorEntry entry) {
+        super(inputs, outputs);
         this.category = category;
         this.entry = entry;
         this.cost = entry.getCost();

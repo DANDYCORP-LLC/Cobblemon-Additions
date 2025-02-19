@@ -167,7 +167,7 @@ public class VendorScreenHandler extends ScreenHandler {
         if (player.getWorld().isClient()) return;
         int tickets = getTicketCount(player.getInventory());
 
-        if(tickets >= cost){
+        if(tickets >= cost || player.isCreative()){
             removeTickets(cost);
             playerInventory.markDirty();
             player.playerScreenHandler.sendContentUpdates();
@@ -216,7 +216,7 @@ public class VendorScreenHandler extends ScreenHandler {
 
 
             ItemStack stack = slot.getStack();
-            if (!stack.isEmpty() && stack.isOf(DANDYCORPBlocks.TICKET_BAG.asItem())) {
+            if (!stack.isEmpty() && stack.isOf(DANDYCORPItems.TICKET_BAG_ITEM)) {
                 int toRemove = Math.min(bags, stack.getCount());
                 stack.decrement(toRemove);
                 bags -= toRemove;
@@ -268,13 +268,13 @@ public class VendorScreenHandler extends ScreenHandler {
     private int getBagCount(PlayerInventory playerInventory) {
         int bagCount = 0;
         for (ItemStack stack : playerInventory.main) {
-            if (stack.isOf(DANDYCORPBlocks.TICKET_BAG.asItem())) {
+            if (stack.isOf(DANDYCORPItems.TICKET_BAG_ITEM)) {
                 bagCount += stack.getCount();
             }
         }
 
         for (ItemStack stack : playerInventory.offHand) {
-            if (stack.isOf(DANDYCORPBlocks.TICKET_BAG.asItem())) {
+            if (stack.isOf(DANDYCORPItems.TICKET_BAG_ITEM)) {
                 bagCount += stack.getCount();
             }
         }

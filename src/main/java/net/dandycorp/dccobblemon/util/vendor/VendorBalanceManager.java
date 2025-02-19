@@ -37,7 +37,7 @@ public class VendorBalanceManager {
         for (ItemStack stack : playerInventory.main) {
             if (stack.getItem() == DANDYCORPItems.TICKET) {
                 ticketCount += stack.getCount();
-            } else if (stack.getItem() == DANDYCORPBlocks.TICKET_BAG.asItem()) {
+            } else if (stack.getItem() == DANDYCORPItems.TICKET_BAG_ITEM) {
                 ticketCount += (16 * stack.getCount());
             }
         }
@@ -46,7 +46,7 @@ public class VendorBalanceManager {
         for (ItemStack stack : playerInventory.offHand) {
             if (stack.getItem() == DANDYCORPItems.TICKET) {
                 ticketCount += stack.getCount();
-            } else if (stack.getItem() == DANDYCORPBlocks.TICKET_BAG.asItem()) {
+            } else if (stack.getItem() == DANDYCORPItems.TICKET_BAG_ITEM) {
                 ticketCount += (16 * stack.getCount());
             }
         }

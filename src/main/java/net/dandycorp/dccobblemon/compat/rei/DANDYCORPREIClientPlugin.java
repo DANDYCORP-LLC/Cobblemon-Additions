@@ -22,6 +22,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -92,8 +93,17 @@ public class DANDYCORPREIClientPlugin implements REIClientPlugin {
             if (category.getEntries() == null) continue;
             for (VendorEntry entry : category.getEntries()) {
                 List<VendorItem> entryItems = entry.getItems();
-                ItemStack inputStack = DANDYCORPItems.TICKET.getDefaultStack();
-                inputStack.setCount(entry.getCost());
+
+                ItemStack ticketStack = DANDYCORPItems.TICKET.getDefaultStack();
+                ticketStack.setCount(entry.getCost());
+
+                ItemStack bagStack = DANDYCORPItems.TICKET_BAG_ITEM.getDefaultStack();
+                bagStack.setCount(1);
+
+                List<EntryIngredient> inputs = new ArrayList<>();
+                inputs.add(EntryIngredients.of(ticketStack));
+                inputs.add(EntryIngredients.of(bagStack));
+
                 List<EntryIngredient> outputs = new ArrayList<>(entryItems.size());
                 for (VendorItem item : entryItems) {
                     System.out.println("adding item " + item.getId() + " to outputs of " + entry.getTitle());
@@ -107,7 +117,7 @@ public class DANDYCORPREIClientPlugin implements REIClientPlugin {
                         outputs.add(EntryIngredients.of(stack));
                     }
                 }
-                VendorREIDisplay display = new VendorREIDisplay(inputStack, outputs, category, entry);
+                VendorREIDisplay display = new VendorREIDisplay(inputs, outputs, category, entry);
                 registry.add(display);
             }
         }
