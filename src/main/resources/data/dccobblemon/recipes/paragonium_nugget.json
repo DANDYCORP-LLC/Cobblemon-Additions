@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "paragonium",
+  "ingredients": [
+    {
+      "item": "dccobblemon:paragonium_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "dccobblemon:paragonium_nugget"
+  }
+}

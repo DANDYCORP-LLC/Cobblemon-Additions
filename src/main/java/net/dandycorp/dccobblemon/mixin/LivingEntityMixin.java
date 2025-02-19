@@ -63,13 +63,17 @@ public abstract class LivingEntityMixin {
         Stream<ItemStack> heldItems = StreamSupport.stream(source.getAttacker().getHandItems().spliterator(), false);
         boolean isParagonium = heldItems.anyMatch(item -> item.isOf(DANDYCORPItems.PARAGONIUM_AXE) || item.isOf(DANDYCORPItems.PARAGONIUM_SWORD));
         if(isParagonium && source.getSource() != null && !entity.getWorld().isClient()){
+            System.out.println("paragonium killed");
             if (entity instanceof EnderDragonEntity)
                 entity.dropItem(net.minecraft.item.Items.DRAGON_HEAD); // guaranteed
             float chance = RANDOM.nextFloat() + (i / 10f);
-            if(chance >= 0.8) {
+            if (chance >= 0.3){
                 if (entity instanceof PlayerEntity player) {
-                    entity.dropStack(HeadHelper.getPlayerHead(player.getUuid()));
-                } else if (entity instanceof WitherSkeletonEntity) {
+                    entity.dropStack(HeadHelper.getPlayerHead(player));
+                }
+            }
+            else if(chance >= 0.8) {
+                if (entity instanceof WitherSkeletonEntity) {
                     entity.dropItem(net.minecraft.item.Items.WITHER_SKELETON_SKULL);
                 } else if (entity instanceof SkeletonEntity) {
                     entity.dropItem(net.minecraft.item.Items.SKELETON_SKULL);

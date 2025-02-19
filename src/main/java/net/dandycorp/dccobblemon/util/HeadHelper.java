@@ -181,6 +181,19 @@ public class HeadHelper {
         return stack;
     }
 
+    public static ItemStack getPlayerHead(PlayerEntity player) {
+        ItemStack headStack = new ItemStack(Items.PLAYER_HEAD);
+        GameProfile profile = player.getGameProfile();
+        if (profile == null) {
+            System.err.println("Cannot create head: Player's GameProfile is null.");
+            return headStack;
+        }
+        NbtCompound skullOwnerNBT = new NbtCompound();
+        NbtHelper.writeGameProfile(skullOwnerNBT, profile);
+        headStack.getOrCreateNbt().put("SkullOwner", skullOwnerNBT);
+        return headStack;
+    }
+
     public static String getPlayerNameFromUUID(UUID uuid) {
         GameProfile profile = uuidToGameProfileCache.get(uuid);
         if (profile != null) {

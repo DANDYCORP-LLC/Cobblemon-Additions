@@ -4,7 +4,7 @@
   "group": "paragonium",
   "key": {
     "#": {
-      "item": "dccobblemon:paragonium_ingot"
+      "item": "dccobblemon:paragonium_nugget"
     }
   },
   "pattern": [
@@ -13,7 +13,7 @@
     "###"
   ],
   "result": {
-    "item": "dccobblemon:paragonium_block"
+    "item": "dccobblemon:paragonium_ingot"
   },
   "show_notification": true
 }

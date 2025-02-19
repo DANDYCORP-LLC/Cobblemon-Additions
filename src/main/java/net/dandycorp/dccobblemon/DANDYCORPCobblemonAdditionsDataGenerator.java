@@ -8,6 +8,6 @@ public class DANDYCORPCobblemonAdditionsDataGenerator implements DataGeneratorEn
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 			FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
-			pack.addProvider(ModelProvider::new);
+			//pack.addProvider(RecipeProvider::new);
 	}
 }

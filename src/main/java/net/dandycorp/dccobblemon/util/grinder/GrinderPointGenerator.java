@@ -2,6 +2,7 @@ package net.dandycorp.dccobblemon.util.grinder;
 
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.compat.ChippedCompat;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.mixin.accessor.SmithingTransformRecipeAccessor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
@@ -65,6 +66,10 @@ public class GrinderPointGenerator {
                 calculatedPointValues.size(),
                 ((float) uniqueValues/(float) calculatedPointValues.size())*100f);
 
+        DANDYCORPCobblemonAdditions.LOGGER.warn("Pointless items: {}", calculatedPointValues.entrySet()
+                .stream()
+                .filter(a->a.getValue() <= 0)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
     }
 
     private static void populateBaseValuesFromJson() {
@@ -137,57 +142,57 @@ public class GrinderPointGenerator {
      * @param item The item to calculate the point value for.
      */
     private static float calculateValue(Item item) {
-        return dfs(item, new HashSet<>());
+        return dfs(item, new ArrayList<>());
     }
 
-    /**
-     * recursive memoizing algorithm that finds the smallest non-zero value path down an item's recipe tree.
-     * if a path yields >0 points it will prefer that, and it will prefer the path with the least
-     * value. if no valued paths are found, it will return 0.
-     *
-     * @param item The item to calculate the point value for.
-     * @param inProgress pass in an empty list that DFS will populate to handle cycles
-     */
-    private static float dfs(Item item, Set<Item> inProgress) {
+    private static float dfs(Item item, List<Item> path) {
         if (computedValues.containsKey(item)) {
             return computedValues.get(item);
         }
 
-        if (inProgress.contains(item)) {
-            setComputedValue(item, calculatedPointValues.getOrDefault(item, 0f));
-            return calculatedPointValues.getOrDefault(item, 0f);
+        // Cycle detection
+        if (path.contains(item)) {
+            int index = path.indexOf(item);
+            float cycleSum = 0f;
+            for (int i = index + 1; i < path.size(); i++) {
+                Item cycleItem = path.get(i);
+                cycleSum += computedValues.getOrDefault(cycleItem, basePointValues.getOrDefault(cycleItem, 0f));
+            }
+            return cycleSum;
         }
 
-        inProgress.add(item);
+        path.add(item);
 
         if (basePointValues.containsKey(item)) {
-            float baseValue = basePointValues.get(item);
-            setComputedValue(item, baseValue);
-            inProgress.remove(item);
-            return baseValue;
+            float base = basePointValues.get(item);
+            setComputedValue(item, base);
+            path.remove(path.size() - 1);
+            return base;
         }
 
-        if (FabricLoader.getInstance().isModLoaded("chipped") && Registries.ITEM.getId(item).getNamespace().startsWith("chipped")) {
+        // chipped compat
+        if (FabricLoader.getInstance().isModLoaded("chipped")
+                && Registries.ITEM.getId(item).getNamespace().startsWith("chipped")) {
             Item baseItem = ChippedCompat.getChippedBaseItem(item);
             if (baseItem != null) {
-                float baseValue = dfs(baseItem, inProgress);
-                setComputedValue(item, baseValue * 1.1f);
-                inProgress.remove(item);
-                return baseValue * 1.1f;
+                float baseValue = dfs(baseItem, path);
+                float finalValue = baseValue * 1.1f;
+                setComputedValue(item, finalValue);
+                path.remove(path.size() - 1);
+                return finalValue;
             }
         }
 
+        // Get all recipes that output this item.
         List<Identifier> itemRecipes = recipes.getOrDefault(item, Collections.emptyList());
-
         if (itemRecipes.isEmpty()) {
-            setComputedValue(item, basePointValues.getOrDefault(item, 0f));
-            inProgress.remove(item);
-            return basePointValues.getOrDefault(item, 0f);
+            float fallback = basePointValues.getOrDefault(item, 0f);
+            setComputedValue(item, fallback);
+            path.remove(path.size() - 1);
+            return fallback;
         }
 
-        float minValue = Float.MAX_VALUE;
-        boolean foundNonZeroValue = false; // Flag to track non-zero minimum value
-
+        List<Float> branchValues = new ArrayList<>();
         for (Identifier recipeId : itemRecipes) {
             Recipe<?> recipe = recipeManager.get(recipeId).orElse(null);
             if (recipe == null) {
@@ -196,7 +201,6 @@ public class GrinderPointGenerator {
 
             float currentRecipeValue = 0.0f;
             boolean validRecipe = true;
-
             Map<Item, Integer> ingredientCounts = new HashMap<>();
             List<Ingredient> ingredients = new ArrayList<>(recipe.getIngredients());
 
@@ -215,10 +219,7 @@ public class GrinderPointGenerator {
                 Item selectedItem = null;
                 for (ItemStack stack : ingredient.getMatchingStacks()) {
                     Item ingredientItem = stack.getItem();
-                    float ingredientValue = dfs(ingredientItem, inProgress);
-                    if (ingredientValue == Float.MAX_VALUE) {
-                        continue;
-                    }
+                    float ingredientValue = dfs(ingredientItem, path);
                     if (ingredientValue < ingredientMinValue) {
                         ingredientMinValue = ingredientValue;
                         selectedItem = ingredientItem;
@@ -230,46 +231,37 @@ public class GrinderPointGenerator {
                 }
                 ingredientCounts.put(selectedItem, ingredientCounts.getOrDefault(selectedItem, 0) + 1);
             }
-
             if (!validRecipe) {
                 continue;
             }
 
             for (Map.Entry<Item, Integer> entry : ingredientCounts.entrySet()) {
-                Item ingredientItem = entry.getKey();
-                int quantity = entry.getValue();
-                float ingredientValue = computedValues.get(ingredientItem);
-                currentRecipeValue += ingredientValue * quantity;
+                float ingValue = computedValues.getOrDefault(entry.getKey(), 0f);
+                currentRecipeValue += ingValue * entry.getValue();
             }
 
             ItemStack outputStack = recipe.getOutput(registryManager);
             int outputQuantity = outputStack.getCount();
             currentRecipeValue /= outputQuantity;
+            currentRecipeValue *= 1.10f; //10% increase per crafting step
 
-            currentRecipeValue *= 1.10f; // Add 10% crafting cost
+            branchValues.add(currentRecipeValue);
+        }
 
-            if (currentRecipeValue > 0) {
-                if (!foundNonZeroValue || currentRecipeValue < minValue) {
-                    minValue = currentRecipeValue;
-                    foundNonZeroValue = true;
-                }
-            } else if (!foundNonZeroValue && currentRecipeValue == 0) {
-                if (minValue == Float.MAX_VALUE || currentRecipeValue < minValue) {
-                    minValue = currentRecipeValue;
-                }
+        path.remove(path.size() - 1);
+
+        float minPositive = Float.MAX_VALUE;
+        for (float branchValue : branchValues) {
+            if (branchValue > 0 && branchValue < minPositive) {
+                minPositive = branchValue;
             }
         }
+        float result = (minPositive != Float.MAX_VALUE)
+                ? minPositive
+                : basePointValues.getOrDefault(item, 0f);
 
-        inProgress.remove(item);
-
-        if (minValue == Float.MAX_VALUE) {
-            // No valid recipes found, set to base value or zero
-            setComputedValue(item, basePointValues.getOrDefault(item, 0f));
-            return basePointValues.getOrDefault(item, 0f);
-        } else {
-            setComputedValue(item, minValue);
-            return minValue;
-        }
+        setComputedValue(item, result);
+        return result;
     }
 
 
