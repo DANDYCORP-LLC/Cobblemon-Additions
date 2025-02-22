@@ -50,23 +50,35 @@ public class DANDYCORPClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.BADGE, new BadgeRenderer());
+
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.BUG_BADGE, new BadgeRenderer());
-        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.DANDY_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.DARK_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.DRAGON_BADGE, new BadgeRenderer());
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.ELECTRIC_BADGE, new BadgeRenderer());
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.FAIRY_BADGE, new BadgeRenderer());
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.FIGHTING_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.FIRE_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.FLYING_BADGE, new BadgeRenderer());
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.GHOST_BADGE, new BadgeRenderer());
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.GRASS_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.GROUND_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.ICE_BADGE, new BadgeRenderer());
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.NORMAL_BADGE, new BadgeRenderer());
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.POISON_BADGE, new BadgeRenderer());
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.PSYCHIC_BADGE, new BadgeRenderer());
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.ROCK_BADGE, new BadgeRenderer());
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.STEEL_BADGE, new BadgeRenderer());
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.WATER_BADGE, new BadgeRenderer());
+
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.DANDY_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.JEFF_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.LINA_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.NATE_BADGE, new BadgeRenderer());
-        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.POISON_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.PUMPKIN_BADGE, new BadgeRenderer());
-        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.ROCK_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.SHELLY_BADGE, new BadgeRenderer());
-        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.WATER_BADGE, new BadgeRenderer());
+
         ElytraRegister.registerCapeRenderer();
         ElytraRegister.registerRenderer();
         BlockPartialModels.register();

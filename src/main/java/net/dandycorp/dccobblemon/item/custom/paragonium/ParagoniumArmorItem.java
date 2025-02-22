@@ -1,17 +1,13 @@
 package net.dandycorp.dccobblemon.item.custom.paragonium;
 
-import com.google.common.collect.Multimap;
 import net.dandycorp.dccobblemon.renderer.ParagoniumArmorRenderer;
+import net.dandycorp.dccobblemon.util.GradientFormatting;
 import net.dandycorp.dccobblemon.util.ParagoniumFormatting;
 import net.dandycorp.dccobblemon.util.TextUtils;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;

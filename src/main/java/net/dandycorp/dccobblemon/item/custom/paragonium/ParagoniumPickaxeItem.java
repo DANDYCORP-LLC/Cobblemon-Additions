@@ -1,14 +1,12 @@
 package net.dandycorp.dccobblemon.item.custom.paragonium;
 
+import net.dandycorp.dccobblemon.util.GradientFormatting;
 import net.dandycorp.dccobblemon.util.ParagoniumFormatting;
 import net.dandycorp.dccobblemon.util.TextUtils;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
@@ -36,4 +34,6 @@ public class ParagoniumPickaxeItem extends PickaxeItem implements ParagoniumForm
     public boolean isDamageable() {
         return false;
     }
+
+
 }

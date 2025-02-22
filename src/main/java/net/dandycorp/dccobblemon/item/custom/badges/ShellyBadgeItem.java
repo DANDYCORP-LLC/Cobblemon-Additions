@@ -33,4 +33,14 @@ public class ShellyBadgeItem extends BadgeItem {
         return modifiers;
     }
 
+    @Override
+    public int getGradientStartColor() {
+        return 0xe19c16;
+    }
+
+    @Override
+    public int getGradientEndColor() {
+        return 0xfdf59f;
+    }
+
 }

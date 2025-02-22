@@ -83,4 +83,14 @@ public class NateBadgeItem extends BadgeItem {
             ScaleTypes.STEP_HEIGHT.getScaleData(entity).setScale(2);
         }
     }
+
+    @Override
+    public int getGradientStartColor() {
+        return 0xe19c16;
+    }
+
+    @Override
+    public int getGradientEndColor() {
+        return 0xfdf59f;
+    }
 }

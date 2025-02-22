@@ -4,6 +4,7 @@ import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
+import net.dandycorp.dccobblemon.util.GradientFormatting;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -19,7 +20,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class JeffBadgeItem extends BadgeItem {
+public class JeffBadgeItem extends BadgeItem{
 
     public JeffBadgeItem(Settings settings) {
         super(settings);
@@ -114,5 +115,15 @@ public class JeffBadgeItem extends BadgeItem {
                                 .anyMatch(item -> item == DANDYCORPItems.JEFF_BADGE)
                 )
                 .orElse(false);
+    }
+
+    @Override
+    public int getGradientStartColor() {
+        return 0xe19c16;
+    }
+
+    @Override
+    public int getGradientEndColor() {
+        return 0xfdf59f;
     }
 }

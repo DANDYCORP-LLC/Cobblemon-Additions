@@ -3,6 +3,8 @@ package net.dandycorp.dccobblemon.item.custom;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import dev.emi.trinkets.api.TrinketsApi;
+import net.dandycorp.dccobblemon.util.GradientFormatting;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -18,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BadgeItem extends TrinketItem {
+public class BadgeItem extends TrinketItem implements GradientFormatting {
 
     public BadgeItem(Settings settings) {
         super(settings);
@@ -28,8 +30,8 @@ public class BadgeItem extends TrinketItem {
         return TrinketsApi.getTrinketComponent(entity)
                 .map(trinketComponent ->
                         trinketComponent.getAllEquipped().stream()
-                                .map(Pair::getRight) // Get the ItemStack from the pair
-                                .map(ItemStack::getItem) // Get the Item from the ItemStack
+                                .map(Pair::getRight)
+                                .map(ItemStack::getItem)
                                 .anyMatch(item -> item == badge)
                 )
                 .orElse(false);
@@ -64,14 +66,15 @@ public class BadgeItem extends TrinketItem {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(stack, world, tooltip, tooltipContext);
-
-        if (stack.hasNbt() && stack.getNbt().contains("OwnerName")) {
-            tooltip.add(Text.literal(stack.getNbt().getString("OwnerName")));
+        if (stack.hasNbt() && stack.getNbt().contains("OwnerName") && stack.getNbt().contains("Owner")) {
+            tooltip.add(Text.literal(stack.getNbt().getString("OwnerName")).styled(style ->
+                    MinecraftClient.getInstance().getSession().getUuidOrNull().equals(stack.getNbt().getUuid("Owner"))
+                    ? style.withColor(Formatting.WHITE) : style.withColor(Formatting.DARK_RED)));
             tooltip.add(Text.literal(""));
         }
 
         if (hasGlint(stack)) {
-            tooltip.add(Text.literal("(Challenge Mode)").styled(style -> style.withBold(true).withColor(Formatting.GOLD)));
+            tooltip.add(gradientText(Text.literal("(Challenge Mode)")));
             tooltip.add(Text.literal(""));
         }
     }
@@ -86,5 +89,20 @@ public class BadgeItem extends TrinketItem {
         if (!nbt.contains("OwnerName")){
             nbt.putString("OwnerName", entity.getName().getString());
         }
+    }
+
+    @Override
+    public int getGradientStartColor() {
+        return 0x727A9A;
+    }
+
+    @Override
+    public int getGradientEndColor() {
+        return 0xD8DBE9;
+    }
+
+    @Override
+    public boolean isBold() {
+        return false;
     }
 }

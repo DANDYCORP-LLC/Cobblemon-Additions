@@ -51,7 +51,7 @@ public class EnchantmentMixin {
     private static void getEfficiency(LivingEntity entity, CallbackInfoReturnable<Integer> cir) {
         if (entity instanceof PlayerEntity player) {
             TrinketsApi.getTrinketComponent(player).ifPresent(trinketComponent -> {
-                if (trinketComponent.isEquipped(DANDYCORPItems.GROUND_BADGE)) {
+                if (trinketComponent.isEquipped(DANDYCORPItems.ROCK_BADGE)) {
                     cir.setReturnValue(cir.getReturnValueI()+3);
                 }
             });

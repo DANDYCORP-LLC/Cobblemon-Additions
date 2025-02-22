@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.paragonium;
 
+import net.dandycorp.dccobblemon.util.GradientFormatting;
 import net.dandycorp.dccobblemon.util.ParagoniumFormatting;
 import net.dandycorp.dccobblemon.util.TextUtils;
 import net.minecraft.client.item.TooltipContext;
@@ -28,4 +29,6 @@ public class ParagoniumItem extends Item implements ParagoniumFormatting {
     public Text getName(ItemStack stack) {
         return gradientName(stack);
     }
+
+
 }

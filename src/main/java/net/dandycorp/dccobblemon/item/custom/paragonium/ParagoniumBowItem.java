@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.paragonium;
 
+import net.dandycorp.dccobblemon.util.GradientFormatting;
 import net.dandycorp.dccobblemon.util.ParagoniumFormatting;
 import net.dandycorp.dccobblemon.util.TextUtils;
 import net.minecraft.client.item.TooltipContext;
@@ -24,7 +25,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public class ParagoniumBowItem extends BowItem implements ParagoniumFormatting {
     public ParagoniumBowItem(Settings settings) {
@@ -152,5 +152,7 @@ public class ParagoniumBowItem extends BowItem implements ParagoniumFormatting {
     public int getRange() {
         return 25;
     }
+
+
 }
 

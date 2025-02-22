@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.paragonium;
 
+import net.dandycorp.dccobblemon.util.GradientFormatting;
 import net.dandycorp.dccobblemon.util.ParagoniumFormatting;
 import net.dandycorp.dccobblemon.util.TextUtils;
 import net.minecraft.client.item.TooltipContext;
@@ -33,4 +34,6 @@ public class ParagoniumShieldItem extends ShieldItem implements ParagoniumFormat
     public boolean isDamageable() {
         return false;
     }
+
+
 }

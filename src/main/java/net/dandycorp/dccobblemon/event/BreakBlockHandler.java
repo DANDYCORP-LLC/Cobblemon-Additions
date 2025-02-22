@@ -40,7 +40,7 @@ public class BreakBlockHandler implements PlayerBlockBreakEvents.Before {
                         .map(ItemStack::getItem) // Get the Item from the ItemStack
                         .filter(item -> item instanceof BadgeItem) // Filter for BadgeItems
                         .forEach(item -> {
-                            if (item == DANDYCORPItems.GROUND_BADGE && !player.isSneaking()) {
+                            if (item == DANDYCORPItems.ROCK_BADGE && !player.isSneaking()) {
 
                                 ItemStack heldItem = player.getMainHandStack();
 
