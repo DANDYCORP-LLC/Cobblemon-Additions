@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
@@ -21,8 +22,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class GrassBadgeItem extends BadgeItem {
-    public GrassBadgeItem(Settings settings) {
-        super(settings);
+    public GrassBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     @Override
@@ -40,6 +41,7 @@ public class GrassBadgeItem extends BadgeItem {
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
+        tooltip.add(Text.literal(""));
         tooltip.add(Text.literal("Restores hunger and health while in sunlight").formatted(Formatting.GRAY));
     }
 }

@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
@@ -17,8 +18,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class FightingBadgeItem extends BadgeItem {
-    public FightingBadgeItem(Settings settings) {
-        super(settings);
+    public FightingBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
@@ -31,6 +32,7 @@ public class FightingBadgeItem extends BadgeItem {
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
+        tooltip.add(Text.literal(""));
         tooltip.add(Text.literal("+ Knockback II").formatted(Formatting.GRAY));
     }
 }

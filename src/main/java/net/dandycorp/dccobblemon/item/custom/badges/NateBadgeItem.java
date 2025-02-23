@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
@@ -22,13 +23,14 @@ public class NateBadgeItem extends BadgeItem {
 
     private long tickCounter = 0;
 
-    public NateBadgeItem(Settings settings) {
-        super(settings);
+    public NateBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
+        tooltip.add(Text.literal(""));
         tooltip.add(Text.literal("Size does matter...").formatted(Formatting.GREEN));
     }
 

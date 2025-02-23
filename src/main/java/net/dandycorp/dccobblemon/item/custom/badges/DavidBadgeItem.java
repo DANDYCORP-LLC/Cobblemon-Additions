@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
@@ -20,8 +21,8 @@ import java.util.UUID;
 
 public class DavidBadgeItem extends BadgeItem {
 
-    public DavidBadgeItem(Settings settings) {
-        super(settings);
+    public DavidBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     @Override

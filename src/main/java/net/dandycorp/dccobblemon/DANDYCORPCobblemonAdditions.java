@@ -13,6 +13,7 @@ import com.cobblemon.mod.common.api.events.pokemon.HeldItemEvent;
 import com.cobblemon.mod.common.api.pokemon.experience.ExperienceSource;
 import com.cobblemon.mod.common.api.pokemon.experience.SidemodExperienceSource;
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext;
+import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import dev.emi.trinkets.api.SlotReference;
@@ -67,6 +68,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.StreamSupport;
 
 public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityComponentInitializer {
 
@@ -174,7 +176,7 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 	private Unit onExperienceGained(ExperienceGainedPostEvent xpEvent) {
 		System.out.println("pokemon + " + xpEvent.getExperience() + " xp");
 		if (BadgeItem.isEquipped(xpEvent.getPokemon().getOwnerPlayer(),DANDYCORPItems.PSYCHIC_BADGE)){
-			if(!xpEvent.getSource().isSidemod()) {
+			if(xpEvent.getSource().isBattle()) {
 				int xp = xpEvent.getExperience();
 				System.out.println("pokemon gained an extra " + xp * 0.5 + " experience");
 				xpEvent.getPokemon().addExperience(new SidemodExperienceSource(MOD_ID), (int) (xp * 0.5));
@@ -206,16 +208,27 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 	private Unit onPokemonEntitySpawn(SpawnEvent<PokemonEntity> event) {
 		PokemonEntity pokemonEntity = event.getEntity();
 		SpawningContext ctx = event.getCtx();
-		if (pokemonEntity != null && ctx.getCause().getEntity() instanceof PlayerEntity player){
+		if (pokemonEntity != null && ctx.getCause().getEntity() instanceof PlayerEntity player) {
 			int rolls = 1;
 			float rate = Cobblemon.config.getShinyRate();
 			float chance = RANDOM.nextFloat(rate);
 
 			Optional<TrinketComponent> component = TrinketsApi.getTrinketComponent(player);
 			if (component.isPresent()) {
-				for (Pair<SlotReference, ItemStack> p : component.get().getAllEquipped().stream().filter(pair -> pair.getRight().isOf(DANDYCORPItems.SHINY_CHARM)).toList()) {
-					rolls += 2;
-					chance = (float) Math.floor(chance); // barely an extra chance, but it's something.
+				for (Pair<SlotReference, ItemStack> p : component.get().getAllEquipped().stream().toList()) {
+
+					if(p.getRight().isOf(DANDYCORPItems.SHINY_CHARM)){
+						rolls += 2;
+					}
+
+					if(p.getRight().getItem() instanceof BadgeItem badge && BadgeItem.isChallenge(p.getRight())){
+						List<ElementalType> pokemonTypes = (List<ElementalType>) pokemonEntity.getPokemon().getTypes();
+						if (pokemonTypes.stream().anyMatch(badge.getTypes()::contains)) {
+							rolls += 3;
+							System.out.println("badge shiny rate increased for " + pokemonEntity.getPokemon().getDisplayName());
+						}
+					}
+					chance = (float) Math.floor(chance); // minimal effect
 				}
 			}
 			if (player.hasStatusEffect(SPARKLING_POWER)){

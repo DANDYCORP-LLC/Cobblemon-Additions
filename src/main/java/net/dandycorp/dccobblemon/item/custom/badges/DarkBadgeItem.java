@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
@@ -20,8 +21,8 @@ import java.util.UUID;
 
 public class DarkBadgeItem extends BadgeItem {
 
-    public DarkBadgeItem(Settings settings) {
-        super(settings);
+    public DarkBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     @Override
@@ -34,6 +35,7 @@ public class DarkBadgeItem extends BadgeItem {
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
+        tooltip.add(Text.literal(""));
         tooltip.add(Text.literal("Inflicts darkness on-hit").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Inflicts blindness on-hit").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Grants darkness immunity").formatted(Formatting.GRAY));

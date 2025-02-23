@@ -1,5 +1,7 @@
 package net.dandycorp.dccobblemon.item;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
+import com.cobblemon.mod.common.api.types.ElementalTypes;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
@@ -24,6 +26,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
+import java.util.Collections;
 import java.util.List;
 
 import static net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions.SPARKLING_POWER;
@@ -46,61 +49,85 @@ public class DANDYCORPItems {
     // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 
     public static final Item BADGE = registerItem("badge",
-            new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.UNCOMMON)));
+            new BadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.UNCOMMON), ElementalTypes.INSTANCE.all()));
 
 
     public static final Item BUG_BADGE = registerItem("bug_badge",
-            new BugBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new BugBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getBUG())));
     public static final Item DARK_BADGE = registerItem("dark_badge",
-            new DarkBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new DarkBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getDARK())));
     public static final Item DRAGON_BADGE = registerItem("dragon_badge",
-            new DragonBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new DragonBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getDRAGON())));
     public static final Item ELECTRIC_BADGE = registerItem("electric_badge",
-            new ElectricBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new ElectricBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getELECTRIC())));
     public static final Item FAIRY_BADGE = registerItem("fairy_badge",
-            new FairyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new FairyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getFAIRY())));
     public static final Item FIGHTING_BADGE = registerItem("fighting_badge",
-            new FightingBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new FightingBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getFIGHTING())));
     public static final Item FIRE_BADGE = registerItem("fire_badge",
-            new FireBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new FireBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getFIRE())));
     public static final Item FLYING_BADGE = registerItem("flying_badge",
-            new FlyingBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new FlyingBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getFLYING())));
     public static final Item GHOST_BADGE = registerItem("ghost_badge",
-            new GhostBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new GhostBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getGHOST())));
     public static final Item GRASS_BADGE = registerItem("grass_badge",
-            new GrassBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new GrassBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getGRASS())));
     public static final Item GROUND_BADGE = registerItem("ground_badge",
-            new GroundBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new GroundBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getGROUND())));
     public static final Item ICE_BADGE = registerItem("ice_badge",
-            new IceBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new IceBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getICE())));
     public static final Item NORMAL_BADGE = registerItem("normal_badge",
-            new NormalBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new NormalBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getNORMAL())));
     public static final Item POISON_BADGE = registerItem("poison_badge",
-            new PoisonBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new PoisonBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getPOISON())));
     public static final Item PSYCHIC_BADGE = registerItem("psychic_badge",
-            new PsychicBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new PsychicBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getPSYCHIC())));
     public static final Item ROCK_BADGE = registerItem("rock_badge",
-            new RockBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new RockBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getROCK())));
     public static final Item STEEL_BADGE = registerItem("steel_badge",
-            new SteelBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new SteelBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getSTEEL())));
     public static final Item WATER_BADGE = registerItem("water_badge",
-            new WaterBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE)));
+            new WaterBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.RARE),
+                    Collections.singletonList(ElementalTypes.INSTANCE.getWATER())));
 
 
     public static final Item DANDY_BADGE = registerItem("dandy_badge",
-            new DandyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new DandyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC), ElementalTypes.INSTANCE.all()));
     public static final Item DAVID_BADGE = registerItem("david_badge",
-            new DavidBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new DavidBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC),
+                    List.of(ElementalTypes.INSTANCE.getFIRE(), ElementalTypes.INSTANCE.getGROUND(), ElementalTypes.INSTANCE.getPSYCHIC())));
     public static final Item JEFF_BADGE = registerItem("jeff_badge",
-            new JeffBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new JeffBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC),
+                    List.of(ElementalTypes.INSTANCE.getICE(), ElementalTypes.INSTANCE.getBUG(), ElementalTypes.INSTANCE.getWATER())));
     public static final Item LINA_BADGE = registerItem("lina_badge",
-            new LinaBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new LinaBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC),
+                    List.of(ElementalTypes.INSTANCE.getGRASS(), ElementalTypes.INSTANCE.getGHOST(), ElementalTypes.INSTANCE.getFAIRY())));
     public static final Item NATE_BADGE = registerItem("nate_badge",
-            new NateBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new NateBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC),
+                    List.of(ElementalTypes.INSTANCE.getFIGHTING(), ElementalTypes.INSTANCE.getROCK(), ElementalTypes.INSTANCE.getSTEEL())));
     public static final Item PUMPKIN_BADGE = registerItem("pumpkin_badge",
-            new PumpkinBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new PumpkinBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC),
+                    List.of(ElementalTypes.INSTANCE.getDARK(), ElementalTypes.INSTANCE.getPOISON(), ElementalTypes.INSTANCE.getFLYING())));
     public static final Item SHELLY_BADGE = registerItem("shelly_badge",
-            new ShellyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+            new ShellyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC),
+                    List.of(ElementalTypes.INSTANCE.getNORMAL(), ElementalTypes.INSTANCE.getELECTRIC(), ElementalTypes.INSTANCE.getDRAGON())));
 
 
 

@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
@@ -19,8 +20,8 @@ import java.util.UUID;
 
 public class DandyBadgeItem extends BadgeItem implements GradientFormatting {
 
-    public DandyBadgeItem(Settings settings) {
-        super(settings);
+    public DandyBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     @Override
@@ -33,6 +34,7 @@ public class DandyBadgeItem extends BadgeItem implements GradientFormatting {
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
+        tooltip.add(Text.literal(""));
         tooltip.add(Text.literal("Fortune at any cost").formatted(Formatting.GREEN));
     }
 

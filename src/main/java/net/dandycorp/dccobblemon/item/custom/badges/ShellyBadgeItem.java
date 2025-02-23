@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
@@ -17,13 +18,14 @@ import java.util.List;
 import java.util.UUID;
 
 public class ShellyBadgeItem extends BadgeItem {
-    public ShellyBadgeItem(Settings settings) {
-        super(settings);
+    public ShellyBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
+        tooltip.add(Text.literal(""));
         tooltip.add(Text.literal("The great equalizer").formatted(Formatting.RED));
     }
 

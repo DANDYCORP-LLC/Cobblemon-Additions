@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
@@ -17,13 +18,14 @@ import java.util.List;
 
 public class FlyingBadgeItem extends BadgeItem implements Trinket {
 
-    public FlyingBadgeItem(Settings settings) {
-        super(settings);
+    public FlyingBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
+        tooltip.add(Text.literal(""));
         tooltip.add(Text.literal("Grants slow falling").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Grants jump boost").formatted(Formatting.GRAY));
     }

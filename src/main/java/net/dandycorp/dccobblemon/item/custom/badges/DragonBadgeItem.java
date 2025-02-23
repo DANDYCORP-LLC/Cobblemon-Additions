@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
@@ -25,13 +26,14 @@ import java.util.UUID;
 public class DragonBadgeItem extends BadgeItem implements FabricElytraItem {
 
 
-    public DragonBadgeItem(Settings settings) {
-        super(settings);
+    public DragonBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
+        tooltip.add(Text.literal(""));
         tooltip.add(Text.literal("Functions as an elytra").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Applies soul fire flames on-hit").formatted(Formatting.GRAY));
     }

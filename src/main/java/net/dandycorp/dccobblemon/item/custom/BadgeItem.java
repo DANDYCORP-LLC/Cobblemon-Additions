@@ -1,9 +1,14 @@
 package net.dandycorp.dccobblemon.item.custom;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
+import com.cobblemon.mod.common.api.types.ElementalTypes;
+import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import dev.emi.trinkets.api.TrinketsApi;
+import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.util.GradientFormatting;
+import net.dandycorp.dccobblemon.util.TextUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -19,11 +24,15 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 public class BadgeItem extends TrinketItem implements GradientFormatting {
 
-    public BadgeItem(Settings settings) {
+    public final List<ElementalType> types;
+
+    public BadgeItem(Settings settings, List<ElementalType> elementalTypes) {
         super(settings);
+        types = elementalTypes;
     }
 
     public static <T extends LivingEntity> boolean isEquipped(T entity, Item badge){
@@ -37,6 +46,14 @@ public class BadgeItem extends TrinketItem implements GradientFormatting {
                 .orElse(false);
     }
 
+    public static boolean isChallenge(ItemStack stack){
+        if (stack.hasNbt() && stack.getNbt() != null) {
+            return stack.getNbt().getBoolean("Challenge");
+        }
+        return false;
+    }
+
+
     @Override
     public boolean canEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (stack.hasNbt() && stack.getNbt().containsUuid("Owner")) {
@@ -48,16 +65,12 @@ public class BadgeItem extends TrinketItem implements GradientFormatting {
 
     @Override
     public boolean hasGlint(ItemStack stack) {
-        if (stack.hasNbt() && stack.getNbt().contains("Challenge")) {
-            return stack.getNbt().getBoolean("Challenge");
-        } else {
-            return false;
-        }
+        return isChallenge(stack);
     }
 
     @Override
     public Text getName(ItemStack stack) {
-        if(hasGlint(stack)){
+        if(isChallenge(stack)){
             return super.getName(stack).copy().formatted(Formatting.BOLD);
         }
         return super.getName(stack);
@@ -70,12 +83,20 @@ public class BadgeItem extends TrinketItem implements GradientFormatting {
             tooltip.add(Text.literal(stack.getNbt().getString("OwnerName")).styled(style ->
                     MinecraftClient.getInstance().getSession().getUuidOrNull().equals(stack.getNbt().getUuid("Owner"))
                     ? style.withColor(Formatting.WHITE) : style.withColor(Formatting.DARK_RED)));
-            tooltip.add(Text.literal(""));
         }
 
-        if (hasGlint(stack)) {
+        if (isChallenge(stack)) {
+            tooltip.add(Text.literal(""));
             tooltip.add(gradientText(Text.literal("(Challenge Mode)")));
             tooltip.add(Text.literal(""));
+            if(types.equals(ElementalTypes.INSTANCE.all())){
+                tooltip.addAll(
+                        TextUtils.wrapText(Text.literal("Increased shiny odds and catch rates for all pokemon").formatted(Formatting.WHITE),40));
+            }
+            else {
+                tooltip.addAll(TextUtils.wrapText(
+                        Text.literal("Increased shiny odds and catch rates for " + getTypeNames(getTypes()) + " pokemon").formatted(Formatting.WHITE),40));
+            }
         }
     }
 
@@ -88,6 +109,30 @@ public class BadgeItem extends TrinketItem implements GradientFormatting {
         }
         if (!nbt.contains("OwnerName")){
             nbt.putString("OwnerName", entity.getName().getString());
+        }
+    }
+
+    public List<ElementalType> getTypes() {
+        return types;
+    }
+
+    private String getTypeNames(List<ElementalType> types) {
+        List<String> names = types.stream()
+                .map(type -> type.getDisplayName().getString())
+                .toList();
+        int size = names.size();
+        if (size == 0) {
+            return "";
+        } else if (size == 1) {
+            return names.get(0);
+        } else if (size == 2) {
+            return names.get(0) + " and " + names.get(1);
+        } else {
+            StringJoiner joiner = new StringJoiner(", ");
+            for (int i = 0; i < size - 1; i++) {
+                joiner.add(names.get(i));
+            }
+            return joiner.toString() + ", and " + names.get(size - 1);
         }
     }
 

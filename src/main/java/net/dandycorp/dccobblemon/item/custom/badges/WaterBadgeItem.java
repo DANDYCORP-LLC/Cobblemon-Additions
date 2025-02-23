@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
@@ -16,13 +17,14 @@ import java.util.List;
 
 public class WaterBadgeItem extends BadgeItem {
 
-    public WaterBadgeItem(Settings settings) {
-        super(settings);
+    public WaterBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
+        tooltip.add(Text.literal(""));
         tooltip.add(Text.literal("Grants conduit power").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("+ Depth strider III").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("+ Aqua Affinity").formatted(Formatting.GRAY));

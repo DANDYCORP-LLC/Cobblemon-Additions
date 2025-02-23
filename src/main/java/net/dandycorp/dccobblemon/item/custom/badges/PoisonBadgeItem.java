@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
@@ -20,8 +21,8 @@ import java.util.UUID;
 
 public class PoisonBadgeItem extends BadgeItem {
 
-    public PoisonBadgeItem(Settings settings) {
-        super(settings);
+    public PoisonBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     @Override
@@ -34,6 +35,7 @@ public class PoisonBadgeItem extends BadgeItem {
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
+        tooltip.add(Text.literal(""));
         tooltip.add(Text.literal("Inflicts poison on-hit").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Grants poison immunity").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Grants wither immunity").formatted(Formatting.GRAY));

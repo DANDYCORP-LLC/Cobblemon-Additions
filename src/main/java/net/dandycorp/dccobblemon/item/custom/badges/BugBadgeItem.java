@@ -23,14 +23,13 @@ import java.util.UUID;
 
 public class BugBadgeItem extends BadgeItem {
 
-    public static final ElementalType ELEMENT_TYPE = ElementalTypes.INSTANCE.getBUG();
-
-    public BugBadgeItem(Settings settings) {
-        super(settings);
+    public BugBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
+        tooltip.add(Text.literal(""));
         tooltip.add(Text.literal("Size reduced by 33%").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Thorns effect when hit").formatted(Formatting.GRAY));
     }

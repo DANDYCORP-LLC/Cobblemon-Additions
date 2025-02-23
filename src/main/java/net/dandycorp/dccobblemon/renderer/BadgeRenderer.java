@@ -28,12 +28,12 @@ public class BadgeRenderer implements TrinketRenderer {
                        float animationProgress, float headYaw, float headPitch) {
 
         if (contextModel instanceof BipedEntityModel<?> bipedModel) {
-            //boolean hasChestplate = !entity.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
-            //if (hasChestplate) {
-                //translateToChestWithArmor(matrices, bipedModel, entity);
-            //} else {
+            boolean hasChestplate = !entity.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
+            if (hasChestplate) {
+                translateToChestWithArmor(matrices, bipedModel, entity);
+            } else {
                 translateToChestDefault(matrices, bipedModel, entity);
-            //}
+            }
             matrices.translate(-0.15F, -0.2F, 0.01F);
             matrices.scale(0.2F, 0.2F, 0.2F);
             matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0F));

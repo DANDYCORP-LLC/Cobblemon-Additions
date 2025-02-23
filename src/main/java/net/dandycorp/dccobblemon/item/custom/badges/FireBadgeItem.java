@@ -1,5 +1,6 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
@@ -22,13 +23,14 @@ import java.util.List;
 
 public class FireBadgeItem extends BadgeItem implements Trinket {
 
-    public FireBadgeItem(Settings settings) {
-        super(settings);
+    public FireBadgeItem(Settings settings, List<ElementalType> elementalTypes) {
+        super(settings,elementalTypes);
     }
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
+        tooltip.add(Text.literal(""));
         tooltip.add(Text.literal("Inflicts fire on-hit").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Grants fire resistance").formatted(Formatting.GRAY));
         tooltip.add(Text.literal("Allows lava walking").formatted(Formatting.GRAY));
