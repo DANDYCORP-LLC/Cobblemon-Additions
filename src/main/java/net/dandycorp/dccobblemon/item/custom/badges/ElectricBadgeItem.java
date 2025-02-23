@@ -6,6 +6,7 @@ import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
 
 import java.util.UUID;
@@ -13,5 +14,12 @@ import java.util.UUID;
 public class ElectricBadgeItem extends BadgeItem {
     public ElectricBadgeItem(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
+        var modifiers = super.getModifiers(stack, slot, entity, uuid);
+        modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(uuid, "dandycorp:electric_speed", 0.20, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+        return modifiers;
     }
 }

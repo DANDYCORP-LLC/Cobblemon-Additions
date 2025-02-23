@@ -29,13 +29,6 @@ public class DragonBadgeItem extends BadgeItem implements FabricElytraItem {
         super(settings);
     }
 
-    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
-        var modifiers = super.getModifiers(stack, slot, entity, uuid);
-        modifiers.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(uuid, "dandycorp:dragon_speed", 0.8, EntityAttributeModifier.Operation.ADDITION));
-        modifiers.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(uuid, "dandycorp:dragon_speed", 0.8, EntityAttributeModifier.Operation.ADDITION));
-        return modifiers;
-    }
-
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);

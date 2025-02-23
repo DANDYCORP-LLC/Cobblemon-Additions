@@ -1,5 +1,7 @@
 package net.dandycorp.dccobblemon.item.custom.badges;
 
+import com.cobblemon.mod.common.api.types.ElementalType;
+import com.cobblemon.mod.common.api.types.ElementalTypes;
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
@@ -15,10 +17,13 @@ import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import virtuoel.pehkui.api.ScaleTypes;
 
+import java.lang.annotation.ElementType;
 import java.util.List;
 import java.util.UUID;
 
 public class BugBadgeItem extends BadgeItem {
+
+    public static final ElementalType ELEMENT_TYPE = ElementalTypes.INSTANCE.getBUG();
 
     public BugBadgeItem(Settings settings) {
         super(settings);
@@ -33,7 +38,7 @@ public class BugBadgeItem extends BadgeItem {
     @Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
         var modifiers = super.getModifiers(stack, slot, entity, uuid);
-        modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(uuid, "dandycorp:bug_speed", 0.20, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+        modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(uuid, "dandycorp:bug_speed", 0.8, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
         return modifiers;
     }
 

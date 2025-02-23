@@ -8,6 +8,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -17,14 +18,19 @@ import virtuoel.pehkui.api.ScaleTypes;
 import java.util.List;
 import java.util.UUID;
 
-public class SteelBadgeItem extends BadgeItem {
-    public SteelBadgeItem(Settings settings) {
+public class DavidBadgeItem extends BadgeItem {
+
+    public DavidBadgeItem(Settings settings) {
         super(settings);
     }
 
     @Override
-    public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        super.appendTooltip(itemStack, world, tooltip, tooltipContext);
-        tooltip.add(Text.literal("Halves all damage taken").formatted(Formatting.GRAY));
+    public int getGradientStartColor() {
+        return 0xe19c16;
+    }
+
+    @Override
+    public int getGradientEndColor() {
+        return 0xfdf59f;
     }
 }

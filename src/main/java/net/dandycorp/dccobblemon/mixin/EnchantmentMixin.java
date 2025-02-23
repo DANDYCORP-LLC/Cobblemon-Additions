@@ -58,5 +58,15 @@ public class EnchantmentMixin {
         }
     }
 
+    @Inject(method = "getKnockback", at=@At("RETURN"), cancellable = true)
+    private static void getKnockback(LivingEntity entity, CallbackInfoReturnable<Integer> cir) {
+        if (entity instanceof PlayerEntity player) {
+            TrinketsApi.getTrinketComponent(player).ifPresent(trinketComponent -> {
+                if (trinketComponent.isEquipped(DANDYCORPItems.FIGHTING_BADGE)) {
+                    cir.setReturnValue(cir.getReturnValueI()+2);
+                }
+            });
+        }
+    }
 
 }

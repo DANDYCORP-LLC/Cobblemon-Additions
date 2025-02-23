@@ -7,10 +7,12 @@
     "BattleEndMixin",
     "BlockLootMixin",
     "EnchantmentMixin",
+    "ExperienceOrbMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "PowderedSnowMixin",
     "ProjectileMixin",
+    "ServerWorldMixin",
     "StackNameMixin",
     "accessor.SmithingTransformRecipeAccessor"
   ],

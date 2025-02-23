@@ -26,7 +26,7 @@ public class BadgeItem extends TrinketItem implements GradientFormatting {
         super(settings);
     }
 
-    public static boolean isEquipped(LivingEntity entity, Item badge){
+    public static <T extends LivingEntity> boolean isEquipped(T entity, Item badge){
         return TrinketsApi.getTrinketComponent(entity)
                 .map(trinketComponent ->
                         trinketComponent.getAllEquipped().stream()

@@ -4,8 +4,14 @@ import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.Priority;
 import com.cobblemon.mod.common.api.events.CobblemonEvents;
 import com.cobblemon.mod.common.api.events.battles.BattleStartedPreEvent;
+import com.cobblemon.mod.common.api.events.battles.BattleVictoryEvent;
 import com.cobblemon.mod.common.api.events.entity.SpawnEvent;
+import com.cobblemon.mod.common.api.events.pokemon.ExperienceGainedPostEvent;
+import com.cobblemon.mod.common.api.events.pokemon.ExperienceGainedPreEvent;
+import com.cobblemon.mod.common.api.events.pokemon.FriendshipUpdatedEvent;
 import com.cobblemon.mod.common.api.events.pokemon.HeldItemEvent;
+import com.cobblemon.mod.common.api.pokemon.experience.ExperienceSource;
+import com.cobblemon.mod.common.api.pokemon.experience.SidemodExperienceSource;
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -26,6 +32,7 @@ import net.dandycorp.dccobblemon.effect.SparklingPowerEffect;
 import net.dandycorp.dccobblemon.event.AttackEntityHandler;
 import net.dandycorp.dccobblemon.event.BreakBlockHandler;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
+import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.dandycorp.dccobblemon.item.custom.badges.DragonBadgeItem;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
 import net.dandycorp.dccobblemon.util.*;
@@ -124,6 +131,8 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 		CobblemonEvents.BATTLE_STARTED_PRE.subscribe(Priority.NORMAL,this::onBattleStart);
 		CobblemonEvents.HELD_ITEM_POST.subscribe(Priority.LOW,this::onHeldItemChanged);
 		CobblemonEvents.POKEMON_ENTITY_SPAWN.subscribe(Priority.HIGHEST,this::onPokemonEntitySpawn);
+		CobblemonEvents.FRIENDSHIP_UPDATED.subscribe(Priority.HIGH,this::onFriendshipUpdated);
+		CobblemonEvents.EXPERIENCE_GAINED_EVENT_POST.subscribe(Priority.NORMAL,this::onExperienceGained);
 
 		DragonBadgeItem.registerFlight();
 
@@ -161,6 +170,19 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 
 		LOGGER.info("DANDYCORP initialized!");
 	}
+
+	private Unit onExperienceGained(ExperienceGainedPostEvent xpEvent) {
+		System.out.println("pokemon + " + xpEvent.getExperience() + " xp");
+		if (BadgeItem.isEquipped(xpEvent.getPokemon().getOwnerPlayer(),DANDYCORPItems.PSYCHIC_BADGE)){
+			if(!xpEvent.getSource().isSidemod()) {
+				int xp = xpEvent.getExperience();
+				System.out.println("pokemon gained an extra " + xp * 0.5 + " experience");
+				xpEvent.getPokemon().addExperience(new SidemodExperienceSource(MOD_ID), (int) (xp * 0.5));
+			}
+		}
+		return Unit.INSTANCE;
+	}
+
 
 	private Unit onBattleStart(BattleStartedPreEvent event){
 		event.getBattle().getPlayers().forEach(player -> {
@@ -202,6 +224,16 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 			if (chance <= rolls) {
 				pokemonEntity.getPokemon().setShiny(true);
 			}
+		}
+		return Unit.INSTANCE;
+	}
+
+	private Unit onFriendshipUpdated(FriendshipUpdatedEvent friendshipUpdatedEvent) {
+		int newFriendship = friendshipUpdatedEvent.getNewFriendship();
+		int difference = newFriendship - friendshipUpdatedEvent.getPokemon().getFriendship() ;
+
+		if (BadgeItem.isEquipped(friendshipUpdatedEvent.getPokemon().getOwnerPlayer(), DANDYCORPItems.FAIRY_BADGE)) {
+			friendshipUpdatedEvent.setNewFriendship(newFriendship + (difference * 2));
 		}
 		return Unit.INSTANCE;
 	}

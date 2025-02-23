@@ -89,6 +89,8 @@ public class DANDYCORPItems {
 
     public static final Item DANDY_BADGE = registerItem("dandy_badge",
             new DandyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item DAVID_BADGE = registerItem("david_badge",
+            new DavidBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item JEFF_BADGE = registerItem("jeff_badge",
             new JeffBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item LINA_BADGE = registerItem("lina_badge",
@@ -284,6 +286,7 @@ public class DANDYCORPItems {
             entries.add(WATER_BADGE);
 
             entries.add(DANDY_BADGE);
+            entries.add(DAVID_BADGE);
             entries.add(JEFF_BADGE);
             entries.add(LINA_BADGE);
             entries.add(NATE_BADGE);

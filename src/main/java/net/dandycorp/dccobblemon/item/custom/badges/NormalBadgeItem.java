@@ -6,6 +6,7 @@ import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
 
 import java.util.UUID;
@@ -13,5 +14,11 @@ import java.util.UUID;
 public class NormalBadgeItem extends BadgeItem {
     public NormalBadgeItem(Settings settings) {
         super(settings);
+    }
+
+    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
+        var modifiers = super.getModifiers(stack, slot, entity, uuid);
+        modifiers.put(EntityAttributes.GENERIC_MAX_HEALTH, new EntityAttributeModifier(uuid, "generic.health", 4, EntityAttributeModifier.Operation.ADDITION));
+        return modifiers;
     }
 }
