@@ -1,6 +1,8 @@
 package net.dandycorp.dccobblemon.mixin;
 
 import com.cobblemon.mod.common.CobblemonSounds;
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.TrinketsApi;
 import it.crystalnest.soul_fire_d.api.FireManager;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
@@ -9,17 +11,27 @@ import net.dandycorp.dccobblemon.DANDYCORPTags;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.dandycorp.dccobblemon.util.HeadHelper;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.particle.DustColorTransitionParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
+import net.minecraft.util.Pair;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -47,6 +59,9 @@ public abstract class LivingEntityMixin {
 
     @Unique
     private static final Map<LivingEntity, Long> electricBadgeNextAllowedTick = new WeakHashMap<>();
+
+    @Unique
+    private static final Map<LivingEntity, Long> davidBadgeNextAllowedTick = new WeakHashMap<>();
 
     @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
     private float modifyDamageWithSteelBadge(float originalDamage) {
@@ -78,7 +93,6 @@ public abstract class LivingEntityMixin {
         boolean isParagonium = StreamSupport.stream(source.getAttacker().getHandItems().spliterator(), false)
                 .anyMatch(item -> item.isOf(DANDYCORPItems.PARAGONIUM_AXE) || item.isOf(DANDYCORPItems.PARAGONIUM_SWORD));
         if (isParagonium && source.getSource() != null && !entity.getWorld().isClient()) {
-            System.out.println("paragonium killed");
             if (entity instanceof EnderDragonEntity)
                 entity.dropItem(net.minecraft.item.Items.DRAGON_HEAD); // guaranteed
             float chance = RANDOM.nextFloat() + (i / 10f);
@@ -160,7 +174,6 @@ public abstract class LivingEntityMixin {
         }
         if (target instanceof PlayerEntity player && source.getAttacker() instanceof LivingEntity assailant) {
             if (BadgeItem.isEquipped(player, DANDYCORPItems.BUG_BADGE)) {
-                System.out.println("bug badge activated");
                 if (assailant.damage(player.getDamageSources().thorns(player), 1)) {
                     player.getWorld().playSound(null, assailant.getBlockPos(), SoundEvents.ENCHANT_THORNS_HIT, SoundCategory.PLAYERS, 1f, (float) (1.2 + Math.random()));
                 }
@@ -238,5 +251,96 @@ public abstract class LivingEntityMixin {
             double z = fromZ + (toZ - fromZ) * t;
             world.spawnParticles(ParticleTypes.ELECTRIC_SPARK, x, y, z, 1, 0.0, 0.0, 0.0, 0.0);
         }
+    }
+
+    @Inject(method = "tryUseTotem", at = @At("HEAD"), cancellable = true)
+    private void tryUseDavidBadge(DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity self = (LivingEntity) (Object) this;
+        if (self.getWorld().isClient()) return;
+
+        if (BadgeItem.isEquipped(self, DANDYCORPItems.DAVID_BADGE)) {
+            long currentTick = self.getWorld().getTime();
+            Long nextAllowed = davidBadgeNextAllowedTick.get(self);
+
+            if (nextAllowed == null || currentTick >= nextAllowed) {
+                self.setHealth(1.0F);
+                self.clearStatusEffects();
+                self.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 900, 1));
+                self.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 100, 1));
+                self.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 0));
+                self.getWorld().sendEntityStatus(self, (byte)35);
+
+                davidBadgeNextAllowedTick.put(self, currentTick + 6000L);
+
+                if (self instanceof PlayerEntity player) {
+                    player.getItemCooldownManager().set(DANDYCORPItems.DAVID_BADGE, 6000);
+                }
+
+                cir.setReturnValue(true);
+            }
+        }
+    }
+
+    @ModifyVariable(
+            method = "addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;Lnet/minecraft/entity/Entity;)Z",
+            at = @At("HEAD"),
+            argsOnly = true
+    )
+    private StatusEffectInstance dcc$doubleStatusEffectDuration(StatusEffectInstance original) {
+        LivingEntity self = (LivingEntity) (Object) this;
+        if (BadgeItem.isEquipped(self, DANDYCORPItems.DAVID_BADGE)) {
+            return new StatusEffectInstance(
+                    original.getEffectType(),
+                    (int) Math.ceil(original.getDuration() * 1.2),  // 20% increased duration
+                    original.getAmplifier(),
+                    original.isAmbient(),
+                    original.shouldShowParticles(),
+                    original.shouldShowIcon()
+            );
+        }
+        return original;
+    }
+
+    @Inject(
+            method = "canHaveStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;)Z",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void disallowEffects(StatusEffectInstance effectInstance, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity self = (LivingEntity) (Object) this;
+        TrinketsApi.getTrinketComponent(self).ifPresent(trinketComponent -> {
+
+            StatusEffect type = effectInstance.getEffectType();
+
+            for (Pair<SlotReference, ItemStack> pair : trinketComponent.getAllEquipped()) {
+                Item item = pair.getRight().getItem();
+
+                if (item == DANDYCORPItems.ICE_BADGE) {
+                    if (type == StatusEffects.SLOWNESS) {
+                        cir.setReturnValue(false);
+                        return;
+                    }
+                }
+
+                if (item == DANDYCORPItems.DARK_BADGE) {
+                    if (type == StatusEffects.BLINDNESS || type == StatusEffects.DARKNESS) {
+                        cir.setReturnValue(false);
+                        return;
+                    }
+                }
+
+                if (item == DANDYCORPItems.POISON_BADGE) {
+                    if (type == StatusEffects.POISON || type == StatusEffects.WITHER) {
+                        cir.setReturnValue(false);
+                        return;
+                    }
+                }
+
+                if (item == DANDYCORPItems.DAVID_BADGE && !type.isBeneficial()) {
+                    cir.setReturnValue(false);
+                    return;
+                }
+            }
+        });
     }
 }

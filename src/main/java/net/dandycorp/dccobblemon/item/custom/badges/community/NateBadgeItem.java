@@ -1,4 +1,4 @@
-package net.dandycorp.dccobblemon.item.custom.badges;
+package net.dandycorp.dccobblemon.item.custom.badges.community;
 
 import com.cobblemon.mod.common.api.types.ElementalType;
 import com.google.common.collect.Multimap;
@@ -31,7 +31,7 @@ public class NateBadgeItem extends BadgeItem {
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal(""));
-        tooltip.add(Text.literal("Size does matter...").formatted(Formatting.GREEN));
+        tooltip.add(Text.literal("Size does matter...").formatted(Formatting.GREEN, Formatting.ITALIC));
     }
 
     public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){

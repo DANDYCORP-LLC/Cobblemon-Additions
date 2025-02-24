@@ -1,4 +1,4 @@
-package net.dandycorp.dccobblemon.item.custom.badges;
+package net.dandycorp.dccobblemon.item.custom.badges.community;
 
 import com.cobblemon.mod.common.api.types.ElementalType;
 import dev.emi.trinkets.api.SlotReference;
@@ -7,13 +7,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -34,7 +30,7 @@ public class LinaBadgeItem extends BadgeItem {
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal(""));
-        tooltip.add(Text.literal("Nature's blessing").formatted(Formatting.AQUA));
+        tooltip.add(Text.literal("Nature's blessing").formatted(Formatting.AQUA, Formatting.ITALIC));
     }
 
     @Override

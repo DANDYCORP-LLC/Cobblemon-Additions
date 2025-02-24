@@ -73,6 +73,7 @@ public class DANDYCORPClient implements ClientModInitializer {
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.WATER_BADGE, new BadgeRenderer());
 
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.DANDY_BADGE, new BadgeRenderer());
+        TrinketRendererRegistry.registerRenderer(DANDYCORPItems.DAVID_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.JEFF_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.LINA_BADGE, new BadgeRenderer());
         TrinketRendererRegistry.registerRenderer(DANDYCORPItems.NATE_BADGE, new BadgeRenderer());

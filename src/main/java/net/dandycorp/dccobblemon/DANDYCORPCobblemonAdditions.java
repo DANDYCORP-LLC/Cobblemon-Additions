@@ -6,10 +6,16 @@ import com.cobblemon.mod.common.api.events.CobblemonEvents;
 import com.cobblemon.mod.common.api.events.battles.BattleStartedPreEvent;
 import com.cobblemon.mod.common.api.events.battles.BattleVictoryEvent;
 import com.cobblemon.mod.common.api.events.entity.SpawnEvent;
+import com.cobblemon.mod.common.api.events.pokeball.PokeBallCaptureCalculatedEvent;
+import com.cobblemon.mod.common.api.events.pokeball.PokemonCatchRateEvent;
 import com.cobblemon.mod.common.api.events.pokemon.ExperienceGainedPostEvent;
 import com.cobblemon.mod.common.api.events.pokemon.ExperienceGainedPreEvent;
 import com.cobblemon.mod.common.api.events.pokemon.FriendshipUpdatedEvent;
 import com.cobblemon.mod.common.api.events.pokemon.HeldItemEvent;
+import com.cobblemon.mod.common.api.pokeball.catching.CatchRateModifier;
+import com.cobblemon.mod.common.api.pokeball.catching.calculators.CaptureCalculator;
+import com.cobblemon.mod.common.api.pokeball.catching.calculators.CaptureCalculators;
+import com.cobblemon.mod.common.api.pokeball.catching.modifiers.CatchRateModifiers;
 import com.cobblemon.mod.common.api.pokemon.experience.ExperienceSource;
 import com.cobblemon.mod.common.api.pokemon.experience.SidemodExperienceSource;
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext;
@@ -29,6 +35,7 @@ import net.dandycorp.dccobblemon.attribute.DANDYCORPAttributes;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.attribute.InfinityGuardComponent;
+import net.dandycorp.dccobblemon.compat.BadgeCatchRateModifier;
 import net.dandycorp.dccobblemon.effect.SparklingPowerEffect;
 import net.dandycorp.dccobblemon.event.AttackEntityHandler;
 import net.dandycorp.dccobblemon.event.BreakBlockHandler;
@@ -135,6 +142,7 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 		CobblemonEvents.POKEMON_ENTITY_SPAWN.subscribe(Priority.HIGHEST,this::onPokemonEntitySpawn);
 		CobblemonEvents.FRIENDSHIP_UPDATED.subscribe(Priority.HIGH,this::onFriendshipUpdated);
 		CobblemonEvents.EXPERIENCE_GAINED_EVENT_POST.subscribe(Priority.NORMAL,this::onExperienceGained);
+		CobblemonEvents.POKEMON_CATCH_RATE.subscribe(Priority.NORMAL,this::badgeCatchRate);
 
 		DragonBadgeItem.registerFlight();
 
@@ -173,12 +181,12 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 		LOGGER.info("DANDYCORP initialized!");
 	}
 
+
+
 	private Unit onExperienceGained(ExperienceGainedPostEvent xpEvent) {
-		System.out.println("pokemon + " + xpEvent.getExperience() + " xp");
 		if (BadgeItem.isEquipped(xpEvent.getPokemon().getOwnerPlayer(),DANDYCORPItems.PSYCHIC_BADGE)){
 			if(xpEvent.getSource().isBattle()) {
 				int xp = xpEvent.getExperience();
-				System.out.println("pokemon gained an extra " + xp * 0.5 + " experience");
 				xpEvent.getPokemon().addExperience(new SidemodExperienceSource(MOD_ID), (int) (xp * 0.5));
 			}
 		}
@@ -225,10 +233,9 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 						List<ElementalType> pokemonTypes = (List<ElementalType>) pokemonEntity.getPokemon().getTypes();
 						if (pokemonTypes.stream().anyMatch(badge.getTypes()::contains)) {
 							rolls += 3;
-							System.out.println("badge shiny rate increased for " + pokemonEntity.getPokemon().getDisplayName());
 						}
 					}
-					chance = (float) Math.floor(chance); // minimal effect
+					chance = (float) Math.floor(chance);
 				}
 			}
 			if (player.hasStatusEffect(SPARKLING_POWER)){
@@ -247,6 +254,21 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 
 		if (BadgeItem.isEquipped(friendshipUpdatedEvent.getPokemon().getOwnerPlayer(), DANDYCORPItems.FAIRY_BADGE)) {
 			friendshipUpdatedEvent.setNewFriendship(newFriendship + (difference * 2));
+		}
+		return Unit.INSTANCE;
+	}
+
+	private Unit badgeCatchRate(PokemonCatchRateEvent event) {
+		Optional<TrinketComponent> component = TrinketsApi.getTrinketComponent(event.getThrower());
+		if (component.isPresent()) {
+			for (Pair<SlotReference, ItemStack> p : component.get().getAllEquipped().stream().toList()) {
+				if(p.getRight().getItem() instanceof BadgeItem badge && BadgeItem.isChallenge(p.getRight())){
+					List<ElementalType> pokemonTypes = (List<ElementalType>) event.getPokemonEntity().getPokemon().getTypes();
+					if (pokemonTypes.stream().anyMatch(badge.getTypes()::contains)) {
+						event.setCatchRate(event.getCatchRate() * 2);
+					}
+				}
+			}
 		}
 		return Unit.INSTANCE;
 	}

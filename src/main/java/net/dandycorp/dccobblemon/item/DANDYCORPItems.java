@@ -1,6 +1,5 @@
 package net.dandycorp.dccobblemon.item;
 
-import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.api.types.ElementalTypes;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
@@ -9,6 +8,7 @@ import net.dandycorp.dccobblemon.item.custom.ShinyCharmItem;
 import net.dandycorp.dccobblemon.item.custom.ShinySandwichItem;
 import net.dandycorp.dccobblemon.item.custom.Ticket;
 import net.dandycorp.dccobblemon.item.custom.badges.*;
+import net.dandycorp.dccobblemon.item.custom.badges.community.*;
 import net.dandycorp.dccobblemon.item.custom.mega.MegaFormType;
 import net.dandycorp.dccobblemon.item.custom.mega.MegaStoneItem;
 import net.dandycorp.dccobblemon.item.custom.mega.MegaTrinketItem;
@@ -108,8 +108,6 @@ public class DANDYCORPItems {
                     Collections.singletonList(ElementalTypes.INSTANCE.getWATER())));
 
 
-    public static final Item DANDY_BADGE = registerItem("dandy_badge",
-            new DandyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC), ElementalTypes.INSTANCE.all()));
     public static final Item DAVID_BADGE = registerItem("david_badge",
             new DavidBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC),
                     List.of(ElementalTypes.INSTANCE.getFIRE(), ElementalTypes.INSTANCE.getGROUND(), ElementalTypes.INSTANCE.getPSYCHIC())));
@@ -128,6 +126,10 @@ public class DANDYCORPItems {
     public static final Item SHELLY_BADGE = registerItem("shelly_badge",
             new ShellyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC),
                     List.of(ElementalTypes.INSTANCE.getNORMAL(), ElementalTypes.INSTANCE.getELECTRIC(), ElementalTypes.INSTANCE.getDRAGON())));
+
+
+    public static final Item DANDY_BADGE = registerItem("dandy_badge",
+            new DandyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC), ElementalTypes.INSTANCE.all()));
 
 
 
@@ -280,7 +282,7 @@ public class DANDYCORPItems {
             MEDICHAMITE, METAGROSSITE, MEWTWONITE_X, MEWTWONITE_Y, PIDGEOTITE, PINSIRITE, SABLENITE, SALAMENCITE,
             SCEPTILITE, SCIZORITE, SHARPEDONITE, SLOWBRONITE, STEELIXITE, SWAMPERTITE, TYRANITARITE, VENUSAURITE);
 
-    private static Item registerItem(String name, Item item){ //item registering helper function
+    private static Item registerItem(String name, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(DANDYCORPCobblemonAdditions.MOD_ID, name), item);
     }
 
@@ -312,13 +314,14 @@ public class DANDYCORPItems {
             entries.add(STEEL_BADGE);
             entries.add(WATER_BADGE);
 
-            entries.add(DANDY_BADGE);
             entries.add(DAVID_BADGE);
             entries.add(JEFF_BADGE);
             entries.add(LINA_BADGE);
             entries.add(NATE_BADGE);
             entries.add(PUMPKIN_BADGE);
             entries.add(SHELLY_BADGE);
+
+            entries.add(DANDY_BADGE);
 
             // vendor / grinder
             entries.add(TICKET);

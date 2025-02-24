@@ -1,11 +1,10 @@
-package net.dandycorp.dccobblemon.item.custom.badges;
+package net.dandycorp.dccobblemon.item.custom.badges.community;
 
 import com.cobblemon.mod.common.api.types.ElementalType;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
-import net.dandycorp.dccobblemon.util.GradientFormatting;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -31,7 +30,7 @@ public class JeffBadgeItem extends BadgeItem{
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal(""));
-        tooltip.add(Text.literal("Strength in numbers").formatted(Formatting.YELLOW));
+        tooltip.add(Text.literal("Strength in numbers").formatted(Formatting.LIGHT_PURPLE, Formatting.ITALIC));
     }
 
     @Override
