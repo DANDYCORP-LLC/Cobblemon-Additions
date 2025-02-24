@@ -84,6 +84,7 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 
 	public static final Identifier VENDOR_DATA_SYNC = new Identifier(MOD_ID, "vendor_data_sync");
 	public static final Identifier GRINDER_DATA_SYNC = new Identifier(MOD_ID, "grinder_data_sync");
+	public static final Identifier SHAKE_PACKET_ID = new Identifier(MOD_ID, "camera_shake");
 
 	public static final Random RANDOM = new Random();
 

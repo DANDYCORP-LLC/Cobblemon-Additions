@@ -8,6 +8,7 @@ import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
 import net.dandycorp.dccobblemon.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.GrinderOutputBlockEntity;
+import net.dandycorp.dccobblemon.util.ScreenShakeController;
 import net.dandycorp.dccobblemon.util.grinder.GrinderDataCache;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.sound.GrinderSoundScapes;
@@ -27,11 +28,14 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -175,7 +179,14 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
                     lightning.refreshPositionAfterTeleport(lightningPos);
                     world.spawnEntity(lightning);
                 }
-                world.createExplosion(null,pos.getX(),pos.getY(),pos.getZ(),22, World.ExplosionSourceType.BLOCK);
+                world.createExplosion(null,pos.getX(),pos.getY(),pos.getZ(),20, World.ExplosionSourceType.BLOCK);
+                for (PlayerEntity player : world.getPlayers()){
+                    if (player.squaredDistanceTo(pos.getX(),pos.getY(),pos.getZ()) <= 40 * 40) {
+                        float distance = (float) (player.squaredDistanceTo(pos.getX(),pos.getY(),pos.getZ()) / (40 * 40));
+                        System.out.println("distance: " + distance + "\nintensity: " + 1.2f*(1-distance));
+                        ScreenShakeController.startShake(1.2f * (1-distance),40,120, ScreenShakeController.FadeType.REVERSE_EXPONENTIAL);
+                    }
+                }
             }
         }
 

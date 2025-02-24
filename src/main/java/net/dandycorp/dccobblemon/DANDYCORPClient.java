@@ -14,6 +14,7 @@ import net.dandycorp.dccobblemon.renderer.InfinityGuardRenderer;
 import net.dandycorp.dccobblemon.ui.InfinityGuardHUD;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreen;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
+import net.dandycorp.dccobblemon.util.ScreenShakeController;
 import net.dandycorp.dccobblemon.util.grinder.GrinderDataCache;
 import net.dandycorp.dccobblemon.util.vendor.VendorData;
 import net.dandycorp.dccobblemon.util.vendor.VendorDataCache;
@@ -117,6 +118,20 @@ public class DANDYCORPClient implements ClientModInitializer {
                 DANDYCORPREIClientPlugin.registerGrinderDisplays();
             });
         });
+
+        ClientPlayNetworking.registerGlobalReceiver(
+                DANDYCORPCobblemonAdditions.SHAKE_PACKET_ID,
+                (client, handler, buf, responseSender) -> {
+                    float intensity = buf.readFloat();
+                    int maxDuration = buf.readInt();
+                    int fadeDuration = buf.readInt();
+                    int fadeTypeOrdinal = buf.readInt();
+                    ScreenShakeController.FadeType fadeType = ScreenShakeController.FadeType.values()[fadeTypeOrdinal];
+                    client.execute(() -> {
+                        ScreenShakeController.startShake(intensity, maxDuration, fadeDuration, fadeType);
+                    });
+                }
+        );
 
         ModelPredicateProviderRegistry.register(
                 DANDYCORPItems.PARAGONIUM_BOW,

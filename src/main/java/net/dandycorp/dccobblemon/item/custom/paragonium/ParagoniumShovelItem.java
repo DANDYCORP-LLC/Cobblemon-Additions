@@ -2,13 +2,18 @@ package net.dandycorp.dccobblemon.item.custom.paragonium;
 
 import net.dandycorp.dccobblemon.util.GradientFormatting;
 import net.dandycorp.dccobblemon.util.ParagoniumFormatting;
+import net.dandycorp.dccobblemon.util.ScreenShakeController;
 import net.dandycorp.dccobblemon.util.TextUtils;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,5 +40,11 @@ public class ParagoniumShovelItem extends ShovelItem implements ParagoniumFormat
         return false;
     }
 
-
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
+        if(playerEntity instanceof ServerPlayerEntity serverPlayer) {
+            ScreenShakeController.sendShakeToClient(serverPlayer,0.6f, 40, 120, ScreenShakeController.FadeType.REVERSE_EXPONENTIAL);
+        }
+        return super.use(world, playerEntity, hand);
+    }
 }
