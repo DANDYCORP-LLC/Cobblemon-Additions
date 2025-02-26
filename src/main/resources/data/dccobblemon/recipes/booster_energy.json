@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "dccobblemon:chromium_ingot"
+    },
+    "|": {
+      "item": "dccobblemon:paragonium_nugget"
+    }
+  },
+  "pattern": [
+    "#",
+    "|",
+    "#"
+  ],
+  "result": {
+    "count": 32,
+    "item": "dccobblemon:booster_energy"
+  },
+  "show_notification": true
+}

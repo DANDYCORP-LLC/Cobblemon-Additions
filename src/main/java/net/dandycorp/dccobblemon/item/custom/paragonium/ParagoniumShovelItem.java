@@ -39,12 +39,4 @@ public class ParagoniumShovelItem extends ShovelItem implements ParagoniumFormat
     public boolean isDamageable() {
         return false;
     }
-
-    @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
-        if(playerEntity instanceof ServerPlayerEntity serverPlayer) {
-            ScreenShakeController.sendShakeToClient(serverPlayer,0.6f, 40, 120, ScreenShakeController.FadeType.REVERSE_EXPONENTIAL);
-        }
-        return super.use(world, playerEntity, hand);
-    }
 }

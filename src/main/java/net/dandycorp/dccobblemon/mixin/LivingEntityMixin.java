@@ -11,7 +11,11 @@ import net.dandycorp.dccobblemon.DANDYCORPTags;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.dandycorp.dccobblemon.util.HeadHelper;
+import net.dandycorp.dccobblemon.util.ScreenShake;
+import net.dandycorp.dccobblemon.util.ScreenShakeController;
 import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -28,10 +32,13 @@ import net.minecraft.particle.DustColorTransitionParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Pair;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -39,6 +46,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Next;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -149,7 +157,7 @@ public abstract class LivingEntityMixin {
         if (BadgeItem.isEquipped(attacker, DANDYCORPItems.SHELLY_BADGE)) {
             if (attacker.getHealth() / attacker.getMaxHealth() <= 0.6) {
                 float addition = (float) (1.5 / (attacker.getHealth() / attacker.getMaxHealth()));
-                attacker.heal((f / 2) + addition);
+                attacker.heal((f / 4) + addition);
                 world.spawnParticles(new DustColorTransitionParticleEffect(
                                 new Vector3f(1.0f, 0.94f, 0.25f),
                                 new Vector3f(1.0f, 0.39f, 0.56f),
@@ -315,6 +323,18 @@ public abstract class LivingEntityMixin {
             for (Pair<SlotReference, ItemStack> pair : trinketComponent.getAllEquipped()) {
                 Item item = pair.getRight().getItem();
 
+                if (item == DANDYCORPItems.DAVID_BADGE && !type.isBeneficial()) {
+                    cir.setReturnValue(false);
+                    return;
+                }
+
+                if (item == DANDYCORPItems.POISON_BADGE) {
+                    if (type == StatusEffects.POISON || type == StatusEffects.WITHER) {
+                        cir.setReturnValue(false);
+                        return;
+                    }
+                }
+
                 if (item == DANDYCORPItems.ICE_BADGE) {
                     if (type == StatusEffects.SLOWNESS) {
                         cir.setReturnValue(false);
@@ -328,19 +348,54 @@ public abstract class LivingEntityMixin {
                         return;
                     }
                 }
-
-                if (item == DANDYCORPItems.POISON_BADGE) {
-                    if (type == StatusEffects.POISON || type == StatusEffects.WITHER) {
-                        cir.setReturnValue(false);
-                        return;
-                    }
-                }
-
-                if (item == DANDYCORPItems.DAVID_BADGE && !type.isBeneficial()) {
-                    cir.setReturnValue(false);
-                    return;
-                }
             }
         });
+    }
+
+    @Inject(
+            method = "fall(DZLnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;spawnParticles(Lnet/minecraft/particle/ParticleEffect;DDDIDDDD)I"),
+            cancellable = true
+    )
+    private void colossalBadgeEffect(double d, boolean bl, BlockState blockState, BlockPos blockPos, CallbackInfo ci){
+        LivingEntity entity = (LivingEntity) (Object) this;
+        if(BadgeItem.isEquipped(entity, DANDYCORPItems.NATE_BADGE)) {
+            ServerWorld world = (ServerWorld) entity.getEntityWorld();
+
+            ScreenShake shake = new ScreenShake(
+                    MathHelper.clamp((entity.fallDistance-3)/50,0.1f,0.5f),
+                    MathHelper.clamp((int) (entity.fallDistance),5, 40),
+                    MathHelper.clamp((int) (entity.fallDistance),40, 120),
+                    ScreenShakeController.FadeType.REVERSE_EXPONENTIAL);
+
+            ScreenShakeController.causeTremor(world, blockPos, 5, shake, ScreenShakeController.DistanceFalloff.LINEAR);
+
+            if(blockState.isOf(Blocks.STONE)){
+                world.setBlockState(blockPos, Blocks.COBBLESTONE.getDefaultState());
+            }
+            else if(blockState.isOf(Blocks.STONE_BRICKS)){
+                world.setBlockState(blockPos, Blocks.CRACKED_STONE_BRICKS.getDefaultState());
+            }
+            else if(blockState.isOf(Blocks.DEEPSLATE_BRICKS)){
+                world.setBlockState(blockPos, Blocks.CRACKED_DEEPSLATE_BRICKS.getDefaultState());
+            }
+            else if(blockState.isOf(Blocks.NETHER_BRICKS)){
+                world.setBlockState(blockPos, Blocks.CRACKED_NETHER_BRICKS.getDefaultState());
+            }
+            else if(blockState.isOf(Blocks.POLISHED_BLACKSTONE_BRICKS)){
+                world.setBlockState(blockPos, Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS.getDefaultState());
+            }
+            else if(blockState.isOf(Blocks.DEEPSLATE_TILES)){
+                world.setBlockState(blockPos, Blocks.CRACKED_DEEPSLATE_TILES.getDefaultState());
+            }
+
+            if(blockState.getSoundGroup() == BlockSoundGroup.COPPER || blockState.getSoundGroup() == BlockSoundGroup.METAL){
+                world.playSound(null,blockPos,CobblemonSounds.IMPACT_STEEL,SoundCategory.PLAYERS,1.0f,
+                        MathHelper.clamp(2.0f / (entity.fallDistance-3),0.1f,1.8f));
+            } else {
+                world.playSound(null,blockPos,CobblemonSounds.IMPACT_GROUND,SoundCategory.PLAYERS,1.0f,
+                        MathHelper.clamp(2.0f / (entity.fallDistance-3),0.1f,1.8f));
+            }
+        }
     }
 }

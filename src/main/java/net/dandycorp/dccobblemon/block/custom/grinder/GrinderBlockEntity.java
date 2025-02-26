@@ -183,7 +183,12 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
                 for (PlayerEntity player : world.getPlayers()){
                     if (player.squaredDistanceTo(pos.getX(),pos.getY(),pos.getZ()) <= 40 * 40) {
                         float distance = (float) (player.squaredDistanceTo(pos.getX(),pos.getY(),pos.getZ()) / (40 * 40));
-                        System.out.println("distance: " + distance + "\nintensity: " + 1.2f*(1-distance));
+                        world.playSound(null,
+                                pos,
+                                SoundEvents.ITEM_TOTEM_USE,
+                                SoundCategory.BLOCKS,
+                                10f,
+                                0.0f);
                         ScreenShakeController.startShake(1.2f * (1-distance),40,120, ScreenShakeController.FadeType.REVERSE_EXPONENTIAL);
                     }
                 }

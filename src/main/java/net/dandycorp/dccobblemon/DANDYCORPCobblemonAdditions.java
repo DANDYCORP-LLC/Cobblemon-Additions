@@ -4,23 +4,15 @@ import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.Priority;
 import com.cobblemon.mod.common.api.events.CobblemonEvents;
 import com.cobblemon.mod.common.api.events.battles.BattleStartedPreEvent;
-import com.cobblemon.mod.common.api.events.battles.BattleVictoryEvent;
 import com.cobblemon.mod.common.api.events.entity.SpawnEvent;
-import com.cobblemon.mod.common.api.events.pokeball.PokeBallCaptureCalculatedEvent;
 import com.cobblemon.mod.common.api.events.pokeball.PokemonCatchRateEvent;
-import com.cobblemon.mod.common.api.events.pokemon.ExperienceGainedPostEvent;
-import com.cobblemon.mod.common.api.events.pokemon.ExperienceGainedPreEvent;
-import com.cobblemon.mod.common.api.events.pokemon.FriendshipUpdatedEvent;
-import com.cobblemon.mod.common.api.events.pokemon.HeldItemEvent;
-import com.cobblemon.mod.common.api.pokeball.catching.CatchRateModifier;
-import com.cobblemon.mod.common.api.pokeball.catching.calculators.CaptureCalculator;
-import com.cobblemon.mod.common.api.pokeball.catching.calculators.CaptureCalculators;
-import com.cobblemon.mod.common.api.pokeball.catching.modifiers.CatchRateModifiers;
-import com.cobblemon.mod.common.api.pokemon.experience.ExperienceSource;
+import com.cobblemon.mod.common.api.events.pokemon.*;
 import com.cobblemon.mod.common.api.pokemon.experience.SidemodExperienceSource;
 import com.cobblemon.mod.common.api.spawning.context.SpawningContext;
 import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
+import com.cobblemon.mod.common.pokemon.Pokemon;
+import com.cobblemon.mod.common.pokemon.helditem.CobblemonHeldItemManager;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
@@ -35,7 +27,7 @@ import net.dandycorp.dccobblemon.attribute.DANDYCORPAttributes;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.attribute.InfinityGuardComponent;
-import net.dandycorp.dccobblemon.compat.BadgeCatchRateModifier;
+import net.dandycorp.dccobblemon.command.DANDYCORPCommands;
 import net.dandycorp.dccobblemon.effect.SparklingPowerEffect;
 import net.dandycorp.dccobblemon.event.AttackEntityHandler;
 import net.dandycorp.dccobblemon.event.BreakBlockHandler;
@@ -50,6 +42,7 @@ import net.dandycorp.dccobblemon.util.vendor.VendorData;
 import net.dandycorp.dccobblemon.util.vendor.VendorDataLoader;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -75,7 +68,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.stream.StreamSupport;
 
 public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityComponentInitializer {
 
@@ -144,9 +136,15 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 		CobblemonEvents.FRIENDSHIP_UPDATED.subscribe(Priority.HIGH,this::onFriendshipUpdated);
 		CobblemonEvents.EXPERIENCE_GAINED_EVENT_POST.subscribe(Priority.NORMAL,this::onExperienceGained);
 		CobblemonEvents.POKEMON_CATCH_RATE.subscribe(Priority.NORMAL,this::badgeCatchRate);
+		CobblemonEvents.POKEMON_SENT_PRE.subscribe(Priority.HIGHEST, this::onSentPre);
 
 		DragonBadgeItem.registerFlight();
 
+		DANDYCORPCommands.registerCommands();
+
+		ServerTickEvents.END_SERVER_TICK.register(server -> {
+			ScreenShakeController.tickDelayedShakes();
+		});
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			ServerPlayerEntity player = handler.player;
@@ -175,6 +173,8 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 			ServerPlayNetworking.send(player, GRINDER_DATA_SYNC, buf);
 		});
 
+		CobblemonHeldItemManager.INSTANCE.registerRemap(DANDYCORPItems.BOOSTER_ENERGY,"boosterenergy");
+
 //		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 //			FoodTracker.initialize();
 //		});
@@ -182,7 +182,24 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 		LOGGER.info("DANDYCORP initialized!");
 	}
 
-
+	private Unit onSentPre(PokemonSentPreEvent pre) {
+		Pokemon pokemon = pre.getPokemon();
+		System.out.println(pokemon.getAspects());
+		System.out.println(pokemon.getFeatures());
+		if(pre.getPokemon().getAspects().contains("omega") || pre.getPokemon().getAspects().contains("god")) {
+			ScreenShake shake = new ScreenShake(0.6f,20,80, ScreenShakeController.FadeType.REVERSE_EXPONENTIAL);
+			ScreenShakeController.causeTremorWithDelay(
+					pre.getLevel(),
+					pre.getPosition().getX(),
+					pre.getPosition().getY(),
+					pre.getPosition().getZ(),
+					20,
+					shake,
+					ScreenShakeController.DistanceFalloff.LINEAR,
+					15);
+		}
+		return Unit.INSTANCE;
+	}
 
 	private Unit onExperienceGained(ExperienceGainedPostEvent xpEvent) {
 		if (BadgeItem.isEquipped(xpEvent.getPokemon().getOwnerPlayer(),DANDYCORPItems.PSYCHIC_BADGE)){

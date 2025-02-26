@@ -1,0 +1,14 @@
+{
+  "species": "cobblemon:godbidoof",
+  "order": 0,
+  "variations": [
+    {
+      "aspects": [],
+      "poser": "cobblemon:bidoof",
+      "model": "cobblemon:godbidoof.geo",
+      "texture": "cobblemon:textures/pokemon/godbidoof/godbidoof.png",
+      "layers": []
+    }
+  ]
+}
+

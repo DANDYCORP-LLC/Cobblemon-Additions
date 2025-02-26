@@ -2,6 +2,7 @@ package net.dandycorp.dccobblemon.mixin;
 
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
+import net.dandycorp.dccobblemon.util.ScreenShakeController;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -22,5 +23,6 @@ public abstract class ClientPlayNetworkHandlerMixin {
         if (BadgeItem.isEquipped(player, DANDYCORPItems.DAVID_BADGE)) {
             cir.setReturnValue(new ItemStack(DANDYCORPItems.DAVID_BADGE));
         }
+        ScreenShakeController.startShake(0.3f,10,20, ScreenShakeController.FadeType.LINEAR);
     }
 }

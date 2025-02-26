@@ -1,6 +1,7 @@
 package net.dandycorp.dccobblemon.item;
 
 import com.cobblemon.mod.common.api.types.ElementalTypes;
+import com.cobblemon.mod.common.item.CobblemonItem;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
@@ -243,6 +244,10 @@ public class DANDYCORPItems {
     public static final Item SHINY_CHARM = registerItem("shiny_charm",
             new ShinyCharmItem(new Item.Settings().rarity(Rarity.UNCOMMON).fireproof().maxCount(1)));
 
+    public static final Item BOOSTER_ENERGY = registerItem("booster_energy",
+            new CobblemonItem(new Item.Settings()));
+
+
     public static final Item SHINY_SANDWICH_1 = registerItem("shiny_sandwich_1",
             new ShinySandwichItem(new Item.Settings().food(
                     new FoodComponent.Builder()
@@ -413,6 +418,8 @@ public class DANDYCORPItems {
 
             entries.add(BLUE_ORB);
             entries.add(RED_ORB);
+
+            entries.add(BOOSTER_ENERGY);
 
             entries.add(KEYSTONE);
             entries.add(SHINY_CHARM);

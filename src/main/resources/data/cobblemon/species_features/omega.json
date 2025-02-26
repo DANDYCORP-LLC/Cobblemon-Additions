@@ -1,0 +1,6 @@
+{
+  "keys": ["omega","god"],
+  "type": "flag",
+  "isAspect": true,
+  "default": false
+}
