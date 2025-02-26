@@ -1,6 +1,7 @@
 package net.dandycorp.dccobblemon;
 
 import com.cobblemon.mod.common.Cobblemon;
+import com.cobblemon.mod.common.CobblemonSounds;
 import com.cobblemon.mod.common.api.Priority;
 import com.cobblemon.mod.common.api.events.CobblemonEvents;
 import com.cobblemon.mod.common.api.events.battles.BattleStartedPreEvent;
@@ -59,8 +60,11 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -144,7 +148,9 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
 			ScreenShakeController.tickDelayedShakes();
+			ScreenShakeController.tickDelayedSounds();
 		});
+
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			ServerPlayerEntity player = handler.player;
@@ -187,16 +193,19 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 		System.out.println(pokemon.getAspects());
 		System.out.println(pokemon.getFeatures());
 		if(pre.getPokemon().getAspects().contains("omega") || pre.getPokemon().getAspects().contains("god")) {
-			ScreenShake shake = new ScreenShake(0.6f,20,80, ScreenShakeController.FadeType.REVERSE_EXPONENTIAL);
-			ScreenShakeController.causeTremorWithDelay(
+			ScreenShake shake = new ScreenShake(0.6f, 20, 80, ScreenShakeController.FadeType.REVERSE_EXPONENTIAL);
+			ScreenShakeController.causeTremorWithDelayAndSound(
 					pre.getLevel(),
-					pre.getPosition().getX(),
-					pre.getPosition().getY(),
-					pre.getPosition().getZ(),
+					BlockPos.ofFloored(pre.getPosition()),
 					20,
 					shake,
 					ScreenShakeController.DistanceFalloff.LINEAR,
-					15);
+					13,
+					CobblemonSounds.IMPACT_GROUND,
+					SoundCategory.PLAYERS,
+					2.0f,
+					0.4f
+			);
 		}
 		return Unit.INSTANCE;
 	}

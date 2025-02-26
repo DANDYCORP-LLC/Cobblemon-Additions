@@ -5,6 +5,8 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -28,7 +30,10 @@ public class ScreenShakeController {
         REVERSE_EXPONENTIAL
     }
 
+    // List for delayed shake tasks
     private static final List<DelayedShakeTask> delayedTasks = new ArrayList<>();
+    // List for delayed sound tasks
+    private static final List<DelayedSoundTask> delayedSoundTasks = new ArrayList<>();
 
     private static boolean isShaking = false;
     private static float baseIntensity = 0.0f;
@@ -37,7 +42,6 @@ public class ScreenShakeController {
     private static int fadeOutTicksLeft = 0;
     private static int fadeOutDuration = 0;
     private static FadeType fadeType = FadeType.LINEAR;
-
 
     public static void startShake(float intensity, int maxDuration, int fadeDuration, FadeType fadeType) {
         isShaking = true;
@@ -49,6 +53,7 @@ public class ScreenShakeController {
         fadeOutDuration = fadeDuration;
         ScreenShakeController.fadeType = fadeType;
     }
+
     public static void startShake(ScreenShake shake) {
         startShake(shake.intensity, shake.maxDuration, shake.fadeDuration, shake.fadeType);
     }
@@ -99,7 +104,6 @@ public class ScreenShakeController {
             return currentIntensity;
         }
 
-        // Completed fade, or no fade at all
         isShaking = false;
         currentIntensity = 0.0f;
         return 0.0f;
@@ -115,7 +119,7 @@ public class ScreenShakeController {
     }
 
     public static <T extends World> void causeTremor(T world, BlockPos pos, float radius, ScreenShake baseShake, DistanceFalloff distanceFalloff) {
-        causeTremor(world,pos.getX(),pos.getY(),pos.getZ(),radius, baseShake, distanceFalloff);
+        causeTremor(world, pos.getX(), pos.getY(), pos.getZ(), radius, baseShake, distanceFalloff);
     }
 
     public static <T extends World> void causeTremor(T world, double centerX, double centerY, double centerZ, float maxRadius, ScreenShake baseShake, DistanceFalloff distanceFalloff) {
@@ -136,7 +140,7 @@ public class ScreenShakeController {
                         baseShake.fadeDuration,
                         baseShake.fadeType
                 );
-                ScreenShakeController.sendShakeToClient((ServerPlayerEntity) player, scaledShake);
+                sendShakeToClient((ServerPlayerEntity) player, scaledShake);
             }
         }
     }
@@ -157,7 +161,6 @@ public class ScreenShakeController {
                         baseShake.fadeDuration,
                         baseShake.fadeType
                 );
-                // Instead of sending the shake immediately, schedule it with the given delay
                 shakeWithDelay((ServerPlayerEntity) player, scaledShake, delayTicks);
             }
         }
@@ -166,7 +169,6 @@ public class ScreenShakeController {
     public static <T extends World> void causeTremorWithDelay(T world, BlockPos pos, float maxRadius, ScreenShake baseShake, DistanceFalloff distanceFalloff, int delayTicks) {
         causeTremorWithDelay(world, pos.getX(), pos.getY(), pos.getZ(), maxRadius, baseShake, distanceFalloff, delayTicks);
     }
-
 
     private static float applyDistanceFalloff(float baseIntensity, float distanceRatio, DistanceFalloff mode) {
         return switch (mode) {
@@ -205,5 +207,105 @@ public class ScreenShakeController {
                 iter.remove();
             }
         }
+    }
+
+
+    private static class DelayedSoundTask {
+        final World world;
+        final double centerX;
+        final double centerY;
+        final double centerZ;
+        final SoundEvent sound;
+        final SoundCategory category;
+        final float volume;
+        final float pitch;
+        int remainingTicks;
+
+        DelayedSoundTask(World world, double centerX, double centerY, double centerZ, int delayTicks, SoundEvent sound, SoundCategory category, float volume, float pitch) {
+            this.world = world;
+            this.centerX = centerX;
+            this.centerY = centerY;
+            this.centerZ = centerZ;
+            this.remainingTicks = delayTicks;
+            this.sound = sound;
+            this.category = category;
+            this.volume = volume;
+            this.pitch = pitch;
+        }
+    }
+
+    public static void playSoundWithDelay(World world, double centerX, double centerY, double centerZ, int delayTicks, SoundEvent sound, SoundCategory category, float volume, float pitch) {
+        delayedSoundTasks.add(new DelayedSoundTask(world, centerX, centerY, centerZ, delayTicks, sound, category, volume, pitch));
+    }
+
+    public static void tickDelayedSounds() {
+        if (delayedSoundTasks.isEmpty()) {
+            return;
+        }
+        Iterator<DelayedSoundTask> iter = delayedSoundTasks.iterator();
+        while (iter.hasNext()) {
+            DelayedSoundTask task = iter.next();
+            task.remainingTicks--;
+            if (task.remainingTicks <= 0) {
+                task.world.playSound(null, BlockPos.ofFloored(task.centerX, task.centerY, task.centerZ), task.sound, task.category, task.volume, task.pitch);
+                iter.remove();
+            }
+        }
+    }
+
+
+    /**
+     * Causes a tremor immediately and plays a sound at the given position.
+     *
+     * @param world       The world.
+     * @param centerX     X coordinate of the tremor center.
+     * @param centerY     Y coordinate of the tremor center.
+     * @param centerZ     Z coordinate of the tremor center.
+     * @param maxRadius   Maximum radius of effect.
+     * @param baseShake   Base shake parameters.
+     * @param distanceFalloff How intensity decreases with distance.
+     * @param sound       The sound event to play.
+     * @param category    Sound category.
+     * @param volume      Sound volume.
+     * @param pitch       Sound pitch.
+     */
+    public static <T extends World> void causeTremorWithSound(T world, double centerX, double centerY, double centerZ, float maxRadius, ScreenShake baseShake, DistanceFalloff distanceFalloff, SoundEvent sound, SoundCategory category, float volume, float pitch) {
+        if (world.isClient) {
+            return;
+        }
+        causeTremor(world, centerX, centerY, centerZ, maxRadius, baseShake, distanceFalloff);
+        world.playSound(null, BlockPos.ofFloored(centerX, centerY, centerZ), sound, category, volume, pitch);
+    }
+
+    public static <T extends World> void causeTremorWithSound(T world, BlockPos pos, float maxRadius, ScreenShake baseShake, DistanceFalloff distanceFalloff, SoundEvent sound, SoundCategory category, float volume, float pitch) {
+        causeTremorWithSound(world, pos.getX(), pos.getY(), pos.getZ(), maxRadius, baseShake, distanceFalloff, sound, category, volume, pitch);
+    }
+
+    /**
+     * Causes a tremor with delay and plays a sound at the given position after the delay.
+     *
+     * @param world       The world.
+     * @param centerX     X coordinate of the tremor center.
+     * @param centerY     Y coordinate of the tremor center.
+     * @param centerZ     Z coordinate of the tremor center.
+     * @param maxRadius   Maximum radius of effect.
+     * @param baseShake   Base shake parameters.
+     * @param distanceFalloff How intensity decreases with distance.
+     * @param delayTicks  Delay in ticks before the shake and sound occur.
+     * @param sound       The sound event to play.
+     * @param category    Sound category.
+     * @param volume      Sound volume.
+     * @param pitch       Sound pitch.
+     */
+    public static <T extends World> void causeTremorWithDelayAndSound(T world, double centerX, double centerY, double centerZ, float maxRadius, ScreenShake baseShake, DistanceFalloff distanceFalloff, int delayTicks, SoundEvent sound, SoundCategory category, float volume, float pitch) {
+        if (world.isClient) {
+            return;
+        }
+        causeTremorWithDelay(world, centerX, centerY, centerZ, maxRadius, baseShake, distanceFalloff, delayTicks);
+        playSoundWithDelay(world, centerX, centerY, centerZ, delayTicks, sound, category, volume, pitch);
+    }
+
+    public static <T extends World> void causeTremorWithDelayAndSound(T world, BlockPos pos, float maxRadius, ScreenShake baseShake, DistanceFalloff distanceFalloff, int delayTicks, SoundEvent sound, SoundCategory category, float volume, float pitch) {
+        causeTremorWithDelayAndSound(world, pos.getX(), pos.getY(), pos.getZ(), maxRadius, baseShake, distanceFalloff, delayTicks, sound, category, volume, pitch);
     }
 }
