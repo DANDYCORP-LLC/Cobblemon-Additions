@@ -3,6 +3,7 @@
   "package": "net.dandycorp.dccobblemon.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "AlloyForgeMixin",
     "ArmorItemMixin",
     "BattleEndMixin",
     "BlockLootMixin",
@@ -20,8 +21,8 @@
     "defaultRequire": 1
   },
   "client": [
-    "ClientPlayNetworkHandlerMixin",
     "CameraMixin",
+    "ClientPlayNetworkHandlerMixin",
     "accessor.EntityModelLayersAccessor"
   ]
 }
