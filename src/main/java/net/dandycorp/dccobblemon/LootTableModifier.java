@@ -37,7 +37,7 @@ public class LootTableModifier {
                         .with(ItemEntry.builder(DANDYCORPItems.BEEDRILLITE))
                         .with(ItemEntry.builder(DANDYCORPItems.SCEPTILITE))
                         .with(ItemEntry.builder(DANDYCORPItems.GENGARITE))
-                        .conditionally(RandomChanceLootCondition.builder(1.0f)); // 70% chance
+                        .conditionally(RandomChanceLootCondition.builder(0.8f));
                 tableBuilder.pool(junglePool.build());
             }
 
@@ -60,7 +60,7 @@ public class LootTableModifier {
                         .with(ItemEntry.builder(DANDYCORPItems.LATIOSITE))
                         .with(ItemEntry.builder(DANDYCORPItems.BANETTITE))
                         .with(ItemEntry.builder(DANDYCORPItems.GENGARITE))
-                        .conditionally(RandomChanceLootCondition.builder(0.35f));
+                        .conditionally(RandomChanceLootCondition.builder(0.2f));
                 tableBuilder.pool(ancientCityPool.build());
             }
 
@@ -124,7 +124,7 @@ public class LootTableModifier {
                         .with(ItemEntry.builder(DANDYCORPItems.GYARADOSITE))
                         .with(ItemEntry.builder(DANDYCORPItems.MEWTWONITE_Y))
                         .with(ItemEntry.builder(DANDYCORPItems.MEWTWONITE_X))
-                        .conditionally(RandomChanceLootCondition.builder(1.0f));
+                        .conditionally(RandomChanceLootCondition.builder(0.5f));
                 tableBuilder.pool(endCityPool.build());
             }
 
@@ -143,7 +143,7 @@ public class LootTableModifier {
                         .with(ItemEntry.builder(DANDYCORPItems.AERODACTYLITE))
                         .with(ItemEntry.builder(DANDYCORPItems.AGGRONITE))
                         .with(ItemEntry.builder(DANDYCORPItems.STEELIXITE))
-                        .conditionally(RandomChanceLootCondition.builder(0.7f)); // 70% chance
+                        .conditionally(RandomChanceLootCondition.builder(0.3f));
                 tableBuilder.pool(netherFortressPool.build());
             }
 
@@ -170,7 +170,7 @@ public class LootTableModifier {
                         .with(ItemEntry.builder(DANDYCORPItems.PIDGEOTITE))
                         .with(ItemEntry.builder(DANDYCORPItems.ABOMASITE))
                         .with(ItemEntry.builder(DANDYCORPItems.GLALITITE))
-                        .conditionally(RandomChanceLootCondition.builder(1f)); // 70% chance
+                        .conditionally(RandomChanceLootCondition.builder(0.8f));
                 tableBuilder.pool(pillagerOutpostPool.build());
             }
 
@@ -189,15 +189,14 @@ public class LootTableModifier {
                         .with(ItemEntry.builder(DANDYCORPItems.PIDGEOTITE))
                         .with(ItemEntry.builder(DANDYCORPItems.ABOMASITE))
                         .with(ItemEntry.builder(DANDYCORPItems.GLALITITE))
-                        .conditionally(RandomChanceLootCondition.builder(0.7f)); // 70% chance
+                        .conditionally(RandomChanceLootCondition.builder(0.2f));
                 tableBuilder.pool(shipwreckPool.build());
             }
 
-            // Dungeon: Any stone with 50% chance, and a second 70% chance for Bug and Grass types
             if (id.equals(DUNGEON_ID)) {
                 LootPool.Builder dungeonFirstPool = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(0.5f));
+                        .rolls(ConstantLootNumberProvider.create(1.2F))
+                        .conditionally(RandomChanceLootCondition.builder(0.1f));
                 for(Item item : DANDYCORPItems.ALL_STONES){
                     dungeonFirstPool.with(ItemEntry.builder(item));
                 }
@@ -212,7 +211,7 @@ public class LootTableModifier {
                         .with(ItemEntry.builder(DANDYCORPItems.ABOMASITE))
                         .with(ItemEntry.builder(DANDYCORPItems.BEEDRILLITE))
                         .with(ItemEntry.builder(DANDYCORPItems.SCEPTILITE))
-                        .conditionally(RandomChanceLootCondition.builder(0.7f));
+                        .conditionally(RandomChanceLootCondition.builder(0.4f));
                 tableBuilder.pool(dungeonSecondPool.build());
             }
 
@@ -230,7 +229,7 @@ public class LootTableModifier {
                         .with(ItemEntry.builder(DANDYCORPItems.ABOMASITE))
                         .with(ItemEntry.builder(DANDYCORPItems.SCEPTILITE))
                         .with(ItemEntry.builder(DANDYCORPItems.VENUSAURITE))
-                        .conditionally(RandomChanceLootCondition.builder(0.5f));
+                        .conditionally(RandomChanceLootCondition.builder(0.2f));
                 tableBuilder.pool(strongholdPool.build());
             }
 

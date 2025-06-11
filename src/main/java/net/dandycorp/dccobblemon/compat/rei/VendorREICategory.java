@@ -33,8 +33,8 @@ public class VendorREICategory implements DisplayCategory<VendorREIDisplay> {
 
     public static final CategoryIdentifier<VendorREIDisplay> VENDOR =
             CategoryIdentifier.of(MOD_ID, "vendor");
-    private static final Identifier background_texture = new Identifier(MOD_ID, "textures/gui/vendor/vendor_REI.png");
-    private static final Identifier arrow_texture = new Identifier(MOD_ID, "textures/gui/vendor/vendor_REI_arrow.png");
+    private static final Identifier background_texture = new Identifier(MOD_ID, "textures/gui/vendor/vendor_rei.png");
+    private static final Identifier arrow_texture = new Identifier(MOD_ID, "textures/gui/vendor/vendor_rei_arrow.png");
 
     @Override
     public CategoryIdentifier<? extends VendorREIDisplay> getCategoryIdentifier() {

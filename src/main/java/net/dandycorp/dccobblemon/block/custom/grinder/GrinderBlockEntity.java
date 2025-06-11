@@ -250,8 +250,11 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
                 toPrint++;
                 points =  (float) (Math.floor((points - ticketPointValue) * 1000) / 1000);
             }
-            getOutputEntity().notifyUpdate();
-            getOutputEntity().markDirty();
+            GrinderOutputBlockEntity oe = getOutputEntity();
+            if (oe != null) {
+                getOutputEntity().notifyUpdate();
+                getOutputEntity().markDirty();
+            }
             if (output.getStackInSlot(0).isEmpty()) {
                 ItemStack ticket = DANDYCORPItems.TICKET.getDefaultStack();
                 ticket.setCount(toPrint);
