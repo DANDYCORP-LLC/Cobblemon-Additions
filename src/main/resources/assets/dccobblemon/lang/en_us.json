@@ -106,15 +106,37 @@
   "dccobblemon.ponder.grinder_grind.text_5": "Tickets can be automatically exported through the back",
   "dccobblemon.ponder.grinder_grind.text_6": "* DANDYCORP is not liable for any injuries or casualties caused by improper use of The DANDYCORP Industrial Grinder™!",
 
+
+
   "dccobblemon.ponder.grinder_points.header": "Grinder Point System",
+
   "dccobblemon.ponder.grinder_points.text_1": "The faster the grinder spins, the faster its items are processed.",
   "dccobblemon.ponder.grinder_points.text_2": "Each item added to the grinder has a unique point value.",
-  "dccobblemon.ponder.grinder_points.text_3": "This value can be found by inspecting an item in your inventory [U]",
-  "dccobblemon.ponder.grinder_points.text_4": "Not all items have a ticket value, though.",
-  "dccobblemon.ponder.grinder_points.text_5": "An item that is enchanted has its value increased by 5% per enchant level.",
-  "dccobblemon.ponder.grinder_points.text_6": "Once the grinder reaches 2000 points, a ticket will be produced.",
-  "dccobblemon.ponder.grinder_points.text_7": "Goggles will show you how close your grinder is to producing a ticket.",
-  "dccobblemon.ponder.grinder_points.text_8": "Tickets can be spent at your local DANDYCORP Vendor™!",
+  "dccobblemon.ponder.grinder_points.text_3": "50.000",
+  "dccobblemon.ponder.grinder_points.text_4": "4.991",
+  "dccobblemon.ponder.grinder_points.text_5": "251.900",
+  "dccobblemon.ponder.grinder_points.text_6": "16.401",
+  "dccobblemon.ponder.grinder_points.text_7": "2.000",
+  "dccobblemon.ponder.grinder_points.text_8": "This value can be found by inspecting an item in your inventory [U]",
+  "dccobblemon.ponder.grinder_points.text_9":  "1.237",
+  "dccobblemon.ponder.grinder_points.text_10": "3318.150",
+  "dccobblemon.ponder.grinder_points.text_11": "3000.000",
+  "dccobblemon.ponder.grinder_points.text_12": "Not all items have a ticket value, though...",
+  "dccobblemon.ponder.grinder_points.text_13": "0.000",
+  "dccobblemon.ponder.grinder_points.text_14": "0.000",
+  "dccobblemon.ponder.grinder_points.text_15": "0.000",
+  "dccobblemon.ponder.grinder_points.text_16": "An item that is enchanted has its value increased by 5% per enchant level.",
+  "dccobblemon.ponder.grinder_points.text_17": "Once the grinder reaches 2000 points, a ticket will be produced.",
+  "dccobblemon.ponder.grinder_points.text_18": "Goggles will show you how close your grinder is to producing a ticket.",
+  "dccobblemon.ponder.grinder_points.text_19": "§8§l[§r§7||||||||||||||||||||||||||||||||||||||||§8§l]",
+  "dccobblemon.ponder.grinder_points.text_20": "§8§l[§r§6||||||||§7||||||||||||||||||||||||||||||||§8§l]",
+  "dccobblemon.ponder.grinder_points.text_21": "§8§l[§r§6||||||||||||||||§7||||||||||||||||||||||||§8§l]",
+  "dccobblemon.ponder.grinder_points.text_22": "§8§l[§r§6||||||||||||||||||||||||§7||||||||||||||||§8§l]",
+  "dccobblemon.ponder.grinder_points.text_23": "§8§l[§r§6||||||||||||||||||||||||||||||||§7||||||||§8§l]",
+  "dccobblemon.ponder.grinder_points.text_24": "§8§l[§r§6||||||||||||||||||||||||||||||||||||||||§8§l]",
+  "dccobblemon.ponder.grinder_points.text_25": "Tickets can be spent at your local DANDYCORP Vendor™!",
+
+
 
   "item.dccobblemon.mega_stone.description1": "This stone can be used to mega evolve ",
   "item.dccobblemon.mega_stone.description2": " if you have a keystone item.",

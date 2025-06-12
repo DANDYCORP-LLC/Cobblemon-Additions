@@ -27,75 +27,51 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
+import static net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions.RANDOM;
+import static net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions.LOGGER;
 
 public class GrinderScenes {
 
-    private static final Random RANDOM = DANDYCORPCobblemonAdditions.RANDOM;
-    private static final List<Item> VALUELESS_ITEMS = List.of(
-            Items.EGG,
-            Items.INK_SAC,
-            Items.BOWL,
-            Items.PUFFERFISH,
-            Items.SNOWBALL,
-            Items.FEATHER,
-            Items.DISC_FRAGMENT_5,
-            Items.BONE_BLOCK,
-            Items.SNOW,
-            Items.GRASS,
-            Items.FERN,
-            Items.OAK_SAPLING,
-            Items.SPRUCE_SAPLING,
-            Items.GLOW_LICHEN,
-            Items.BEETROOT_SEEDS,
-            Items.WHEAT_SEEDS,
-            Items.PINK_PETALS,
-            Items.DEAD_BRAIN_CORAL,
-            Items.DEAD_BUSH,
-            Items.DEAD_BUBBLE_CORAL_BLOCK,
-            Items.COBWEB
+    private static final Map<Item, Float> VALUELESS_ITEMS = Map.of(
+            Items.WHEAT_SEEDS, 0f,
+            Items.DEAD_BUSH, 0f,
+            Items.COBWEB, 0f
     );
 
-    private static final List<Item> VALUABLE_ITEMS = List.of(
+    private static final Map<Item, Float> VALUABLE_ITEMS = Map.ofEntries(
+            Map.entry(Items.DIAMOND, 50.000f),
+            Map.entry(Items.IRON_AXE, 4.991f),
+            Map.entry(Items.NETHERITE_INGOT, 251.900f),
+            Map.entry(AllItems.WRENCH.get(), 16.401f),
+            Map.entry(Items.EMERALD, 2.000f),
+            Map.entry(CobblemonItems.ULTRA_BALL, 1.237f),
+            Map.entry(Items.BEACON, 3318.150f),
+            Map.entry(Items.NETHER_STAR, 3000.000f),
+            Map.entry(Items.HEART_OF_THE_SEA, 4.040f),
+            Map.entry(Items.DRAGON_EGG, 500.000f),
+            Map.entry(Items.ELYTRA, 3000.000f),
+            Map.entry(Items.GHAST_TEAR, 20.000f),
+            Map.entry(Items.END_CRYSTAL, 30.278f)
+    );
+
+    private static final List<Item> VALUABLE_ORDER = List.of(
             Items.DIAMOND,
+            Items.IRON_AXE,
             Items.NETHERITE_INGOT,
+            AllItems.WRENCH.get(),
             Items.EMERALD,
-            Items.TOTEM_OF_UNDYING,
+            CobblemonItems.ULTRA_BALL,
+            Items.BEACON,
             Items.NETHER_STAR,
             Items.HEART_OF_THE_SEA,
             Items.DRAGON_EGG,
             Items.ELYTRA,
             Items.GHAST_TEAR,
-            Items.END_CRYSTAL,
-            Items.BEACON,
-            Items.IRON_CHESTPLATE,
-            Items.GOLDEN_LEGGINGS,
-            Items.DIAMOND_HELMET,
-            Items.IRON_PICKAXE,
-            Items.GOLDEN_SWORD,
-            Items.DIAMOND_BOOTS,
-            Items.IRON_AXE,
-            Items.GOLDEN_SHOVEL,
-            Items.DIAMOND_CHESTPLATE,
-            Items.IRON_SWORD,
-            Items.GOLDEN_BOOTS,
-            Items.DIAMOND_AXE,
-            AllBlocks.COPPER_CASING.asItem(),
-            AllBlocks.FLYWHEEL.asItem(),
-            AllBlocks.ROTATION_SPEED_CONTROLLER.asItem(),
-            AllItems.BRASS_INGOT.get(),
-            AllItems.CHROMATIC_COMPOUND.get(),
-            AllItems.WRENCH.get(),
-            AllItems.GOGGLES.get(),
-            AllItems.SUPER_GLUE.get(),
-            AllItems.SCHEMATIC.get(),
-            CobblemonItems.POKE_BALL,
-            CobblemonItems.ULTRA_BALL,
-            CobblemonItems.MASTER_BALL,
-            CobblemonItems.RARE_CANDY,
-            CobblemonItems.EXP_SHARE
+            Items.END_CRYSTAL
     );
+    private static final List<Item> VALUELESS_ORDER = new ArrayList<>(VALUELESS_ITEMS.keySet());
 
 
 
@@ -235,6 +211,7 @@ public class GrinderScenes {
                 .attachKeyFrame()
                 .placeNearTarget()
                 .pointAt(util.vector.topOf(4, 1, 6));
+        scene.world.showSection(util.select.position(2,1,4), Direction.DOWN); //speedometer
         scene.idle(10);
         scene.world.showSection(util.select.fromTo(6,1,0,6,1,7), Direction.DOWN);
         scene.idle(8);
@@ -242,7 +219,7 @@ public class GrinderScenes {
         scene.idle(12);
 
         scene.world.setKineticSpeed(util.select.position(7,0,5),-24);
-        scene.world.setKineticSpeed(util.select.fromTo(7,1,4,3,1,4),48);
+        scene.world.setKineticSpeed(util.select.fromTo(7,1,4,2,1,4),48);
         scene.world.setKineticSpeed(util.select.position(6,1,3),-48);
         scene.world.setKineticSpeed(util.select.fromTo(6,1,1,4,1,2),48);
         scene.idle(8);
@@ -250,7 +227,7 @@ public class GrinderScenes {
         scene.idle(130);
 
         scene.world.setKineticSpeed(util.select.position(7,0,5),-64);
-        scene.world.setKineticSpeed(util.select.fromTo(7,1,4,3,1,4),128);
+        scene.world.setKineticSpeed(util.select.fromTo(7,1,4,2,1,4),128);
         scene.world.setKineticSpeed(util.select.position(6,1,3),-128);
         scene.world.setKineticSpeed(util.select.fromTo(6,1,1,4,1,2),128);
         scene.idle(8);
@@ -258,7 +235,7 @@ public class GrinderScenes {
         scene.idle(70);
 
         scene.world.setKineticSpeed(util.select.position(7,0,5),-128);
-        scene.world.setKineticSpeed(util.select.fromTo(7,1,4,3,1,4),256);
+        scene.world.setKineticSpeed(util.select.fromTo(7,1,4,2,1,4),256);
         scene.world.setKineticSpeed(util.select.position(6,1,3),-256);
         scene.world.setKineticSpeed(util.select.fromTo(6,1,1,4,1,2),256);
         scene.idle(8);
@@ -270,50 +247,66 @@ public class GrinderScenes {
                 .attachKeyFrame()
                 .placeNearTarget()
                 .pointAt(util.vector.topOf(4, 1, 6));
+        for (int i = 0; i < 5 && i < VALUABLE_ORDER.size(); i++) {
+            Item item = VALUABLE_ORDER.get(i);
+            float value = VALUABLE_ITEMS.get(item);
 
-        for (int i = 0; i < 5; i++) {
-            Item randomItem = getRandomValuableItem();
-            scene.overlay.showControls(new InputWindowElement(util.vector.of(4.5, 3, 0.5), Pointing.DOWN).withItem(randomItem.getDefaultStack()),20);
+            scene.overlay.showControls(
+                    new InputWindowElement(util.vector.of(4.5, 3, 0.5), Pointing.DOWN).withItem(item.getDefaultStack()),
+                    20);
             scene.overlay.showText(20)
-                    .text(String.format("%.3f",GrinderPointGenerator.getPointValue(randomItem)))
+                    .text(String.format("%.3f", value))
                     .independent()
                     .placeNearTarget()
                     .pointAt(util.vector.of(4.5, 2, 0.5));
-            scene.world.createItemOnBelt(util.grid.at(4, 1, 1), Direction.NORTH, randomItem.getDefaultStack());
+            scene.world.createItemOnBelt(util.grid.at(4, 1, 1), Direction.NORTH, item.getDefaultStack());
             scene.idle(30);
         }
+
         scene.overlay.showText(80)
                 .text("This value can be found by inspecting an item in your inventory [U]")
                 .attachKeyFrame()
                 .pointAt(util.vector.of(3, 2, 2))
                 .placeNearTarget();
-        for (int i = 0; i < 3; i++) {
-            Item randomItem = getRandomValuableItem();
-            scene.overlay.showControls(new InputWindowElement(util.vector.of(4.5, 3, 0.5), Pointing.DOWN).withItem(randomItem.getDefaultStack()),20);
+
+
+        for (int i = 0; i < 3 && i + 5 < VALUABLE_ORDER.size(); i++) {
+            Item item = VALUABLE_ORDER.get(i + 5);
+            float value = VALUABLE_ITEMS.get(item);
+
+            scene.overlay.showControls(
+                    new InputWindowElement(util.vector.of(4.5, 3, 0.5), Pointing.DOWN).withItem(item.getDefaultStack()),
+                    20);
             scene.overlay.showText(20)
-                    .text(String.format("%.3f",GrinderPointGenerator.getPointValue(randomItem)))
+                    .text(String.format("%.3f", value))
                     .independent()
                     .placeNearTarget()
                     .pointAt(util.vector.of(4.5, 2, 0.5));
-            scene.world.createItemOnBelt(util.grid.at(4, 1, 1), Direction.NORTH, randomItem.getDefaultStack());
+            scene.world.createItemOnBelt(util.grid.at(4, 1, 1), Direction.NORTH, item.getDefaultStack());
             scene.idle(30);
         }
         scene.idle(30);
 
+
+
         scene.overlay.showText(80)
-                .text("Not all items have a ticket value, though.")
+                .text("Not all items have a ticket value, though...")
                 .attachKeyFrame()
                 .placeNearTarget()
                 .pointAt(util.vector.topOf(4, 1, 6));
-        for (int i = 0; i < 3; i++) {
-            Item randomItem = getRandomValuelessItem();
-            scene.overlay.showControls(new InputWindowElement(util.vector.of(4.5, 3, 0.5), Pointing.DOWN).withItem(randomItem.getDefaultStack()),20);
+        for (int i = 0; i < 3 && i < VALUELESS_ORDER.size(); i++) {
+            Item item = VALUELESS_ORDER.get(i);
+            float value = VALUELESS_ITEMS.get(item); // == 0f
+
+            scene.overlay.showControls(
+                    new InputWindowElement(util.vector.of(4.5, 3, 0.5), Pointing.DOWN).withItem(item.getDefaultStack()),
+                    20);
             scene.overlay.showText(20)
-                    .text(String.format("%.3f",0f))
+                    .text(String.format("%.3f", value))
                     .independent()
                     .placeNearTarget()
                     .pointAt(util.vector.of(4.5, 2, 0.5));
-            scene.world.createItemOnBelt(util.grid.at(4, 1, 1), Direction.NORTH, randomItem.getDefaultStack());
+            scene.world.createItemOnBelt(util.grid.at(4, 1, 1), Direction.NORTH, item.getDefaultStack());
             scene.idle(30);
         }
         scene.idle(30);
@@ -348,9 +341,9 @@ public class GrinderScenes {
                 .attachKeyFrame()
                 .pointAt(util.vector.of(4.5, 1, 4.5));
         scene.overlay.showControls(new InputWindowElement(util.vector.of(4.5, 3, 4.5), Pointing.DOWN).withItem(AllItems.GOGGLES.asStack()),180);
-        scene.world.createItemOnBelt(util.grid.at(4, 1, 1), Direction.NORTH, getRandomValuableItem().getDefaultStack());
+        scene.world.createItemOnBelt(util.grid.at(4, 1, 1), Direction.NORTH, Items.BEACON.getDefaultStack());
         for (int i = 0; i < 6; i++) {
-            scene.world.createItemOnBelt(util.grid.at(4, 1, 1), Direction.NORTH, getRandomValuableItem().getDefaultStack());
+            scene.world.createItemOnBelt(util.grid.at(4, 1, 1), Direction.NORTH, Items.BEACON.getDefaultStack());
             scene.overlay.showText(30)
                     .text(TextUtils.progressBar(i/5f).getString())
                     .pointAt(util.vector.of(4.5, 2, 4.5))
@@ -368,13 +361,5 @@ public class GrinderScenes {
                 .pointAt(util.vector.of(1.5, 2, 2.5))
                 .placeNearTarget();
         scene.world.showSection(util.select.fromTo(1,1,2,1,3,2), Direction.DOWN);
-    }
-
-    private static Item getRandomValuableItem() {
-        return VALUABLE_ITEMS.get(RANDOM.nextInt(VALUELESS_ITEMS.size()));
-    }
-
-    private static Item getRandomValuelessItem() {
-        return VALUELESS_ITEMS.get(RANDOM.nextInt(VALUELESS_ITEMS.size()));
     }
 }
