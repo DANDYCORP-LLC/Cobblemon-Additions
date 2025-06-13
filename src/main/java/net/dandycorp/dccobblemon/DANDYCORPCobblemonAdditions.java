@@ -190,8 +190,6 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 
 	private Unit onSentPre(PokemonSentPreEvent pre) {
 		Pokemon pokemon = pre.getPokemon();
-		System.out.println(pokemon.getAspects());
-		System.out.println(pokemon.getFeatures());
 		if(pre.getPokemon().getAspects().contains("omega") || pre.getPokemon().getAspects().contains("god")) {
 			ScreenShake shake = new ScreenShake(0.6f, 20, 80, ScreenShakeController.FadeType.REVERSE_EXPONENTIAL);
 			ScreenShakeController.causeTremorWithDelayAndSound(
