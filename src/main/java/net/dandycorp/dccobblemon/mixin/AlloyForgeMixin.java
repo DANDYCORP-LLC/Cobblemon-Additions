@@ -28,10 +28,12 @@ public abstract class AlloyForgeMixin {
                     value = "INVOKE_ASSIGN",
                     target = "Lwraith/alloyforgery/recipe/AlloyForgeRecipe;craft(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/registry/DynamicRegistryManager;)Lnet/minecraft/item/ItemStack;",
                     shift = At.Shift.AFTER
-            )
+            ),
+            locals = LocalCapture.CAPTURE_FAILSOFT
     )
-    private void craft(CallbackInfo ci, @Local(ordinal = 0) ItemStack recipeOutput) {
-        ForgeControllerBlockEntity self = (ForgeControllerBlockEntity)(Object)this;
+    private void craft(CallbackInfo ci,
+                       @Local(ordinal = 1) ItemStack recipeOutput) { // <-- ordinal 1
+        ForgeControllerBlockEntity self = (ForgeControllerBlockEntity) (Object) this;
         World world = self.getWorld();
         if (world == null || world.isClient) return;
 
@@ -45,9 +47,10 @@ public abstract class AlloyForgeMixin {
                     ScreenShakeController.DistanceFalloff.LINEAR,
                     SoundEvents.ITEM_TOTEM_USE,
                     SoundCategory.BLOCKS,
-                    0.1f,
+                    0.4f,
                     1.9f
             );
         }
     }
+
 }

@@ -4,7 +4,7 @@
   "group": "paragonium",
   "key": {
     "#": {
-      "item": "dccobblemon:paragonium_ingot"
+      "item": "dccobblemon:paragonium_block"
     },
     "x": {
       "item": "minecraft:iron_block"

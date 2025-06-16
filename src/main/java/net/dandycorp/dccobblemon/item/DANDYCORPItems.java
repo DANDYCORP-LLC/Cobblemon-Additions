@@ -2,6 +2,7 @@ package net.dandycorp.dccobblemon.item;
 
 import com.cobblemon.mod.common.api.types.ElementalTypes;
 import com.cobblemon.mod.common.item.CobblemonItem;
+import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
@@ -132,7 +133,8 @@ public class DANDYCORPItems {
     public static final Item DANDY_BADGE = registerItem("dandy_badge",
             new DandyBadgeItem(new Item.Settings().fireproof().maxCount(1).rarity(Rarity.EPIC), ElementalTypes.INSTANCE.all()));
 
-
+    public static final Item INCOMPLETE_EXP_QUARTZ = registerItem("incomplete_exp_quartz",
+            new SequencedAssemblyItem(new Item.Settings().maxCount(1)));
 
     public static final Item TICKET = registerItem("ticket", new Ticket(new Item.Settings().fireproof().rarity(Rarity.RARE)));
     public static final Item TICKET_BAG_ITEM = registerItem("ticket_bag",new BlockItem(DANDYCORPBlocks.TICKET_BAG, new FabricItemSettings().fireproof().rarity(Rarity.RARE)));
