@@ -28,11 +28,14 @@ public class MegaTrinketItem extends TrinketItem {
     }
 
     @Override
-    public boolean onStackClicked(ItemStack itemStack, Slot slot, ClickType clickType, PlayerEntity playerEntity) {
-        NbtCompound nbtCompound = itemStack.getOrCreateNbt();
-        nbtCompound.putBoolean("keyStone",true);
-        itemStack.setNbt(nbtCompound);
-        return super.onStackClicked(itemStack, slot, clickType, playerEntity);
+    public boolean onStackClicked(ItemStack stack, Slot slot, ClickType clickType, PlayerEntity playerEntity) {
+        NbtCompound nbt = stack.getNbt();
+        if (nbt == null || !nbt.getBoolean("keyStone")) {
+            NbtCompound newTag = new NbtCompound();
+            newTag.putBoolean("keyStone",true);
+            stack.setNbt(newTag);
+        }
+        return super.onStackClicked(stack, slot, clickType, playerEntity);
     }
 
     @Override
@@ -41,9 +44,12 @@ public class MegaTrinketItem extends TrinketItem {
         if(entity instanceof ServerPlayerEntity p){
             MegaUtils.evolve(p);
         }
-        NbtCompound nbtCompound = stack.getOrCreateNbt();
-        nbtCompound.putBoolean("keyStone",true);
-        stack.setNbt(nbtCompound);
+        NbtCompound nbt = stack.getNbt();
+        if (nbt == null || !nbt.getBoolean("keyStone")) {
+            NbtCompound newTag = new NbtCompound();
+            newTag.putBoolean("keyStone",true);
+            stack.setNbt(newTag);
+        }
     }
 
     @Override
@@ -52,17 +58,23 @@ public class MegaTrinketItem extends TrinketItem {
         if(entity instanceof ServerPlayerEntity p){
             MegaUtils.devolve(p);
         }
-        NbtCompound nbtCompound = stack.getOrCreateNbt();
-        nbtCompound.putBoolean("keyStone",true);
-        stack.setNbt(nbtCompound);
+        NbtCompound nbt = stack.getNbt();
+        if (nbt == null || !nbt.getBoolean("keyStone")) {
+            NbtCompound newTag = new NbtCompound();
+            newTag.putBoolean("keyStone",true);
+            stack.setNbt(newTag);
+        }
     }
 
     @Override
     public ItemStack getDefaultStack() {
-        ItemStack defaultStack = super.getDefaultStack();
-        NbtCompound nbtCompound = defaultStack.getOrCreateNbt();
-        nbtCompound.putBoolean("keyStone",true);
-        defaultStack.setNbt(nbtCompound);
-        return defaultStack;
+        ItemStack stack = super.getDefaultStack();
+        NbtCompound nbt = stack.getNbt();
+        if (nbt == null || !nbt.getBoolean("keyStone")) {
+            NbtCompound newTag = new NbtCompound();
+            newTag.putBoolean("keyStone",true);
+            stack.setNbt(newTag);
+        }
+        return stack;
     }
 }

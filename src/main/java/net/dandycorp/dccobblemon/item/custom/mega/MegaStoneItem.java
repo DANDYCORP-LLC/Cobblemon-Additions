@@ -50,18 +50,24 @@ public class MegaStoneItem extends Item {
 
     @Override
     public ItemStack getDefaultStack() {
-        ItemStack defaultStack = super.getDefaultStack();
-        NbtCompound nbtCompound = defaultStack.getOrCreateNbt();
-        nbtCompound.putString("megaStone", stoneName);
-        defaultStack.setNbt(nbtCompound);
-        return defaultStack;
+        ItemStack stack = super.getDefaultStack();
+        NbtCompound nbt = stack.getNbt();
+        if (nbt == null || !stoneName.equals(nbt.getString("megaStone"))) {
+            NbtCompound newTag = new NbtCompound();
+            newTag.putString("megaStone", stoneName);
+            stack.setNbt(newTag);
+        }
+        return stack;
     }
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int i, boolean bl) {
         super.inventoryTick(stack, world, entity, i, bl);
-        NbtCompound nbtCompound = stack.getOrCreateNbt();
-        nbtCompound.putString("megaStone", stoneName);
-        stack.setNbt(nbtCompound);
+        NbtCompound nbt = stack.getNbt();
+        if (nbt == null || !stoneName.equals(nbt.getString("megaStone"))) {
+            NbtCompound newTag = new NbtCompound();
+            newTag.putString("megaStone", stoneName);
+            stack.setNbt(newTag);
+        }
     }
 }

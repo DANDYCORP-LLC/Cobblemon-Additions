@@ -9,6 +9,7 @@ import net.dandycorp.dccobblemon.item.custom.mega.MegaStoneItem;
 import net.dandycorp.dccobblemon.item.custom.mega.MegaTrinketItem;
 import net.dandycorp.dccobblemon.item.custom.mega.PrimalStoneItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
@@ -105,8 +106,11 @@ public class MegaUtils {
                 comp.getAllEquipped().stream().anyMatch(
                         pair -> {
                             ItemStack stack = pair.getRight();
-                            return stack.getItem() instanceof MegaTrinketItem &&
-                                    stack.getOrCreateNbt().getBoolean("keyStone");
+                            NbtCompound nbt = stack.getNbt();
+                            return stack.getItem() instanceof MegaTrinketItem
+                                    && nbt != null
+                                    && nbt.contains("keyStone")
+                                    && nbt.getBoolean("keyStone");
                         }
                 )).orElse(false);
     }

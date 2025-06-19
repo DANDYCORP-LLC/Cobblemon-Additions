@@ -102,14 +102,19 @@ public class BadgeItem extends TrinketItem implements GradientFormatting {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int i, boolean bl) {
-        if((stack.hasNbt() && stack.getNbt().containsUuid("Owner") && stack.getNbt().contains("OwnerName")) || !entity.isPlayer()) return;
-        NbtCompound nbt = stack.getOrCreateNbt();
-        if (!nbt.containsUuid("Owner")) {
-            nbt.putUuid("Owner", entity.getUuid());
+        if (world.isClient || !entity.isPlayer()) {
+            return;
         }
-        if (!nbt.contains("OwnerName")){
-            nbt.putString("OwnerName", entity.getName().getString());
+        NbtCompound tag = stack.getNbt();
+        if (tag != null && tag.containsUuid("Owner") && tag.contains("OwnerName")) {
+            return;
         }
+        if (tag == null) {
+            tag = new NbtCompound();
+        }
+        tag.putUuid("Owner", entity.getUuid());
+        tag.putString("OwnerName", entity.getName().getString());
+        stack.setNbt(tag);
     }
 
     public List<ElementalType> getTypes() {
