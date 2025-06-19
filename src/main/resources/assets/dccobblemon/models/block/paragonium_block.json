@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "end": "dccobblemon:block/paragonium_block_top",
-    "side": "dccobblemon:block/paragonium_block"
+    "all": "dccobblemon:block/paragonium_block"
   }
 }
