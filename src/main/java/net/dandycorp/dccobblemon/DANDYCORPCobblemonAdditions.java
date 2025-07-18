@@ -4,6 +4,7 @@ import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.CobblemonSounds;
 import com.cobblemon.mod.common.api.Priority;
 import com.cobblemon.mod.common.api.events.CobblemonEvents;
+import com.cobblemon.mod.common.api.events.battles.BattleStartedPostEvent;
 import com.cobblemon.mod.common.api.events.battles.BattleStartedPreEvent;
 import com.cobblemon.mod.common.api.events.entity.SpawnEvent;
 import com.cobblemon.mod.common.api.events.pokeball.PokemonCatchRateEvent;
@@ -23,6 +24,7 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
+import io.github.fabricators_of_create.porting_lib.event.common.ExplosionEvents;
 import kotlin.Unit;
 import net.dandycorp.dccobblemon.attribute.DANDYCORPAttributes;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
@@ -30,6 +32,7 @@ import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.attribute.InfinityGuardComponent;
 import net.dandycorp.dccobblemon.command.DANDYCORPCommands;
 import net.dandycorp.dccobblemon.effect.SparklingPowerEffect;
+import net.dandycorp.dccobblemon.entities.DANDYCORPEntities;
 import net.dandycorp.dccobblemon.event.AttackEntityHandler;
 import net.dandycorp.dccobblemon.event.BreakBlockHandler;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
@@ -51,6 +54,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -65,6 +69,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -118,7 +123,7 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 
 		VendorDataLoader.loadVendorData();
 
-
+		DANDYCORPEntities.init();
 		DANDYCORPItems.registerAllItems();
 		DANDYCORPBlocks.registerAllBlocks();
 		DANDYCORPTags.initialize();
@@ -135,6 +140,7 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 		PlayerBlockBreakEvents.BEFORE.register(new BreakBlockHandler());
 		ServerLifecycleEvents.SERVER_STARTED.register(GrinderPointGenerator::initializePointValues);
 		CobblemonEvents.BATTLE_STARTED_PRE.subscribe(Priority.NORMAL,this::onBattleStart);
+		CobblemonEvents.BATTLE_STARTED_POST.subscribe(Priority.HIGHEST,this::cleanNBT);
 		CobblemonEvents.HELD_ITEM_POST.subscribe(Priority.LOW,this::onHeldItemChanged);
 		CobblemonEvents.POKEMON_ENTITY_SPAWN.subscribe(Priority.HIGHEST,this::onPokemonEntitySpawn);
 		CobblemonEvents.FRIENDSHIP_UPDATED.subscribe(Priority.HIGH,this::onFriendshipUpdated);
@@ -190,7 +196,7 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 
 	private Unit onSentPre(PokemonSentPreEvent pre) {
 		Pokemon pokemon = pre.getPokemon();
-		if(pre.getPokemon().getAspects().contains("omega") || pre.getPokemon().getAspects().contains("god")) {
+		if(pokemon.getAspects().contains("omega") || pokemon.getAspects().contains("god")) {
 			ScreenShake shake = new ScreenShake(0.6f, 20, 80, ScreenShakeController.FadeType.REVERSE_EXPONENTIAL);
 			ScreenShakeController.causeTremorWithDelayAndSound(
 					pre.getLevel(),
@@ -228,6 +234,11 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 				keyItems.remove(new Identifier("cobblemon", "key_stone"));
 			}
 		});
+		return Unit.INSTANCE;
+	}
+
+	private Unit cleanNBT(BattleStartedPostEvent battleStartedPostEvent) {
+		battleStartedPostEvent.getBattle().getPlayers().forEach(TagUtils::cleanInventory);
 		return Unit.INSTANCE;
 	}
 

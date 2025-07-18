@@ -5,10 +5,7 @@ import com.cobblemon.mod.common.item.CobblemonItem;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
-import net.dandycorp.dccobblemon.item.custom.BadgeItem;
-import net.dandycorp.dccobblemon.item.custom.ShinyCharmItem;
-import net.dandycorp.dccobblemon.item.custom.ShinySandwichItem;
-import net.dandycorp.dccobblemon.item.custom.Ticket;
+import net.dandycorp.dccobblemon.item.custom.*;
 import net.dandycorp.dccobblemon.item.custom.badges.*;
 import net.dandycorp.dccobblemon.item.custom.badges.community.*;
 import net.dandycorp.dccobblemon.item.custom.mega.MegaFormType;
@@ -279,6 +276,8 @@ public class DANDYCORPItems {
                     .rarity(Rarity.RARE)
             ));
 
+    public static final Item HAIL_MARY = registerItem("hail_mary", new HailMaryItem(new Item.Settings().fireproof().rarity(Rarity.EPIC).maxCount(1)));
+
     // ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
 
@@ -368,6 +367,9 @@ public class DANDYCORPItems {
             entries.add(PARAGONIUM_AXE);
             entries.add(PARAGONIUM_HOE);
             entries.add(PARAGONIUM_BOW);
+
+            // other
+            entries.add(HAIL_MARY);
 
             // stones
             entries.add(ABOMASITE);

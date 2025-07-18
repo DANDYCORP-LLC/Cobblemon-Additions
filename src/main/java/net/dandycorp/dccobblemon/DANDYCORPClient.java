@@ -6,6 +6,7 @@ import net.dandycorp.dccobblemon.block.BlockPartialModels;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.compat.rei.DANDYCORPREIClientPlugin;
 import net.dandycorp.dccobblemon.compat.ponder.GrinderScenes;
+import net.dandycorp.dccobblemon.entities.DANDYCORPEntities;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.renderer.BadgeRenderer;
 import net.dandycorp.dccobblemon.renderer.ElytraRegister;
@@ -22,12 +23,14 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.entity.EntityType;
@@ -85,6 +88,10 @@ public class DANDYCORPClient implements ClientModInitializer {
         ElytraRegister.registerRenderer();
         BlockPartialModels.register();
 
+        EntityRendererRegistry.register(
+                DANDYCORPEntities.CANNONBALL,
+                ctx -> new FlyingItemEntityRenderer<>(ctx, 1.0f, true)
+        );
         HandledScreens.register(
                 DANDYCORPCobblemonAdditions.VENDOR_SCREEN_HANDLER,
                 (VendorScreenHandler handler, PlayerInventory inventory, Text title) -> new VendorScreen(handler, inventory, title)
