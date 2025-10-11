@@ -2,9 +2,13 @@ package net.dandycorp.dccobblemon.mixin;
 
 import dev.emi.trinkets.api.TrinketsApi;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
+import net.dandycorp.dccobblemon.item.custom.HailMaryItem;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.FlameEnchantment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -68,5 +72,13 @@ public class EnchantmentMixin {
             });
         }
     }
-
 }
+
+@Mixin(Enchantment.class)
+abstract class EnchantmentsMixin {
+    @Inject(method = "isAcceptableItem", at = @At("HEAD"), cancellable = true)
+    private void allow(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+        if (stack.isOf(DANDYCORPItems.HAIL_MARY)) cir.setReturnValue(true);
+    }
+}
+

@@ -6,14 +6,13 @@ import dev.emi.trinkets.api.TrinketsApi;
 import it.crystalnest.soul_fire_d.api.FireManager;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
 import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
-import net.dandycorp.dccobblemon.DANDYCORPSounds;
+import net.dandycorp.dccobblemon.sound.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.DANDYCORPTags;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.dandycorp.dccobblemon.util.HeadHelper;
 import net.dandycorp.dccobblemon.util.ScreenShake;
 import net.dandycorp.dccobblemon.util.ScreenShakeController;
-import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
@@ -27,15 +26,13 @@ import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.particle.DustColorTransitionParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -46,12 +43,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Next;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.*;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions.RANDOM;
@@ -397,5 +392,11 @@ public abstract class LivingEntityMixin {
                         MathHelper.clamp(2.0f / (entity.fallDistance-3),0.1f,1.8f));
             }
         }
+    }
+
+    @Inject(method = "jump", at = @At("HEAD"), cancellable = true)
+    private void jump(CallbackInfo ci){
+        LivingEntity e = (LivingEntity) (Object) this;
+        if(e.getStackInHand(Hand.MAIN_HAND).isOf(DANDYCORPItems.HAIL_MARY)) ci.cancel();
     }
 }

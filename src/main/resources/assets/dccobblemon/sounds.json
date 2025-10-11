@@ -83,5 +83,45 @@
     "sounds": [
       "dccobblemon:grinder_active"
     ]
+  },
+
+  "cannon_fire": {
+    "sounds": [
+      "dccobblemon:cannon_fire0",
+      "dccobblemon:cannon_fire1",
+      "dccobblemon:cannon_fire2",
+      "dccobblemon:cannon_fire3",
+      "dccobblemon:cannon_fire4"
+    ]
+  },
+
+  "cannon_impact": {
+    "sounds": [
+      "dccobblemon:cannon_impact"
+    ]
+  },
+
+  "cannon_hit": {
+    "sounds": [
+      "dccobblemon:cannon_hit"
+    ]
+  },
+
+  "cannon_player_hit": {
+    "sounds": [
+      "dccobblemon:cannon_player_hit"
+    ]
+  },
+
+  "cannon_player_hit_flare": {
+    "sounds": [
+      "dccobblemon:cannon_player_hit_flare"
+    ]
+  },
+
+  "paragonium_shield_reflect": {
+    "sounds": [
+      "dccobblemon:paragonium_shield_reflect"
+    ]
   }
 }

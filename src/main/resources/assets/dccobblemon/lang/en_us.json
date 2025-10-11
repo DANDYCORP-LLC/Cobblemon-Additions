@@ -77,6 +77,8 @@
 
   "death.attack.dandy_badge": "%1$s was worked to death...",
   "death.attack.grinder": "%1$s fell into a DANDYCORP Industrial Grinder™!",
+  "death.attack.hail_mary_explosion": "",
+  "death.attack.hail_mary_direct_hit": "",
   "subtitles.dccobblemon.greed": "DANDYCORP Badge activates",
   "subtitles.dccobblemon.judgement": "Judgement Badge activates",
   "subtitles.dccobblemon.compliment": "The machine issues a \"compliment\"",
@@ -197,5 +199,6 @@
   "item.dccobblemon.blue_orb": "Blue Orb",
   "item.dccobblemon.red_orb": "Red Orb",
   "item.dccobblemon.keystone": "Keystone",
-  "item.dccobblemon.booster_energy": "Booster Energy"
+  "item.dccobblemon.booster_energy": "Booster Energy",
+  "item.dccobblemon.hail_mary_primed": "Primed and ready!"
 }

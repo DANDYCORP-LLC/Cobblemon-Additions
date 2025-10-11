@@ -8,7 +8,7 @@ import io.wispforest.owo.ui.container.Containers;
 import io.wispforest.owo.ui.container.FlowLayout;
 import io.wispforest.owo.ui.container.ScrollContainer;
 import io.wispforest.owo.ui.core.*;
-import net.dandycorp.dccobblemon.DANDYCORPSounds;
+import net.dandycorp.dccobblemon.sound.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.ui.PokemonComponent;
 import net.dandycorp.dccobblemon.util.vendor.*;
 import net.minecraft.entity.player.PlayerInventory;

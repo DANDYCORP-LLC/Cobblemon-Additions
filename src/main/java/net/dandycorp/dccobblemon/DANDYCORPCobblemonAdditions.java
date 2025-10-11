@@ -24,7 +24,6 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
-import io.github.fabricators_of_create.porting_lib.event.common.ExplosionEvents;
 import kotlin.Unit;
 import net.dandycorp.dccobblemon.attribute.DANDYCORPAttributes;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
@@ -38,6 +37,7 @@ import net.dandycorp.dccobblemon.event.BreakBlockHandler;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.item.custom.BadgeItem;
 import net.dandycorp.dccobblemon.item.custom.badges.DragonBadgeItem;
+import net.dandycorp.dccobblemon.sound.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
 import net.dandycorp.dccobblemon.util.*;
 import net.dandycorp.dccobblemon.util.grinder.GrinderPointGenerator;
@@ -53,8 +53,8 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.fabricmc.fabric.api.util.TriState;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -68,8 +68,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -155,11 +153,13 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
 			ScreenShakeController.tickDelayedShakes();
 			ScreenShakeController.tickDelayedSounds();
+            CannonController.tick(server);
 		});
 
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			ServerPlayerEntity player = handler.player;
+            player.setNoGravity(false);
 			VendorData data = VendorDataLoader.loadVendorData();
 			PacketByteBuf buf = PacketByteBufs.create();
 			data.toPacket(buf);

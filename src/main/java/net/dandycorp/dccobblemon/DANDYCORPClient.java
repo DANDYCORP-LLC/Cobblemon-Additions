@@ -8,10 +8,8 @@ import net.dandycorp.dccobblemon.compat.rei.DANDYCORPREIClientPlugin;
 import net.dandycorp.dccobblemon.compat.ponder.GrinderScenes;
 import net.dandycorp.dccobblemon.entities.DANDYCORPEntities;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
-import net.dandycorp.dccobblemon.renderer.BadgeRenderer;
-import net.dandycorp.dccobblemon.renderer.ElytraRegister;
-import net.dandycorp.dccobblemon.renderer.InfinityGuardModelHandler;
-import net.dandycorp.dccobblemon.renderer.InfinityGuardRenderer;
+import net.dandycorp.dccobblemon.item.custom.HailMaryItem;
+import net.dandycorp.dccobblemon.renderer.*;
 import net.dandycorp.dccobblemon.ui.InfinityGuardHUD;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreen;
 import net.dandycorp.dccobblemon.ui.vendor.VendorScreenHandler;
@@ -90,7 +88,7 @@ public class DANDYCORPClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(
                 DANDYCORPEntities.CANNONBALL,
-                ctx -> new FlyingItemEntityRenderer<>(ctx, 1.0f, true)
+                ctx -> new CannonballRenderer(ctx, 0.4f, true)
         );
         HandledScreens.register(
                 DANDYCORPCobblemonAdditions.VENDOR_SCREEN_HANDLER,
@@ -150,7 +148,6 @@ public class DANDYCORPClient implements ClientModInitializer {
                     if (entity.getActiveItem() != stack) {
                         return 0.0F;
                     }
-                    // same logic that BowItem uses
                     int useTicks = stack.getMaxUseTime() - entity.getItemUseTimeLeft();
                     return BowItem.getPullProgress(useTicks);
                 }
@@ -174,6 +171,11 @@ public class DANDYCORPClient implements ClientModInitializer {
                     }
                     return 0.0F;
                 }
+        );
+        ModelPredicateProviderRegistry.register(
+                DANDYCORPItems.HAIL_MARY,
+                new Identifier("loaded"),
+                (stack, world, entity, seed) -> HailMaryItem.isLoaded(stack) ? 1.0F : 0.0F
         );
 
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {

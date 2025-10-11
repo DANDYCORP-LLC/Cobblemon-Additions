@@ -2,7 +2,6 @@ package net.dandycorp.dccobblemon.sound;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.dandycorp.dccobblemon.DANDYCORPSounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.sound.SoundEvent;

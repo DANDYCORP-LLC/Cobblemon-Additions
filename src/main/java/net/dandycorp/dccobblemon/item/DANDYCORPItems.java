@@ -276,7 +276,7 @@ public class DANDYCORPItems {
                     .rarity(Rarity.RARE)
             ));
 
-    public static final Item HAIL_MARY = registerItem("hail_mary", new HailMaryItem(new Item.Settings().fireproof().rarity(Rarity.EPIC).maxCount(1)));
+    public static final Item HAIL_MARY = registerItem("hail_mary", new HailMaryItem(new Item.Settings().fireproof().rarity(Rarity.EPIC).maxCount(1).maxDamage(96)));
 
     // ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
@@ -367,6 +367,7 @@ public class DANDYCORPItems {
             entries.add(PARAGONIUM_AXE);
             entries.add(PARAGONIUM_HOE);
             entries.add(PARAGONIUM_BOW);
+            entries.add(PARAGONIUM_SHIELD);
 
             // other
             entries.add(HAIL_MARY);

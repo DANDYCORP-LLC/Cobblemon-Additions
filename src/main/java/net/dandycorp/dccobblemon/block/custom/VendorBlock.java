@@ -1,6 +1,6 @@
 package net.dandycorp.dccobblemon.block.custom;
 
-import net.dandycorp.dccobblemon.DANDYCORPSounds;
+import net.dandycorp.dccobblemon.sound.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.*;

@@ -9,7 +9,7 @@ import io.wispforest.owo.ui.container.GridLayout;
 import io.wispforest.owo.ui.container.StackLayout;
 import io.wispforest.owo.ui.core.*;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
-import net.dandycorp.dccobblemon.DANDYCORPSounds;
+import net.dandycorp.dccobblemon.sound.DANDYCORPSounds;
 import net.dandycorp.dccobblemon.util.vendor.VendorBalanceManager;
 import net.dandycorp.dccobblemon.util.vendor.VendorCategory;
 import net.minecraft.client.gui.DrawContext;

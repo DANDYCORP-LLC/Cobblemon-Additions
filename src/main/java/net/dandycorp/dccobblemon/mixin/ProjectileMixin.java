@@ -1,9 +1,11 @@
 package net.dandycorp.dccobblemon.mixin;
 
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
+import net.dandycorp.dccobblemon.sound.DANDYCORPSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,6 +13,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import static net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions.RANDOM;
 
 @Mixin(PersistentProjectileEntity.class)
 public class ProjectileMixin {
@@ -44,6 +48,7 @@ public class ProjectileMixin {
             projectile.setPitch(player.getPitch());
             projectile.prevYaw   = projectile.getYaw();
             projectile.prevPitch = projectile.getPitch();
+            player.getEntityWorld().playSound(null, player.getBlockPos(), DANDYCORPSounds.PARAGONIUM_SHIELD_REFLECT_EVENT, SoundCategory.PLAYERS, 4f, RANDOM.nextFloat(0.8f, 1.2f));
             ci.cancel();
         }
     }
