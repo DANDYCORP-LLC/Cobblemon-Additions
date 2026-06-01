@@ -29,6 +29,7 @@ import net.dandycorp.dccobblemon.attribute.DANDYCORPAttributes;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlockEntities;
 import net.dandycorp.dccobblemon.block.DANDYCORPBlocks;
 import net.dandycorp.dccobblemon.attribute.InfinityGuardComponent;
+import net.dandycorp.dccobblemon.block.custom.DandyBotStatueBlock;
 import net.dandycorp.dccobblemon.command.DANDYCORPCommands;
 import net.dandycorp.dccobblemon.effect.SparklingPowerEffect;
 import net.dandycorp.dccobblemon.entities.DANDYCORPEntities;
@@ -154,6 +155,7 @@ public class DANDYCORPCobblemonAdditions implements ModInitializer, EntityCompon
 			ScreenShakeController.tickDelayedShakes();
 			ScreenShakeController.tickDelayedSounds();
             CannonController.tick(server);
+            DandyBotStatueBlock.tickCooldown();
 		});
 
 

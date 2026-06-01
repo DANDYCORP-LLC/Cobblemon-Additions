@@ -4,6 +4,7 @@ import net.dandycorp.dccobblemon.renderer.ParagoniumArmorRenderer;
 import net.dandycorp.dccobblemon.util.GradientFormatting;
 import net.dandycorp.dccobblemon.util.ParagoniumFormatting;
 import net.dandycorp.dccobblemon.util.TextUtils;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.EquipmentSlot;
@@ -13,6 +14,7 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
@@ -45,11 +47,6 @@ public class ParagoniumArmorItem extends ArmorItem implements ParagoniumFormatti
     @Override
     public Text getName(ItemStack stack) {
         return gradientName(stack);
-    }
-
-    @Override
-    public boolean isDamageable() {
-        return false;
     }
 
     @Override
@@ -88,5 +85,15 @@ public class ParagoniumArmorItem extends ArmorItem implements ParagoniumFormatti
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
+    }
+
+    @Override
+    public boolean postMine(ItemStack itemStack, World world, BlockState blockState, BlockPos blockPos, LivingEntity livingEntity) {
+        return true;
+    }
+
+    @Override
+    public boolean postHit(ItemStack itemStack, LivingEntity livingEntity, LivingEntity livingEntity2) {
+        return true;
     }
 }

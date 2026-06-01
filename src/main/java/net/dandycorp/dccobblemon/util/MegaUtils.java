@@ -14,6 +14,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MegaUtils {
 
@@ -22,7 +23,24 @@ public class MegaUtils {
         PlayerPartyStore party = Cobblemon.INSTANCE.getStorage().getParty(p);
         if(party == null) return;
         party.forEach(pokemon -> {
-            if (pokemon.heldItem().getItem() instanceof MegaStoneItem stone) {
+            if (pokemon.showdownId().equalsIgnoreCase("rayquaza")) {
+                boolean knowsDragonAscent = pokemon.getMoveSet().getMoves().stream().filter(Objects::nonNull).anyMatch(
+                        move -> move.getName().equalsIgnoreCase("dragonascent")
+                );
+                System.out.println("Knows dragon ascent:" + knowsDragonAscent);
+                if (knowsDragonAscent) {
+                    if (!pokemon.getForm().getAspects().contains("mega")) {
+                        new FlagSpeciesFeature("mega", true).apply(pokemon);
+                        pokemon.updateAspects();
+                        pokemon.updateForm();
+                    }
+                } else {
+                    new FlagSpeciesFeature("mega", false).apply(pokemon);
+                    pokemon.updateAspects();
+                    pokemon.updateForm();
+                }
+            }
+            else if (pokemon.heldItem().getItem() instanceof MegaStoneItem stone) {
                 List<String> aspects = pokemon.getForm().getAspects();
                 if((stone.getType() == MegaFormType.MEGA && aspects.contains("mega"))
                         || (stone.getType() == MegaFormType.MEGA_X && aspects.contains("mega-x"))
@@ -37,7 +55,7 @@ public class MegaUtils {
                     pokemon.updateForm();
                 }
             }
-            if (pokemon.heldItem().getItem() instanceof PrimalStoneItem stone) {
+            else if (pokemon.heldItem().getItem() instanceof PrimalStoneItem stone) {
                 List<String> aspects = pokemon.getForm().getAspects();
                 if(aspects.contains("primal")) return;
                 if(pokemon.showdownId().equals(stone.getSpeciesName())){
@@ -67,6 +85,21 @@ public class MegaUtils {
         PlayerPartyStore party = Cobblemon.INSTANCE.getStorage().getParty(p);
         if(party == null) return;
         party.forEach(pokemon -> {
+            if (pokemon.showdownId().equalsIgnoreCase("rayquaza")) {
+                boolean knowsDragonAscent = pokemon.getMoveSet().getMoves().stream().filter(Objects::nonNull).anyMatch(move -> move.getName().equalsIgnoreCase("dragonascent"));
+                System.out.println("Knows dragon ascent:" + knowsDragonAscent);
+                if (knowsDragonAscent) {
+                    if (!pokemon.getForm().getAspects().contains("mega")) {
+                        new FlagSpeciesFeature("mega", true).apply(pokemon);
+                        pokemon.updateAspects();
+                        pokemon.updateForm();
+                    }
+                } else {
+                    new FlagSpeciesFeature("mega", false).apply(pokemon);
+                    pokemon.updateAspects();
+                    pokemon.updateForm();
+                }
+            }
             if (pokemon.heldItem().getItem() instanceof MegaStoneItem stone) {
                 List<String> aspects = pokemon.getForm().getAspects();
                 if((stone.getType() == MegaFormType.MEGA && aspects.contains("mega"))

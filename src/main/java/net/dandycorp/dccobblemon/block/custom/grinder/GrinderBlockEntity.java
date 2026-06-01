@@ -167,7 +167,7 @@ public class GrinderBlockEntity extends KineticBlockEntity implements SidedStora
 
         Item item = input.getItem();
 
-        if (item.equals(DANDYCORPBlocks.VENDOR_BLOCK.asItem())) {
+        if (item.equals(DANDYCORPBlocks.VENDOR_BLOCK.asItem()) || item.equals(DANDYCORPBlocks.DANDYBOT_STATUE_BLOCK.asItem())) {
             if (getCachedState().getBlock() instanceof GrinderBlock gb){
                 gb.deconstruct(world,pos,getCachedState(),null,false);
                 if (world == null) return;

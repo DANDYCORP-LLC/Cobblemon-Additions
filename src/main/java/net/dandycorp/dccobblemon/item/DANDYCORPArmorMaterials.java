@@ -14,7 +14,7 @@ public enum DANDYCORPArmorMaterials implements ArmorMaterial {
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 4f, 0.1f, () -> Ingredient.ofItems(DANDYCORPItems.CHROMIUM_INGOT))
     ,
 
-    PARAGONIUM("paragonium", 0 ,new int[] {6,11,9,6},30,
+    PARAGONIUM("paragonium", Integer.MAX_VALUE ,new int[] {6,11,9,6},30,
             SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 5f, 0.25f, () -> Ingredient.ofItems(DANDYCORPItems.PARAGONIUM_INGOT))
     ;
 

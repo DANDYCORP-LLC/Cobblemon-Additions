@@ -4,7 +4,9 @@ import net.dandycorp.dccobblemon.util.GradientFormatting;
 import net.dandycorp.dccobblemon.util.ParagoniumFormatting;
 import net.dandycorp.dccobblemon.util.ScreenShakeController;
 import net.dandycorp.dccobblemon.util.TextUtils;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShovelItem;
@@ -14,6 +16,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,10 +36,5 @@ public class ParagoniumShovelItem extends ShovelItem implements ParagoniumFormat
     @Override
     public Text getName(ItemStack stack) {
         return gradientName(stack);
-    }
-
-    @Override
-    public boolean isDamageable() {
-        return false;
     }
 }

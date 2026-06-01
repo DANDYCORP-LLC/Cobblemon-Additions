@@ -36,7 +36,7 @@ public class PumpkinBadgeItem extends BadgeItem {
     public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid){
         var modifiers = super.getModifiers(stack, slot, entity, uuid);
         // +10% movement speed
-        modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(uuid, "dandycorp:pumpkin_speed", 0.2, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+        modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(uuid, "dandycorp:pumpkin_speed", 0.8, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
         return modifiers;
     }
 

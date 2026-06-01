@@ -173,12 +173,8 @@ public class VendorScreenHandler extends ScreenHandler {
             this.sendContentUpdates();
             return;
         }
-
-        System.out.println("cost: " + cost);
         int remainder = removeTickets(cost);
-        System.out.println("remainder: " + remainder);
         int change = breakBag(remainder);
-        System.out.println("change: " + change);
         returnChange(player,change);
 
         playerInventory.markDirty();

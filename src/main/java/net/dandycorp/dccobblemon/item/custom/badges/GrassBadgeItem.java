@@ -11,6 +11,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -31,10 +32,22 @@ public class GrassBadgeItem extends BadgeItem {
         super.tick(stack, slot, entity);
         World world = entity.getWorld();
         if(world.isSkyVisible(entity.getBlockPos()) && world.isDay()){
-            if(entity.age % 120 == 0 && entity instanceof PlayerEntity player) {
+            if(entity.age % 60 == 0 && entity instanceof PlayerEntity player) {
                 player.heal(1);
-                player.getHungerManager().add(1,0);
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 600, 1, false, false));
             }
+        }
+    }
+
+    @Override
+    public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        entity.removeStatusEffect(StatusEffects.HASTE);
+    }
+
+    @Override
+    public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        if (!entity.getEntityWorld().isClient) {
+            entity.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 60, 1, false, false));
         }
     }
 
@@ -42,6 +55,7 @@ public class GrassBadgeItem extends BadgeItem {
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack, world, tooltip, tooltipContext);
         tooltip.add(Text.literal(""));
-        tooltip.add(Text.literal("Restores hunger and health while in sunlight").formatted(Formatting.GRAY));
+        tooltip.add(Text.literal("Haste II while in sunlight").formatted(Formatting.GRAY));
+        tooltip.add(Text.literal("Regenerate health while in sunlight").formatted(Formatting.GRAY));
     }
 }

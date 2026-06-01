@@ -16,7 +16,7 @@
     "PowderedSnowMixin",
     "ProjectileMixin",
     "ServerWorldMixin",
-    "StackNameMixin",
+    "ItemStackMixin",
     "accessor.SmithingTransformRecipeAccessor"
   ],
   "injectors": {

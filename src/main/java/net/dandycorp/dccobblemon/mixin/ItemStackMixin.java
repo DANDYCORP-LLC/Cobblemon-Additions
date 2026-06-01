@@ -1,6 +1,7 @@
 package net.dandycorp.dccobblemon.mixin;
 
 import net.dandycorp.dccobblemon.util.GradientFormatting;
+import net.dandycorp.dccobblemon.util.ParagoniumFormatting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -13,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemStack.class)
-public abstract class StackNameMixin implements GradientFormatting {
+public abstract class ItemStackMixin implements GradientFormatting {
 
     @Shadow public abstract Item getItem();
 

@@ -114,7 +114,7 @@ public class VendorPurchaseScreen extends VendorScreen {
             displayState.entryItemDisplay = entryItemDisplay;
 
 
-            //create title for the entry
+            //create title for the entryfr
             LabelComponent titleLabel = createTitleLabel(vendorEntry);
 
             //create description for the entry
@@ -163,6 +163,8 @@ public class VendorPurchaseScreen extends VendorScreen {
             ItemStack stack = handler.getItemStackFromID(itemId);
             if (stack != null) {
                 stack.setCount(currentItem.getQuantity());
+            } else {
+                stack = ItemStack.EMPTY;
             }
             ItemComponent itemComp = (ItemComponent) Components.item(stack)
                     .sizing(Sizing.fixed(25), Sizing.fixed(25));

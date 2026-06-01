@@ -1,5 +1,7 @@
 package net.dandycorp.dccobblemon.util;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
@@ -17,6 +19,9 @@ public interface GradientFormatting {
     }
 
     default Text gradientText(Text text){
+        if (FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT) {
+            return text;
+        }
         long worldTime = (MinecraftClient.getInstance().world != null)
                 ? MinecraftClient.getInstance().world.getTime() : 0;
         int tick = (int)(worldTime % 60);

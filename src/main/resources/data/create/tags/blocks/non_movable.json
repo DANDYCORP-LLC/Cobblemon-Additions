@@ -28,6 +28,10 @@
     {
       "id": "minecraft:spawner",
       "required": false
+    },
+    {
+      "id": "dccobblemon:dandybot_statue",
+      "required": false
     }
   ]
 }

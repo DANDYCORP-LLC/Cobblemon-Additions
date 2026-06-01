@@ -37,7 +37,7 @@ public abstract class AlloyForgeMixin {
         World world = self.getWorld();
         if (world == null || world.isClient) return;
 
-        if (recipeOutput.isOf(DANDYCORPItems.PARAGONIUM_INGOT)) {
+        if (recipeOutput.isOf(DANDYCORPItems.PARAGONIUM_INGOT) || recipeOutput.isOf(DANDYCORPItems.PARAGONIUM_NUGGET)) {
             ScreenShake shake = new ScreenShake(0.4f, 20, 120, ScreenShakeController.FadeType.REVERSE_EXPONENTIAL);
             ScreenShakeController.causeTremorWithSound(
                     self.getWorld(),

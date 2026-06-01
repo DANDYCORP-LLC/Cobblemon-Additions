@@ -18,6 +18,7 @@ import net.dandycorp.dccobblemon.util.grinder.GrinderDataCache;
 import net.dandycorp.dccobblemon.util.vendor.VendorData;
 import net.dandycorp.dccobblemon.util.vendor.VendorDataCache;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -28,6 +29,7 @@ import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
@@ -212,5 +214,10 @@ public class DANDYCORPClient implements ClientModInitializer {
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> InfinityGuardHUD.tick());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(
+                DANDYCORPBlocks.DANDYBOT_STATUE_BLOCK,
+                RenderLayer.getCutout()
+        );
     }
 }

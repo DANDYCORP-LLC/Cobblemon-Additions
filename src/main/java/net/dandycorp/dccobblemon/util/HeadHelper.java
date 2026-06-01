@@ -73,6 +73,9 @@ public class HeadHelper {
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("778e8ca7-b8b7-40bb-b925-ccb4ff2e3b11"), HeadDescription.DONOR_10); // kappa tea
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("2931b9b5-d40e-4942-a578-bcef66129f93"), HeadDescription.DONOR_5); // tommy
             PLAYER_CONTRIBUTIONS.put(UUID.fromString("623278ef-7061-4c99-acf0-9fe6695ab00c"), HeadDescription.CONTRIBUTOR_POKEMON); // david
+            PLAYER_CONTRIBUTIONS.put(UUID.fromString("156a35a3-a8b9-4569-a330-cec6e6de162a"), HeadDescription.CONTRIBUTOR_ART); // angelo
+            PLAYER_CONTRIBUTIONS.put(UUID.fromString("061cfedd-61b4-43a1-a001-29375b9d7e12"), HeadDescription.CONTRIBUTOR_ART); // pick
+            PLAYER_CONTRIBUTIONS.put(UUID.fromString("3914f521-48c7-42a1-ad66-c6daffdf78de"), HeadDescription.DONOR_100); // JOEY
     }
 
     public static void initializeCache() {

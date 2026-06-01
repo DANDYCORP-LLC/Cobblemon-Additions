@@ -5,11 +5,8 @@ import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.dandycorp.dccobblemon.DANDYCORPCobblemonAdditions;
-import net.dandycorp.dccobblemon.block.custom.ChromiumBlock;
-import net.dandycorp.dccobblemon.block.custom.TicketBagBlock;
+import net.dandycorp.dccobblemon.block.custom.*;
 import net.dandycorp.dccobblemon.block.custom.grinder.GrinderBlock;
-import net.dandycorp.dccobblemon.block.custom.VendorBlock;
-import net.dandycorp.dccobblemon.block.custom.WalkerMagmaBlock;
 import net.dandycorp.dccobblemon.block.custom.grinder.multiblock.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -42,6 +39,8 @@ public class DANDYCORPBlocks {
     public static final Block VENDOR_BLOCK = registerBlock("vendor",new VendorBlock(FabricBlockSettings.copy(net.minecraft.block.Blocks.IRON_DOOR).pistonBehavior(PistonBehavior.BLOCK).luminance((state) -> {
         return state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? 8 : 0;
     }).nonOpaque()),false);
+    public static final Block DANDYBOT_STATUE_BLOCK = registerBlock("dandybot_statue",new DandyBotStatueBlock(FabricBlockSettings.copy(net.minecraft.block.Blocks.IRON_DOOR)
+            .pistonBehavior(PistonBehavior.DESTROY).luminance(state -> 6).ticksRandomly()),false);
     public static final Block TICKET_BAG = registerBlock("ticket_bag",new TicketBagBlock(FabricBlockSettings.copy(Blocks.SAND).sounds(BlockSoundGroup.WOOL).nonOpaque()), false);
 
     public static final BlockEntry<GrinderBlock> GRINDER_BLOCK = REGISTRATE

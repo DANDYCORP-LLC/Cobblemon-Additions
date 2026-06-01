@@ -137,6 +137,7 @@ public class DANDYCORPItems {
     public static final Item TICKET_BAG_ITEM = registerItem("ticket_bag",new BlockItem(DANDYCORPBlocks.TICKET_BAG, new FabricItemSettings().fireproof().rarity(Rarity.RARE)));
 
     public static final Item VENDOR = registerItem("vendor", new TallBlockItem(DANDYCORPBlocks.VENDOR_BLOCK,new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item DANDYBOT_STATUE = registerItem("dandybot_statue", new DandyBotStatueItem(DANDYCORPBlocks.DANDYBOT_STATUE_BLOCK,new Item.Settings().rarity(Rarity.EPIC)));
     public static final Item GRINDER_BLADES = registerItem("grinder_blades", new Item(new Item.Settings().fireproof()));
     public static final Item CHROMIUM_INGOT = registerItem("chromium_ingot", new Item(new Item.Settings()));
     public static final Item CHROMIUM_NUGGET = registerItem("chromium_nugget", new Item(new Item.Settings()));
@@ -335,6 +336,7 @@ public class DANDYCORPItems {
             entries.add(VENDOR);
             entries.add(GRINDER_BLADES);
             entries.add(DANDYCORPBlocks.GRINDER_BLOCK);
+            entries.add(DANDYBOT_STATUE);
 
             // chromium
             entries.add(CHROMIUM_INGOT);

@@ -34,6 +34,4 @@ public class ParagoniumShieldItem extends ShieldItem implements ParagoniumFormat
     public boolean isDamageable() {
         return false;
     }
-
-
 }

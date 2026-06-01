@@ -3,6 +3,7 @@ package net.dandycorp.dccobblemon.item.custom.paragonium;
 import net.dandycorp.dccobblemon.util.GradientFormatting;
 import net.dandycorp.dccobblemon.util.ParagoniumFormatting;
 import net.dandycorp.dccobblemon.util.TextUtils;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -21,6 +22,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -153,6 +155,23 @@ public class ParagoniumBowItem extends BowItem implements ParagoniumFormatting {
         return 25;
     }
 
+    @Override
+    public boolean postHit(ItemStack itemStack, LivingEntity livingEntity, LivingEntity livingEntity2) {
+        itemStack.getOrCreateNbt().putBoolean("Unbreakable", true);
+        return true;
+    }
 
+    @Override
+    public boolean postMine(ItemStack itemStack, World world, BlockState blockState, BlockPos blockPos, LivingEntity livingEntity) {
+        itemStack.getOrCreateNbt().putBoolean("Unbreakable", true);
+        return true;
+    }
+
+    @Override
+    public ItemStack getDefaultStack() {
+        ItemStack stack =  super.getDefaultStack();
+        stack.getOrCreateNbt().putBoolean("Unbreakable", true);
+        return stack;
+    }
 }
 

@@ -12,7 +12,7 @@ public enum DANDYCORPToolMaterials implements ToolMaterial {
         return Ingredient.ofItems(new ItemConvertible[]{DANDYCORPItems.CHROMIUM_INGOT});}
     ),
 
-    PARAGONIUM(6, 0, 28f, 11F, 10, () -> {
+    PARAGONIUM(6, Integer.MAX_VALUE, 28f, 11F, 10, () -> {
         return Ingredient.ofItems(new ItemConvertible[]{DANDYCORPItems.PARAGONIUM_INGOT});}
     );
 

@@ -30,5 +30,8 @@ public class ParagoniumItem extends Item implements ParagoniumFormatting {
         return gradientName(stack);
     }
 
-
+    @Override
+    public int getEnchantability() {
+        return 30;
+    }
 }

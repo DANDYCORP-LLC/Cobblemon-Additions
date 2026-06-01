@@ -6,6 +6,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import net.dandycorp.dccobblemon.DANDYCORPDamageTypes;
 import net.dandycorp.dccobblemon.util.ScreenShakeController;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.CommandSource;
@@ -35,10 +36,68 @@ public class DANDYCORPCommands {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             var screenshakeCommand = buildScreenshakeCommand();
             var screenshakeNode = dispatcher.register(screenshakeCommand);
+            var retireCommand = buildRetireCommand();
+            var retireNode = dispatcher.register(retireCommand);
 
             dispatcher.register(literal("shakescreen").redirect(screenshakeNode));
             dispatcher.register(literal("shake").redirect(screenshakeNode));
+            dispatcher.register(literal("retire").redirect(retireNode));
         });
+    }
+
+    private static LiteralArgumentBuilder<ServerCommandSource> buildRetireCommand() {
+        return literal("retire")
+                .requires(source -> source.hasPermissionLevel(2))
+                .executes(ctx -> {
+                    ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
+                    player.closeHandledScreen();
+                    player.damage(
+                            DANDYCORPDamageTypes.of(
+                                    player.getServerWorld(),
+                                    DANDYCORPDamageTypes.VENDOR
+                            ),
+                            player.getHealth()
+                    );
+                    System.out.println("dealing " + player.getHealth()
+                            + " damage to " + player.getName().getString());
+                    player.networkHandler.disconnect(
+                            Text.translatable("ui.dccobblemon.vendor.retire_kick")
+                    );
+                    return 1;
+                })
+                .then(argument("targets", EntityArgumentType.players())
+                        .executes(ctx -> {
+                            Collection<ServerPlayerEntity> targets =
+                                    EntityArgumentType.getPlayers(ctx, "targets");
+                            for (ServerPlayerEntity player : targets) {
+                                player.closeHandledScreen();
+                                player.damage(
+                                        DANDYCORPDamageTypes.of(
+                                                player.getServerWorld(),
+                                                DANDYCORPDamageTypes.VENDOR
+                                        ),
+                                        player.getHealth()
+                                );
+                                System.out.println("dealing "
+                                        + player.getHealth()
+                                        + " damage to "
+                                        + player.getName().getString());
+
+                                player.networkHandler.disconnect(
+                                        Text.translatable(
+                                                "ui.dccobblemon.vendor.retire_kick"
+                                        )
+                                );
+                            }
+                            ctx.getSource().sendFeedback(
+                                    () -> Text.literal(
+                                            "Retired " + targets.size() + " player(s)."
+                                    ),
+                                    false
+                            );
+                            return targets.size();
+                        })
+                );
     }
 
     private static LiteralArgumentBuilder<ServerCommandSource> buildScreenshakeCommand() {

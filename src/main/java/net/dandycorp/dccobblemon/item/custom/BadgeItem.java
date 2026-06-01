@@ -9,6 +9,8 @@ import dev.emi.trinkets.api.TrinketsApi;
 import net.dandycorp.dccobblemon.item.DANDYCORPItems;
 import net.dandycorp.dccobblemon.util.GradientFormatting;
 import net.dandycorp.dccobblemon.util.TextUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -77,6 +79,7 @@ public class BadgeItem extends TrinketItem implements GradientFormatting {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(stack, world, tooltip, tooltipContext);
         if (stack.hasNbt() && stack.getNbt().contains("OwnerName") && stack.getNbt().contains("Owner")) {

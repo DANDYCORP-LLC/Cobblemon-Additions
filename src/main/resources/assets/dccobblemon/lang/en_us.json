@@ -103,6 +103,7 @@
   "death.attack.vendor": "%1$s took the only escape route DANDYCORP provides.",
   "block.dandycorp.vendor": "DANDYCORP Vendor™",
   "block.dccobblemon.grinder.progress": "Ticket Progress:",
+  "block.dccobblemon.dandybot_statue": "DANDYCORP Effigy of Excellence™",
 
   "dccobblemon.ponder.grinder_grind.header": "The DANDYCORP Industrial Grinder™",
   "dccobblemon.ponder.grinder_grind.text_1": "The DANDYCORP Industrial Grinder™ turns junk into tickets.",

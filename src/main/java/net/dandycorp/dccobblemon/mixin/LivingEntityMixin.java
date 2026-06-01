@@ -99,10 +99,8 @@ public abstract class LivingEntityMixin {
             if (entity instanceof EnderDragonEntity)
                 entity.dropItem(net.minecraft.item.Items.DRAGON_HEAD); // guaranteed
             float chance = RANDOM.nextFloat() + (i / 10f);
-            if (chance >= 0.3) {
-                if (entity instanceof PlayerEntity player) {
-                    entity.dropStack(HeadHelper.getPlayerHead(player));
-                }
+            if (entity instanceof PlayerEntity player && chance >= 0.3) {
+                entity.dropStack(HeadHelper.getPlayerHead(player));
             } else if (chance >= 0.8) {
                 if (entity instanceof WitherSkeletonEntity) {
                     entity.dropItem(net.minecraft.item.Items.WITHER_SKELETON_SKULL);
@@ -198,13 +196,13 @@ public abstract class LivingEntityMixin {
         List<LivingEntity> initialNeighbors = world.getEntitiesByClass(LivingEntity.class,
                 firstTarget.getBoundingBox().expand(3.0),
                 candidate -> candidate != firstTarget &&
-                        candidate.isAlive() &&
-                        candidate instanceof Monster);
+                        candidate.getBoundingBox() != null &&
+                        candidate.isAlive());
         if (initialNeighbors.isEmpty()) {
             return;
         }
         spawnParticlesAndSound(attacker, firstTarget, 2.0f);
-        final float[] multipliers = {0.6f, 0.4f, 0.2f};
+        final float[] multipliers = {0.8f, 0.6f, 0.4f, 0.2f};
         final float[] pitches = {1.6f, 1.4f, 1.2f};
         Set<LivingEntity> visited = new HashSet<>();
         Queue<LivingEntity> queue = new LinkedList<>();
@@ -218,6 +216,7 @@ public abstract class LivingEntityMixin {
 
             for (int i = 0; i < currentLevelCount; i++) {
                 LivingEntity current = queue.poll();
+                if (current == null || current.getBoundingBox() == null) continue;
                 List<LivingEntity> neighbors = world.getEntitiesByClass(LivingEntity.class,
                         current.getBoundingBox().expand(2.0),
                         candidate -> candidate != current &&
